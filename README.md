@@ -1,1 +1,1 @@
-My talks that I prepared/gaveg
+My talks that I prepared/gave
