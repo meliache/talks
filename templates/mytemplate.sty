@@ -1,0 +1,31 @@
+\RequirePackage[utf8]{inputenc}
+
+
+\RequirePackage{templates/beamerthemekit}
+\RequirePackage{units}
+% \usepackage{booktabs}
+\RequirePackage{amssymb}
+
+\RequirePackage{tikz}
+\usetikzlibrary{arrows, decorations.markings, shapes, positioning, backgrounds, calc, fit}
+
+\tikzstyle{vecArrow} = [thick, ->, >=stealth]
+\tikzstyle{module} = [rectangle, draw, fill=kit-green50, text width=8em, text centered, rounded corners]
+\tikzstyle{pathelement} = [rectangle, text width=10em, text height=0.8em, text centered]
+
+\RequirePackage{listings}
+
+\lstdefinestyle{customP}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=false,
+  %frame=L,
+  xleftmargin=10pt,
+  language=python,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{kit-green70},
+  commentstyle=\itshape\color{kit-blue70},
+  identifierstyle=\color{black},
+  stringstyle=\color{kit-orange100},
+}
+

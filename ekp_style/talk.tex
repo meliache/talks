@@ -1,0 +1,130 @@
+\documentclass[18pt]{beamer}
+
+\usepackage[utf8]{inputenc}
+
+%% SLIDE FORMAT
+\usepackage{templates/beamerthemekit}
+\usepackage{units}
+% \usepackage{booktabs}
+\usepackage{amssymb}
+
+\title{\texttt{ekp\_style}}
+\subtitle{Documentation.}
+\author{\underline{Nils Braun}}
+\date{26.02.2017}
+\titleimage{code_wide}
+\institute{IEKP - KIT}
+
+\usepackage{listings}
+\lstdefinestyle{customP}{
+  belowcaptionskip=1\baselineskip,
+  breaklines=false,
+  %frame=L,
+  xleftmargin=10pt,
+  language=python,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{kit-green70},
+  commentstyle=\itshape\color{kit-blue70},
+  identifierstyle=\color{black},
+  stringstyle=\color{kit-orange100},
+}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows, decorations.markings, shapes, positioning, backgrounds, calc, fit}
+
+\tikzstyle{vecArrow} = [thick, ->, >=stealth]
+\tikzstyle{module} = [rectangle, draw, fill=kit-green50, text width=8em, text centered, rounded corners]
+\tikzstyle{pathelement} = [rectangle, text width=10em, text height=0.8em, text centered]
+
+
+\begin{document}
+
+  \selectlanguage{english}
+  
+  \begin{frame}
+	  \titlepage
+  \end{frame}
+  
+  \defverbatim[colored]\makeset{
+  	\begin{lstlisting}[style=customP]
+from ekp_style import set_ekp_style
+set_ekp_style()
+	
+from matplotlib import pyplot as plt
+
+plt.plot([1, 2, 3], [1, 2, 3], label="test 1")
+plt.plot([1, 2, 3], [1, 1.5, 2], label="test 2")
+plt.xlabel("xlabel")
+plt.ylabel("ylabel")
+
+plt.legend(loc=2, frameon=True)
+plt.title("Title")
+  	\end{lstlisting}
+  }
+  
+  
+  \begin{frame}{Basic style}
+	\only<1>{\makeset}
+	\only<2>{
+		\begin{center}
+			\includegraphics[width=0.8\linewidth]{figures/fig_1.png}
+		\end{center}
+		}
+  \end{frame}
+  
+  \defverbatim[colored]\makeset{
+  	\begin{lstlisting}[style=customP]
+from ekp_style import set_ekp_style
+set_ekp_style(set_colors=True)
+
+from matplotlib import pyplot as plt
+
+plt.plot([1, 2, 3], [1, 2, 3], label="test 1")
+plt.plot([1, 2, 3], [1, 1.5, 2], label="test 2")
+plt.xlabel("xlabel")
+plt.ylabel("ylabel")
+
+plt.legend(loc=2, frameon=True)
+plt.title("Title")
+  	\end{lstlisting}
+  }
+  
+  
+  \begin{frame}{Colored style}
+  	\only<1>{\makeset}
+  	\only<2>{
+  		\begin{center}
+  			\includegraphics[width=0.8\linewidth]{figures/fig_2.png}
+  		\end{center}
+  	}
+  \end{frame}
+  
+  \defverbatim[colored]\makeset{
+  	\begin{lstlisting}[style=customP]
+from ekp_style import set_ekp_style
+set_ekp_style(set_colors=True, set_background=True)
+
+from matplotlib import pyplot as plt
+
+plt.plot([1, 2, 3], [1, 2, 3], label="test 1")
+plt.plot([1, 2, 3], [1, 1.5, 2], label="test 2")
+plt.xlabel("xlabel")
+plt.ylabel("ylabel")
+
+plt.legend(loc=2, frameon=True)
+plt.title("Title")
+  	\end{lstlisting}
+  }
+  
+  
+  \begin{frame}{Full style}
+  	\only<1>{\makeset}
+  	\only<2>{
+  		\begin{center}
+  			\includegraphics[width=0.8\linewidth]{figures/fig_3.png}
+  		\end{center}
+  	}
+  \end{frame}
+
+\end{document}
