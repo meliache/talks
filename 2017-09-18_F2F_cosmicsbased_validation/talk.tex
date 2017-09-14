@@ -1,33 +1,112 @@
 \documentclass[18pt]{beamer}
-\usepackage{templates/mytemplate}
+\usepackage[utf8]{inputenc}
+% \usepackage{templates/mytemplate}
+\usepackage{templates/beamerthemekit}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{hyperref}
 
-\title{CDC tracking validation based on cosmics data}
-\subtitle{l the MC truth based tracking validation in simulation?}
+%% SLIDE FORMAT
+
+\usepackage{amssymb}
+
+\title{First look at Cosmic CDC Tracks and Ideas for Estimating the Finding Efficiency} 
+\subtitle{F2F Tracking Meeting}
 \author{\underline{Michael Eliachevitch}}
-\date{2017-09-18}
+\date{18 September 2018}
 \titleimage{kitlogo_en_rgb}
 \institute{ETP - KIT}
 
 \begin{document}
 
   \selectlanguage{english}
-  
+
   \begin{frame}
   \titlepage
   \end{frame}
 
   \begin{frame}
-    \frametitle{Motivation}
+    \frametitle{Introduction}
     \begin{itemize}
     \item Currently tracking validation is done in MC by comparing found tracks vs. tracks from MC truth
     \item First data from Global Cosmic Run 2017 is in. Can we use it? 
-      
     \end{itemize}
   \end{frame}
 
   \begin{frame}
-    \frametitle{GCR 2017}
+    \frametitle{GCR Data and MC}
+    \begin{itemize}
+    \item use data from Global Cosmic Run (GCR) taken in July 2017
+    \item use run numbers 3100--3370 (sugggested by Dong Thang)
+      $\Rightarrow$ total 2.8 Million cosmic events with trigger selecting central tracks\\
+    \item also produced 50 Million cosmic MC events with GCR setup
+      \begin{itemize}
+      \item same as official MC group: large ``accept box'' of 8\,m $\times$ 8\,m $\times$ 8\,m 
+      \item no triggger in simulation, do kinematic cuts on central region ($d_0, z_0$)\\
+        $\Rightarrow$  $\sim$10 times less statistics than in data remain
+      \end{itemize}
+    % \item Links to information on data and MC production
+    %   \begin{itemize}
+    %   \item Data production: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+Data\#DataProductionGlobalCosmicsRunData-Runinfo}}
+    %   \item MC production: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+MC}}
+    %   \end{itemize}
+    \end{itemize}
+
+    \begin{exampleblock}{Links to information on data and MC production}
+      \begin{itemize}
+      \item Data: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+Data\#DataProductionGlobalCosmicsRunData-Runinfo}}
+      \item MC: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+MC}}
+      \end{itemize}
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Look at Kinematic Distributions}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Idea: Cosmics-Data based Estimation of Finding Efficiency}
+    \begin{itemize}
+    \item tracks passing through the centre (where SVD will be) are split
+    \item usually reconstructed as two \lstinline|NonMergedRecoTracks|,
+      which are then merged to \lstinline|RecoTracks|
+    \item get estimate of finding efficiency from events where two tracks expected, but only one found (finding fail)
+    \item idea: see if results are compatible with MC based finding efficieny, similar profiles?
+    \end{itemize}
+
+    \begin{equation*}
+      \label{eq:cosmic_eff}
+      \text{Finding efficiency} = \frac{N_\mathrm{2\ tracks\ found}}{N_\mathrm{2\ tracks\ expected}}
+      = 1 - \frac{N_\mathrm{1\ track\ found}}{N_\mathrm{2\ tracks\ expected}}
+    \end{equation*}
+
+    where $N_\mathrm{1\ track\ found}, N_\mathrm{2\ tracks\ found}, \in N_\mathrm{2\ tracks\ expected}$, so that $N_\mathrm{1\ track\ found} + N_\mathrm{2\ tracks\ found} = N_\mathrm{2\ tracks\ expected}$.
     
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Selection of expected two-track events in MC and data}
+    \begin{itemize}
+    \item TODO
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}    
+    \frametitle{``Background'': Events where only one track is expected}
+    
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{WIP: Select }
+    
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Testing the Method with Preliminary Cuts (not from MC)}
+    \begin{itemize}
+    \item 
+    \end{itemize}
   \end{frame}
 
   
