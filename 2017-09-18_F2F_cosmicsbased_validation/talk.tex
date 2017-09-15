@@ -1,11 +1,12 @@
 \documentclass[18pt]{beamer}
 \usepackage[utf8]{inputenc}
-% \usepackage{templates/mytemplate}
+\usepackage{templates/mytemplate}
 \usepackage{templates/beamerthemekit}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage{multicol}
 
 %% SLIDE FORMAT
 
@@ -53,36 +54,69 @@
     %   \end{itemize}
     \end{itemize}
 
-    \begin{exampleblock}{Links to information on data and MC production}
+    \begin{block}{Links to information on data and MC production}
       \begin{itemize}
       \item Data: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+Data\#DataProductionGlobalCosmicsRunData-Runinfo}}
       \item MC: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+MC}}
       \end{itemize}
-    \end{exampleblock}
+    \end{block}
   \end{frame}
 
   \begin{frame}
-    \frametitle{Look at Kinematic Distributions}
+    \frametitle{Look at Kinematic Distributions:\\Data with trigger and MC}
+    \begin{itemize}
+    \item left data (includes triggerr), right MC (without trigger)
+    \item use (preliminary) cuts for selection of central tracks (red lines)
+    \item B-Field mapper not in simulation
+    \end{itemize}
+    \begin{center}
+      \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_pt_distribution_uncut.pdf}\\
+      \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_omega_distribution_uncut.pdf}
+    \end{center}
+    \begin{itemize}
+    \item $p_T$ distributions seem similar, but more events with $\omega = 0$
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \begin{center}
+      \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_phi0_distribution_uncut.pdf}\\
+      \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_tan_lambda_distribution_uncut.pdf}
+    \end{center}
+
+    \begin{itemize}
+    \item effects of B-field mapper visible in $phi_0$ distribution
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \begin{center}
+      \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_d0_distribution_uncut.pdf}\\
+      \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_z0_distribution_uncut.pdf}
+    \end{center}
+    \begin{itemize}
+    \item distribution in MC due to lack of trigger much wider, use cuts on central region
+    \end{itemize}
   \end{frame}
 
   \begin{frame}
     \frametitle{Idea: Cosmics-Data based Estimation of Finding Efficiency}
     \begin{itemize}
     \item tracks passing through the centre (where SVD will be) are split
-    \item usually reconstructed as two \lstinline|NonMergedRecoTracks|,
-      which are then merged to \lstinline|RecoTracks|
-    \item get estimate of finding efficiency from events where two tracks expected, but only one found (finding fail)
-    \item idea: see if results are compatible with MC based finding efficieny, similar profiles?
+    \item usually reconstructed as two \texttt{NonMergedRecoTracks},
+      which are then merged to \texttt{RecoTracks}
+    \item get estimate of finding efficiency from events where two tracks expected, but only one found (finding fails)
+    \item idea: compare results with MC based finding efficieny from \texttt{TrackMatchLookUp}
     \end{itemize}
-
-    \begin{equation*}
-      \label{eq:cosmic_eff}
-      \text{Finding efficiency} = \frac{N_\mathrm{2\ tracks\ found}}{N_\mathrm{2\ tracks\ expected}}
-      = 1 - \frac{N_\mathrm{1\ track\ found}}{N_\mathrm{2\ tracks\ expected}}
-    \end{equation*}
-
+    \pause
+    \begin{block}{}
+      \begin{equation*}
+        \label{eq:cosmic_eff}
+        \text{Finding efficiency} = \frac{N_\mathrm{2\ tracks\ found}}{N_\mathrm{2\ tracks\ expected}}
+        = 1 - \frac{N_\mathrm{1\ track\ found}}{N_\mathrm{2\ tracks\ expected}}
+      \end{equation*}             %
+    \end{block}
     where $N_\mathrm{1\ track\ found}, N_\mathrm{2\ tracks\ found}, \in N_\mathrm{2\ tracks\ expected}$, so that $N_\mathrm{1\ track\ found} + N_\mathrm{2\ tracks\ found} = N_\mathrm{2\ tracks\ expected}$.
-    
   \end{frame}
 
   \begin{frame}
