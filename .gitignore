@@ -285,3 +285,4 @@ TSWLatexianTemp*
 
 # expex forward references with \gathertags
 *-tags.tex
+/base/auto/talk.el
