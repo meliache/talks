@@ -57,8 +57,13 @@
   \begin{frame}
     \frametitle{Introduction}
     \begin{itemize}
-    \item Currently tracking validation is done in MC by comparing found tracks vs. tracks from MC truth
-    \item First data from Global Cosmic Run 2017 is in. Can we use it? 
+    \item First cosmics data from Global Cosmic Run (GCR) 2017 is in!
+    \item Warmup: Confirmation of kinematic distributions, Sim vs. MC
+    \item Current tracking validation: Matching with MC Truth\\
+      $\Rightarrow$ Is a data-only approach possible?\\
+      $\Rightarrow$ test of MC validation
+
+
     \end{itemize}
   \end{frame}
 
@@ -85,7 +90,7 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Look at Kinematic Distributions:\\Data with trigger and MC}
+    \frametitle{Kinematic Distributions: Data and MC}
     \begin{itemize}
     \item left data (includes triggerr), right MC (without trigger)
     \item use (preliminary) cuts for selection of central tracks (red lines)
@@ -122,13 +127,13 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{Idea: Cosmics-Data based Estimation of Finding Efficiency}
+    \frametitle{Idea: Cosmics-based Estimation of Finding Efficiency}
     \begin{itemize}
-    \item tracks passing through the centre (where SVD will be) are split
-    \item usually reconstructed as two \texttt{NonMergedRecoTracks},
+    \item Typical event: Single muon track, usually no secondaries
+    \item tracks passing through the central SVD volume are split
+    \item reconstructed as two \texttt{NonMergedRecoTracks},
       which are then merged to \texttt{RecoTracks}
     \item get estimate of finding efficiency from events where two tracks expected, but only one found (finding fails)
-    \item idea: compare results with MC based finding efficieny from \texttt{TrackMatchLookUp}
     \end{itemize}
     \pause
     \begin{block}{}
@@ -139,6 +144,8 @@
       \end{equation*}             %
     \end{block}
     where $N_\mathrm{1\ track\ found}, N_\mathrm{2\ tracks\ found}, \in N_\mathrm{2\ tracks\ expected}$, so that $N_\mathrm{1\ track\ found} + N_\mathrm{2\ tracks\ found} = N_\mathrm{2\ tracks\ expected}$.
+    \centering
+    % \includegraphics[width=0.3\textwidth]{figures/b2display_example_1trackevt_cut.png}
   \end{frame}
 
   \begin{frame}
@@ -196,7 +203,18 @@
   \end{frame}
 
   \begin{frame}
-    \frametitle{WIP: Future selection of Candidate Events}
+    \frametitle{False Finding Fail Candidate (``Background'')}
+    \begin{itemize}
+    \item many tracks leave acceptance after passing through SVD volume
+    \item this event leaves enough hits in the second hough to pass through my naive cuts on hit content $\rightarrow$ need for more sophisticated methods
+    \end{itemize}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{figures/b2display_example_bkgevt.png}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{WIP: Future Selection of Candidate Events}
     \begin{itemize}
     \item choose cuts and analyze systematics based on MC Truth (from \texttt{SplitAfterDeltaT} and further constraints)
     \item candidate events with two expected tracks chosen without knowledge of how many tracks were found
@@ -257,8 +275,15 @@
     \end{center}
   \end{frame}
 
+    \begin{frame}
+    \begin{center}
+      \frametitle{Example Finding Fail Event}
+      \includegraphics[width=0.7\textwidth]{figures/b2display_example_1trackevt.png}
+    \end{center}
+  \end{frame}
+
     \begin{frame}[allowframebreaks]
-    \frametitle{Kinematic Distributions with Cuts}
+    \frametitle{Kinematic Distributions with Kinematic Cuts}
     \begin{center}
       \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_pt_distribution_cut.pdf}\\
       % \includegraphics[width=0.65\textwidth]{figures/distributions/gcr_omega_distribution_cut.pdf}\\
@@ -331,7 +356,6 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
       \includegraphics[width=0.5\textwidth]{figures/findeff_phi0_data_mc.png}
     \end{center}
   \end{frame}
-  
 \end{document}
 
 %%% Local Variables:
