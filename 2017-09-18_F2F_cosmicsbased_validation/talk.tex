@@ -249,22 +249,27 @@
       Results for $N_2 / (N_1 + N_2)$ with arbitrary cuts. Not neccessarily related to actuall efficiency yet!
     \end{alertblock}
     \begin{center}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_pt_data.png}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_d0_data.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_pt_data.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_d0_data.png}
     \end{center}
   \end{frame}
   \begin{frame}
     \begin{center}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_tan_lambda_data.png}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_z0_data.png}\\
-      \includegraphics[width=0.5\textwidth]{figures/findeff_phi0_data.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_tan_lambda_data.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_z0_data.png}\\
+      \includegraphics[width=0.46\textwidth]{figures/findeff_phi0_data.png}
     \end{center}
   \end{frame}
   
 
   \begin{frame}
-    \frametitle{Outlook}
-    
+    \frametitle{Outlook / TODO}
+    \begin{itemize}
+    \item get MC information on number of Reco Tracks with \texttt{SplitAfterDeltaT} and use it to test our methods
+    \item with MC information, develop more sophisticated selection of events with two findable tracks
+    \item finding efficiency profiles should be the same on MC and data
+    \item see if efficiency profiles are similar to those of MC Matcher Truth
+    \end{itemize}
   \end{frame}
 
   \section{Backupslides}
@@ -344,16 +349,16 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
       Approximation of trigger in data seems not good yet, weird results (errors?)
     \end{alertblock}
     \begin{center}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_pt_data_mc.png}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_d0_data_mc.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_pt_data_mc.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_d0_data_mc.png}
     \end{center}
   \end{frame}
   
   \begin{frame}
     \begin{center}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_tan_lambda_data_mc.png}
-      \includegraphics[width=0.5\textwidth]{figures/findeff_z0_data_mc.png}\\
-      \includegraphics[width=0.5\textwidth]{figures/findeff_phi0_data_mc.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_tan_lambda_data_mc.png}
+      \includegraphics[width=0.46\textwidth]{figures/findeff_z0_data_mc.png}\\
+      \includegraphics[width=0.46\textwidth]{figures/findeff_phi0_data_mc.png}
     \end{center}
   \end{frame}
 \end{document}
