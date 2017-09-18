@@ -10,6 +10,7 @@
 \usepackage{multicol}
 \usepackage{siunitx}
 \usepackage{physics}
+\usepackage{appendixnumberbeamer}
 
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
@@ -35,7 +36,7 @@
     citecolor=green,        % color of links to bibliography
     filecolor=magenta,      % color of file links
     urlcolor=kit-blue100           % color of external links
-}
+  }
 
 \usepackage{amssymb}
 
@@ -57,18 +58,16 @@
   \begin{frame}
     \frametitle{Introduction}
     \begin{itemize}
-    \item First cosmics data from Global Cosmic Run (GCR) 2017 is in!
-    \item Warmup: Confirmation of kinematic distributions, Sim vs. MC
+    \item first cosmics data from Global Cosmic Run (GCR) 2017 available
+    \item Warmup: Reproduction of kinematic distributions, Sim vs. MC
     \item Current tracking validation: Matching with MC Truth\\
       $\Rightarrow$ Is a data-only approach possible?\\
-      $\Rightarrow$ test of MC validation
-
-
+      $\Rightarrow$ confirmation of MC validation
     \end{itemize}
   \end{frame}
 
   \begin{frame}
-    \frametitle{GCR Data and MC}
+    \frametitle{Used GCR Data and MC}
     \begin{itemize}
     \item use data from Global Cosmic Run (GCR) taken in July 2017
     \item use run numbers 3100--3370 (sugggested by Dong Thang)
@@ -246,7 +245,7 @@
   \begin{frame}
     \frametitle{``Efficiency'' Profiles with Naive Cuts}
     \begin{alertblock}{Reminder}
-      Results for $N_2 / (N_1 + N_2)$ with arbitrary cuts. Not neccessarily related to actuall efficiency yet!
+      Results for $N_2 / (N_1 + N_2)$ with naive cuts. Not neccessarily related to actuall efficiency yet!
     \end{alertblock}
     \begin{center}
       \includegraphics[width=0.46\textwidth]{figures/findeff_pt_data.png}
@@ -272,7 +271,9 @@
     \end{itemize}
   \end{frame}
 
+  \appendix
   \section{Backupslides}
+  \backupbegin
   
   \begin{frame}
     \begin{center}
@@ -361,9 +362,13 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
       \includegraphics[width=0.46\textwidth]{figures/findeff_phi0_data_mc.png}
     \end{center}
   \end{frame}
+
+  \backupend
+  
 \end{document}
 
 %%% Local Variables:
+%%% ispell-local-dictionary: "en_GB-large_hunspell"
 %%% mode: latex
 %%% TeX-master: t
 %%% End:
