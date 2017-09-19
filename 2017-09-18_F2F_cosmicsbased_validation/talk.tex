@@ -348,10 +348,16 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
     \end{itemize}
   \end{frame}
 
-  \begin{frame}
+  \begin{frame}[allowframebreaks]
+    \frametitle{Runinfo for GCR data used by me}
+    \tiny
+    \input{runinfo_in_cut.tex}
+  \end{frame}
+
+    \begin{frame}
     \frametitle{``Efficiency'' Profiles including MC}
     \begin{alertblock}{Reminder}
-      Approximation of trigger in data seems not good yet, weird results (errors?)
+      Approximation of trigger in MC is not well implemented yet, thus such different results. WIP.
     \end{alertblock}
     \begin{center}
       \includegraphics[width=0.46\textwidth]{figures/findeff_pt_data_mc.png}
@@ -365,12 +371,6 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
       \includegraphics[width=0.46\textwidth]{figures/findeff_z0_data_mc.png}\\
       \includegraphics[width=0.46\textwidth]{figures/findeff_phi0_data_mc.png}
     \end{center}
-  \end{frame}
-
-  \begin{frame}[allowframebreaks]
-    \frametitle{Info for used GCR Runs}
-    \tiny
-    \input{runinfo_in_cut.tex}
   \end{frame}
 
   \backupend
