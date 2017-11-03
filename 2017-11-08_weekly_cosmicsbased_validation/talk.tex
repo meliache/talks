@@ -1,0 +1,117 @@
+\documentclass[18pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{templates/mytemplate}
+\usepackage{templates/beamerthemekit}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{multicol}
+\usepackage{siunitx}
+\usepackage{physics}
+\usepackage{appendixnumberbeamer}
+
+\title{Estimation of the Track Finding Efficiency using Cosmics Data} 
+\subtitle{ETP Belle 2 Weekly Meeting}
+\author{\underline{Michael Eliachevitch}}
+\date{8 November 2018}
+\titleimage{tracks_wide}
+\institute{ETP -- KIT}
+
+
+\begin{document}
+  \selectlanguage{english}
+  
+  \begin{frame}
+  \titlepage
+\end{frame}
+
+
+  \begin{frame}
+    \frametitle{Split MC Tracks on $\Delta t$ between Hits}
+    \begin{itemize}
+    \item split \texttt{MCRecoTrack} when time between subsequent \texttt{CDCSimHit}s is larger than chosen $\Delta t$
+    \item add new parameter \texttt{SplitAfterDeltaT} to \texttt{TrackFinderMCTruthRecoTracksModule}
+    \item \href{https://stash.desy.de/projects/B2/repos/software/pull-requests/737}{pull request} has already been merged
+    \item choose high enough $\Delta t$ to only split on passing through SVD volume
+    \item<4> method not yet used, still a \textcolor{kit-red100}{WIP}
+    \end{itemize}
+    \begin{center}
+      \includegraphics<1>[width=0.45\textwidth]{figures/delta_t/delta_t_log.pdf}
+      \includegraphics<1>[width=0.45\textwidth]{figures/delta_t/delta_t_max_log.pdf}
+      \includegraphics<2>[width=0.45\textwidth]{figures/delta_t/delta_t_linear.pdf}
+      \includegraphics<2>[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear.pdf}
+      \includegraphics<3->[width=0.45\textwidth]{figures/delta_t/delta_t_linear_annotated.pdf}
+      \includegraphics<3->[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear_annotated.pdf}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{False Finding Fail Candidate (``Background'')}
+    \begin{itemize}
+    \item many tracks leave acceptance after passing through SVD volume
+    \item this event leaves enough hits in the second hough to pass through my naive cuts on hit content $\rightarrow$ need for more sophisticated methods
+    \end{itemize}
+    \begin{center}
+      \includegraphics[width=0.7\textwidth]{figures/b2display_example_bkgevt.png}
+    \end{center}
+  \end{frame}
+
+
+  \appendix
+  \section{Backupslides}
+  \backupbegin
+  
+  \begin{frame}
+    \begin{center}
+      \huge Backup
+    \end{center}
+  \end{frame}
+
+    \begin{frame}
+    \begin{center}
+      \frametitle{Example Finding Fail Event}
+      \includegraphics[width=0.7\textwidth]{figures/b2display_example_1trackevt.png}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}[fragile]
+    \frametitle{Code for Splitting Tracks in MC Track Finder}
+    \begin{lstlisting}[language=C++]
+std::vector< std::vector<TimeHitIDDetector> > hitsWithTimeAndDetectorInformationVectors;
+
+if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a single hitInformation vector
+  hitsWithTimeAndDetectorInformationVectors.push_back(hitsWithTimeAndDetectorInformation);
+} else { // split on delta t
+
+  std::vector<TimeHitIDDetector>::size_type splitFromIdx = 0; // whenever splitting subtrack, start slice from this index
+  for (std::vector<TimeHitIDDetector>::size_type i = 1; i != hitsWithTimeAndDetectorInformation.size(); i++) {
+
+    double delta_t = (std::get<0>(hitsWithTimeAndDetectorInformation[i])
+                      - std::get<0>(hitsWithTimeAndDetectorInformation[i - 1]));
+
+    if (delta_t > m_splitAfterDeltaT) {
+      // push slice of `hitsWithTimeAndDetectorInformation' between splitFromidx  and previous index
+      hitsWithTimeAndDetectorInformationVectors
+      .emplace_back(hitsWithTimeAndDetectorInformation.begin() + splitFromIdx,
+                    hitsWithTimeAndDetectorInformation.begin() + i);
+      splitFromIdx = i;
+    }
+  }
+  // add subtrack after last splitting to list of tracks
+  hitsWithTimeAndDetectorInformationVectors
+  .emplace_back(hitsWithTimeAndDetectorInformation.begin() + splitFromIdx,
+                hitsWithTimeAndDetectorInformation.end());
+}
+    \end{lstlisting}
+  \end{frame}
+
+  \backupend
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
