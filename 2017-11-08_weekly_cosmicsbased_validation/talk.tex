@@ -11,12 +11,41 @@
 \usepackage{siunitx}
 \usepackage{physics}
 \usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{amssymb}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\tiny\ttfamily,
+  xleftmargin=-10pt,
+  breaklines=false,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  % frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  language=C++,                 % the language of the code
+  % morekeywords={*,...},            % if you want to add more keywords to the set
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  keywordstyle=\bfseries\color{kit-green70},
+  commentstyle=\itshape\color{kit-blue70},
+  identifierstyle=\color{black},
+  stringstyle=\color{kit-orange100},  
+}
+
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=kit-blue100           % color of external links
+  }
 
 \title{Estimation of the Track Finding Efficiency using Cosmics Data} 
 \subtitle{ETP Belle 2 Weekly Meeting}
 \author{\underline{Michael Eliachevitch}}
 \date{8 November 2018}
-\titleimage{tracks_wide}
+\titleimage{transparent}
 \institute{ETP -- KIT}
 
 
@@ -27,58 +56,144 @@
   \titlepage
 \end{frame}
 
-
-  \begin{frame}
-    \frametitle{Split MC Tracks on $\Delta t$ between Hits}
-    \begin{itemize}
-    \item split \texttt{MCRecoTrack} when time between subsequent \texttt{CDCSimHit}s is larger than chosen $\Delta t$
-    \item add new parameter \texttt{SplitAfterDeltaT} to \texttt{TrackFinderMCTruthRecoTracksModule}
-    \item \href{https://stash.desy.de/projects/B2/repos/software/pull-requests/737}{pull request} has already been merged
-    \item choose high enough $\Delta t$ to only split on passing through SVD volume
-    \item<4> method not yet used, still a \textcolor{kit-red100}{WIP}
-    \end{itemize}
-    \begin{center}
-      \includegraphics<1>[width=0.45\textwidth]{figures/delta_t/delta_t_log.pdf}
-      \includegraphics<1>[width=0.45\textwidth]{figures/delta_t/delta_t_max_log.pdf}
-      \includegraphics<2>[width=0.45\textwidth]{figures/delta_t/delta_t_linear.pdf}
-      \includegraphics<2>[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear.pdf}
-      \includegraphics<3->[width=0.45\textwidth]{figures/delta_t/delta_t_linear_annotated.pdf}
-      \includegraphics<3->[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear_annotated.pdf}
-    \end{center}
-  \end{frame}
-
-  \begin{frame}
-    \frametitle{False Finding Fail Candidate (``Background'')}
-    \begin{itemize}
-    \item many tracks leave acceptance after passing through SVD volume
-    \item this event leaves enough hits in the second hough to pass through my naive cuts on hit content $\rightarrow$ need for more sophisticated methods
-    \end{itemize}
-    \begin{center}
-      \includegraphics[width=0.7\textwidth]{figures/b2display_example_bkgevt.png}
-    \end{center}
-  \end{frame}
-
-
-  \appendix
-  \section{Backupslides}
-  \backupbegin
+\begin{frame}
   
+  \frametitle{Introduction}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Used Data and MC}
+
+      \begin{itemize}
+    \item use data from Global Cosmic Run (GCR) taken in July 2017
+    \item use run numbers 3100--3370 (sugggested by Dong Thang)
+      $\Rightarrow$ total 2.8\,Million cosmic events with trigger selecting central tracks\\
+    \item also produced 50\,Million cosmic MC events with GCR setup
+      \begin{itemize}
+      \item same as official MC group: large ``accept box'' of 8\,m $\times$ 8\,m $\times$ 8\,m 
+      \item no trigger in simulation, do kinematic cuts on central region ($d_0, z_0$)\\
+        $\Rightarrow$  $\sim$10 times less statistics than in data remain
+      \end{itemize}
+    \end{itemize}
+
+    \begin{block}{Further Information on GCR Data and MC production}
+      \begin{itemize}
+      \item Data: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+Data\#DataProductionGlobalCosmicsRunData-Runinfo}}
+      \item MC: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+MC}}
+      \end{itemize}
+    \end{block}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kinematic Distributions}
+  \begin{itemize}
+    \item plots from GCR July 2017 run
+    \item on the left data, on the right MC
+    \item no trigger in July MC
+
+    \end{itemize}
+    \begin{center}
+      \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_pt_distribution_uncut.pdf}\\
+    \end{center}
+  \end{frame}
+
   \begin{frame}
     \begin{center}
-      \huge Backup
+      \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_phi0_distribution_uncut.pdf}\\
+      \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_tan_lambda_distribution_uncut.pdf}
     \end{center}
+
+    \begin{itemize}
+    \item modulation in $\phi_0$ due to varying trigger efficiencies in July run
+    \end{itemize}
   \end{frame}
 
-    \begin{frame}
+  \begin{frame}
     \begin{center}
-      \frametitle{Example Finding Fail Event}
-      \includegraphics[width=0.7\textwidth]{figures/b2display_example_1trackevt.png}
+      \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_d0_distribution_uncut.pdf}\\
+      \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_z0_distribution_uncut.pdf}
     \end{center}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Idea: Estimation of Finding Efficiency}
+  % TODO: insert image of typical cosmic event with trigger
+    \begin{itemize}
+    \item typical cosmics event: single muon track, no secondaries
+    \item cosmics passing through VXD volume create two \texttt{NonMergedRecoTracks}\\
+      $\rightarrow$ in the following use those instead of merged \texttt{RecoTracks}
+    \item idea: estimate finding efficiency from \textcolor{kit-red100}{finding fails} in events where \textcolor{kit-blue100}{two (findable) tracks are expected}
+    \end{itemize}
+    \begin{block}{}
+      \begin{equation*}
+        \label{eq:cosmic_eff}
+        \text{Finding efficiency} = \frac{N_\mathrm{2\ tracks\ found}}{\textcolor{kit-blue100}{N_\mathrm{2\ tracks\ expected}}}
+        = 1 - \frac{\textcolor{kit-red100}{N_\mathrm{1\ track\ found}}}{\textcolor{kit-blue100}{N_\mathrm{2\ tracks\ expected}}}
+      \end{equation*}             %
+    \end{block}
+    where $N_\mathrm{1\ track\ found}, N_\mathrm{2\ tracks\ found}, \in N_\mathrm{2\ tracks\ expected}$.\\
+    
+    % \includegraphics[width=0.3\textwidth]{figures/b2display_example_1trackevt_cut.png}
   \end{frame}
 
-  \begin{frame}[fragile]
-    \frametitle{Code for Splitting Tracks in MC Track Finder}
-    \begin{lstlisting}[language=C++]
+  \begin{frame}
+    \begin{alertblock}{Challenges}
+      \begin{itemize}
+      \item Find a way to select events with two findable track halves, without knowledge of track finder output (prevent bias) $\rightarrow$ other event variables needed
+      \item Tracks are not split in MC Track Finder, so we have no MC truth for the number of non-merged tracks in the event.
+      \end{itemize}
+      
+    \end{alertblock}
+  \end{frame}
+
+
+\begin{frame}
+  \frametitle{Generate ``MC Truth'': Split MC Tracks on Hit Distance $c \cdot \Delta t$}
+  \begin{itemize}
+  \item split \texttt{MCRecoTrack} when time between subsequent \texttt{CDCSimHit}s is larger than chosen $\Delta t$
+  \item add new parameter \texttt{SplitAfterDeltaT} to \texttt{TrackFinderMCTruthRecoTracksModule}
+  \item \href{https://stash.desy.de/projects/B2/repos/software/pull-requests/737}{pull request} was merged
+  \item choose high enough $\Delta t$ to only split on passing through SVD volume
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{figures/delta_t/delta_t_max_log.pdf}
+    \includegraphics[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear_annotated.pdf}
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Choice of Cuts to Select Events where we expect to find two Tracks}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{``Efficiency'' Plots}
+  
+\end{frame}
+
+
+\appendix
+\backupbegin
+
+\begin{frame}
+  \begin{center}
+    \huge Backup
+  \end{center}
+\end{frame}
+
+  \begin{frame}
+  \begin{center}
+    \frametitle{Example Finding Fail Event}
+    \includegraphics[width=0.7\textwidth]{figures/b2display_screenshots/b2display_example_1trackevt.png}
+  \end{center}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Code for Splitting Tracks in MC Track Finder}
+\begin{lstlisting}[language=C++]
 std::vector< std::vector<TimeHitIDDetector> > hitsWithTimeAndDetectorInformationVectors;
 
 if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a single hitInformation vector
@@ -104,10 +219,9 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
   .emplace_back(hitsWithTimeAndDetectorInformation.begin() + splitFromIdx,
                 hitsWithTimeAndDetectorInformation.end());
 }
-    \end{lstlisting}
-  \end{frame}
-
-  \backupend
+\end{lstlisting}
+\end{frame}
+\backupend
 
 \end{document}
 
