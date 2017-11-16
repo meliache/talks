@@ -122,15 +122,11 @@
     \item August MC samples include trigger simulation
     \end{itemize}
     \begin{center}
-      \includegraphics[width=0.45\textwidth]{figures/distributions/gcr_august2017_d0_distribution_uncut.pdf}
-      \includegraphics[width=0.45\textwidth]{figures/distributions/gcr_august2017_z0_distribution_uncut.pdf}
-    \end{center}
-  \end{frame}
+      \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_d0_distribution_uncut.pdf}
+      \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_z0_distribution_uncut.pdf}
 
-  \begin{frame}
-    \begin{center}
-      \includegraphics[width=0.45\textwidth]{figures/distributions/gcr_august2017_phi0_distribution_uncut.pdf}
-      \includegraphics[width=0.45\textwidth]{figures/distributions/gcr_august2017_tan_lambda_distribution_uncut.pdf}
+      \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_phi0_distribution_uncut.pdf}
+      \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_tan_lambda_distribution_uncut.pdf}
     \end{center}
   \end{frame}
 
@@ -159,7 +155,7 @@
     \begin{alertblock}{Challenges}
       \begin{itemize}
       \item Find a way to select events with two findable track halves, without knowledge of track finder output (prevent bias) $\rightarrow$ other event variables needed
-      \item Tracks are not split in MC Track Finder, so we have no MC truth for the number of non-merged tracks in the event.
+      \item Tracks are not split in MC Track Finder, so we have no MC truth for the number of non-merged reco tracks in the event.
       \end{itemize}
       
     \end{alertblock}
@@ -167,22 +163,63 @@
 
 
 \begin{frame}
-  \frametitle{Generate ``MC Truth'': Split MC Tracks on Hit Distance $c \cdot \Delta t$}
+  \frametitle{Generate MC Information: Split MC Tracks on Hit Distance $c \cdot \Delta t$}
   \begin{itemize}
-  \item split \texttt{MCRecoTrack} when time between subsequent \texttt{CDCSimHit}s is larger than chosen $\Delta t$
+  \item get distance between hits in \texttt{MCRecoTracks} using timing information of \texttt{CDCSimHit}s
+  \item split \texttt{MCRecoTrack} when  $\Delta t$ between \texttt{CDCSimHit}s is larger than some threshold
   \item add new parameter \texttt{SplitAfterDeltaT} to \texttt{TrackFinderMCTruthRecoTracksModule}
   \item \href{https://stash.desy.de/projects/B2/repos/software/pull-requests/737}{pull request} was merged
-  \item choose high enough $\Delta t$ to only split on passing through SVD volume
+  \item choose high enough $\Delta t$ to only split tracks when we are sure they passed through VXD volume\\
   \end{itemize}
-  \begin{center}
-    \includegraphics[width=0.45\textwidth]{figures/delta_t/delta_t_max_log.pdf}
-    \includegraphics[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear_annotated.pdf}
-  \end{center}
 \end{frame}
 
 \begin{frame}
+    \begin{center}
+    \includegraphics[width=0.8\textwidth]{figures/delta_t/delta_t_max_log_annotated.pdf}
+  \end{center}
+\end{frame}
+
+
+\begin{frame}
   \frametitle{Choice of Cuts to Select Events where we expect to find two Tracks}
-  
+  \begin{block}{Select on:}
+    \begin{itemize}
+    \item Sum of CDCHit y-positions in event, should be near 0 for cosmics creating tracks on top and bottom
+    \item Total number of CDC Hits in event
+    \end{itemize}
+  \end{block}
+  Chooce cuts using MC, where
+  \begin{itemize}
+  \item \textcolor{kit-red100}{one track events}: events with one MC track with hit distances $c\cdot\Delta t < \SI{5}{\cm}$
+  \item \textcolor{kit-green100}{two track events}: MC Track has been split on $c\cdot\Delta t > \SI{45}{\cm}$
+    and both remaining tracks have only hits with $c\cdot\Delta t < \SI{5}{\cm}$
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+  \includegraphics[width=0.44\textwidth]{figures/mcsplit_analysis/sum_y_distribution.pdf}
+  \includegraphics[width=0.44\textwidth]{figures/mcsplit_analysis/total_cdc_hits.pdf}    
+  \end{center}
+
+  \begin{alertblock}{Choose cut values}
+    \begin{itemize}
+    \item $85 < \text{number of CDC hits} < 100$
+    \item $\abs{\sum{y}} < 400$
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+
+
+
+\begin{frame}
+  \begin{center}
+    \includegraphics[width=1.0\textwidth]{figures/mcsplit_analysis/sum_y_vs_hits_merged.pdf}
+  \end{center}
+  \begin{itemize}
+  \item 0.7\% of events where we know from MC that one track is expected are in this cut (93\% ``purity'').\\
+  \item 14\% efficiency for our MC selection of two track events.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -197,6 +234,14 @@
 \begin{frame}
   \begin{center}
     \huge Backup
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Distribution of Hit $\Delta t$ in Linear Scale}  
+    \begin{center}
+      \includegraphics[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear_from0.pdf}
+      \includegraphics[width=0.45\textwidth]{figures/delta_t/delta_t_max_linear.pdf}
   \end{center}
 \end{frame}
 
