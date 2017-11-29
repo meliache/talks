@@ -147,14 +147,8 @@
 \begin{beamercolorbox}[leftskip=.5em,ht=1mm,dp=1.3mm]{section in head/foot}
   \hspace{1.3em}\usebeamerfont{author in head/foot}%
   \insertshorttitle \hspace*{1mm} - \hspace*{1mm} \insertshortauthor
-  \hfill\insertshortdate\hspace{30pt}\insertpagenumber{}/\pageref{LastPage}\hspace{4mm}
+  % \hfill\insertshortdate\hspace{30pt}\insertpagenumber{}/\pageref{LastPage}\hspace{4mm}
+  \hfill\insertshortdate\hspace{30pt}\insertpagenumber{}/\value{finalframe}\hspace{4mm}
 \end{beamercolorbox}
 }
 
-\newcommand{\backupbegin}{
-   \newcounter{finalframe}
-   \setcounter{finalframe}{\value{framenumber}}
-}
-\newcommand{\backupend}{
-   \setcounter{framenumber}{\value{finalframe}}
-}

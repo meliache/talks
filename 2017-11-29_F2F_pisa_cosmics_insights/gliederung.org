@@ -1,0 +1,15 @@
+* Overview
+- 
+* New GCR Data and MC
+* Track Parameter Distribution in August GCR Data and MC (prod. 1)
+* Reminder: Estimation of Finding Efficiency
+* Necessary Steps
+* Generate Track Dataset MC based on MC Truth: Split MC Tracks on Hit Distance $c \cdot \Delta t$
+* Select Events where we expect to find two Tracks
+* Efficiency Plots
+* Kinematic Distributions for Juli GCR
+* Distribution of Hit $\Delta t$ for all hits in all tracks} 
+* Example Finding Fail Event
+* Code for Splitting Tracks in MC Track Finder
+
+* Backup
