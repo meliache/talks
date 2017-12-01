@@ -14,6 +14,12 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{amssymb}
+\usepackage{todonotes}
+
+\usepackage{paralist}
+\let\itemize\compactitem
+\let\description\compactdesc
+\let\enumerate\compactenum  
 
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
@@ -53,50 +59,48 @@
 
 \begin{frame}
   \frametitle{Overview}
+  \begin{itemize}
+  \item look at track parameter distributions for new GCR data
+  \item 
+  \end{itemize}
   
 \end{frame}
 
 \begin{frame}
-  \frametitle{Update on GCR Data and MC}
-
+  \frametitle{Update on used Cosmics Data and MC}
   \begin{itemize}
-  \item use data from Global Cosmic Run (GCR) taken in July 2017
-  \item use run numbers 3100--3370 (sugggested by Dong Thang)
-    $\Rightarrow$ total 2.8\,Million cosmic events with trigger selecting central tracks\\
-  \item also produced 50\,Million cosmic MC events with GCR setup
+  \item last F2F: used data from Juli GCR and my own MC without trigger simulation
+  \item \textbf{current data:} GCR August 2017  with single TSF trigger
+  \item \textbf{current MC:} GCR August MC ``sample 1'' from DP group: single TSF trigger simulation and narrow acceptbox around IP ($\SI{60}{cm} \times \SI{20}{cm} \times \SI{20}{\cm}$)
     \begin{itemize}
-    \item same as official MC group: large ``accept box'' of 8\,m $\times$ 8\,m $\times$ 8\,m 
-    \item no trigger in simulation, do kinematic cuts on central region ($d_0, z_0$)\\
-      $\Rightarrow$  $\sim$10 times less statistics than in data remain
+    \item in spite of trigger simulation, track parameter distributions still different  for data and MC due to narrow acceptbox (especially $z_0$)
+    \item MC ``sample 2'' with wide acceptbox has become available last week, but could not be analysed until this F2F
     \end{itemize}
-  \end{itemize}
-
-  \begin{block}{Further Information on GCR Data and MC production}
-    \begin{itemize}
-    \item Data: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+Data\#DataProductionGlobalCosmicsRunData-Runinfo}}
-    \item MC: \footnotesize{\url{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+MC}}
-    \end{itemize}
-  \end{block}
-  
+  \item Further information on datataking and MC production can be found at the confluence pages for
+    \href{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+Data\#DataProductionGlobalCosmicsRunData-Runinfo}{data}
+    and \href{https://confluence.desy.de/display/BI/Data+Production+Global+Cosmics+Run+MC}{MC}
+  \end{itemize}    
 \end{frame}
 
 \begin{frame}
   \frametitle{Track Parameter Distributions in August GCR and MC}
-  \begin{itemize}
-  \item August MC samples include trigger simulation
-  \end{itemize}
   \begin{center}
-    \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_d0_distribution_uncut.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_z0_distribution_uncut.pdf}
-
-    \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_phi0_distribution_uncut.pdf}
-    \includegraphics[width=0.35\textwidth]{figures/distributions/gcr_MC_august2017_tan_lambda_distribution_uncut.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_august_2017_pt_distribution_normed=True.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_august_2017_z0_distribution_normed=True.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_august_2017_d0_distribution_normed=True.pdf}\\
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_august_2017_phi0_distribution_normed=True.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_august_2017_tan_lambda_distribution_normed=True.pdf}
   \end{center}
-\end{frame}
+MC generator acceptbox half widths:
+    \begin{itemize}
+    \item $z:$ 30\,cm
+    \item $x, y:$ 10\,cm
+    \end{itemize}
 
+\end{frame}
+    
 \begin{frame}
   \frametitle{Reminder: Estimation of Finding Efficiency}
-  % TODO: insert image of typical cosmic event with trigger
   \begin{itemize}
   \item typical cosmics event: single muon track, no secondaries
   \item cosmics passing through VXD volume create two \texttt{NonMergedRecoTracks}\\
@@ -106,11 +110,11 @@
   \begin{block}{}
     \begin{equation*}
       \label{eq:cosmic_eff}
-      \text{Finding efficiency} = \frac{N_\mathrm{2\ tracks\ found}}{\textcolor{kit-blue100}{N_\mathrm{2\ tracks\ expected}}}
+      \text{finding efficiency} = \frac{N_\mathrm{2\ tracks\ found}}{\textcolor{kit-blue100}{N_\mathrm{2\ tracks\ expected}}}
       = 1 - \frac{\textcolor{kit-red100}{N_\mathrm{1\ track\ found}}}{\textcolor{kit-blue100}{N_\mathrm{2\ tracks\ expected}}}
     \end{equation*}             %
   \end{block}
-  where $N_\mathrm{1\ track\ found}, N_\mathrm{2\ tracks\ found}, \in N_\mathrm{2\ tracks\ expected}$.\\
+  where $\textcolor{kit-red100}{N_\mathrm{1\ track\ found}}, N_\mathrm{2\ tracks\ found}, \in \textcolor{kit-blue100}{N_\mathrm{2\ tracks\ expected}}$.\\
   
   % \includegraphics[width=0.3\textwidth]{figures/b2display_example_1trackevt_cut.png}
 \end{frame}
@@ -118,109 +122,164 @@
 \begin{frame}
   \begin{center}
     \frametitle{Example Finding Fail Event}
-    \includegraphics[width=0.6\textwidth]{figures/b2display_screenshots/b2display_example_1trackevt.png}
-    % TODO: Add sketch or annotations
+    \begin{itemize}
+    \item GCR August 2017 data, run 3902, event 13913
+    \item \textcolor{kit-blue100}{blue: assigned RecoHits}, \textcolor{kit-red100}{red: unassigned reco hits}
+    \item only one reco track found in upper half, finding fail in bottom half
+    \end{itemize}
+    \includegraphics[width=0.65\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3902_evt13913_finding-fail-musterevent.png}
   \end{center}
 \end{frame}
 
 \begin{frame}
   \frametitle{Challenges}
-    \begin{itemize}
-    \item Find a way to select events with two findable track halves, without knowledge of track finder output (prevent bias) $\rightarrow$ other event variables needed
-    \item Tracks are not split in MC Track Finder, so we have no MC truth for the number of non-merged reco tracks in the event.
-    \end{itemize}
-\end{frame}
-
-\section{Necessary steps to get the Finding Efficiency}
-\begin{frame}
-  \frametitle{Approach: Necessary steps to get the Finding Efficiency}
-  
-\end{frame}
-
-
-\begin{frame}
-  \frametitle{Split MC Tracks on Hit Distance $c \cdot \Delta t$ to get MC Truth based dataset of two-track-events}
   \begin{itemize}
-  \item get distance between hits in \texttt{MCRecoTracks} using timing information of \texttt{CDCSimHit}s
-  \item split \texttt{MCRecoTrack} when  $\Delta t$ between \texttt{CDCSimHit}s is larger than some threshold
-  \item add new parameter \texttt{SplitAfterDeltaT} to \texttt{TrackFinderMCTruthRecoTracksModule}
-  \item \href{https://stash.desy.de/projects/B2/repos/software/pull-requests/737}{pull request} was merged
-  \item choose high enough $\Delta t$ to only split tracks when we are sure they passed through VXD volume\\
+  \item Select set of events with two findable track halves without knowledge of track finding results (e.g. track parameters)
+  \item MC Tracks were not split in MC Track Finder, so there was no simple MC truth for the number of tracks
+  \item Deal with differences in cosmics data and MC
   \end{itemize}
 \end{frame}
 
+\section{Necessary Steps to get the Finding Efficiency}
 \begin{frame}
-  \frametitle{Distribution of Maximum CDCHit $\Delta t$} }
-  \begin{center}
-    \includegraphics[width=0.8\textwidth]{figures/delta_t/gcraugust_delta_t_max_linear_xmin=0.pdf}
-  \end{center}
+  % Vorgehen / Approach
+  \frametitle{Approach}
+  \begin{block}{Steps to get the Cosmics based Finding Efficiency}
+  \begin{itemize}
+  \item Select two datasets based on MC truth where we know that the event contains one / two tracks\\
+    $\rightarrow$ use time between \texttt{CDCSimHit}s as MC truth
+  \item Based on those, find good parameters to select events with two expected tracks on data. Optimize cuts for high ``purity''
+  \item Further refinement? E.g. discard events based on unphysical difference in track parameters (e.g. $\Delta p_T$)
+  \item In the resulting dataset, count events where only one track was found and create efficiency profiles
+  \item Compare this for MC and data and with finding efficency from MC truth matching
+  \end{itemize}
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Use hit times for MC truth based selection of events with one or two tracks }
+  \begin{itemize}
+  \item no MC truth information if there should be one or two \texttt{NonMergedRecoTracks}
+  \item use time $\Delta t$ between subsequent \texttt{CDCSimHit}s in \texttt{MCRecoTracks} as MC truth:
+    $\text{hit\ distance} \approx c\cdot\Delta t$
+  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.4\textwidth}
+      \only<1>{\includegraphics[width=1.\textwidth]{figures/delta_t/gcraugust_delta_t_max_linear_xmin=0.pdf}}
+      \only<2->{\includegraphics[width=1.\textwidth]{figures/delta_t/gcraugust_delta_t_max_linear_annotated_xmin=0_split=30_maxhitdistance=5.pdf}}
+    \end{column}
+
+    \begin{column}{0.35\textwidth}
+      \only<2->{
+        \begin{itemize}
+        \item $(c\Delta t)_\mathrm{max} < \SI{5}{\cm}$:\\\textcolor{kit-red100}{one track expected}
+        \item $(c\Delta t)_\mathrm{max} > \SI{30}{\cm}$:\\\textcolor{kit-green100}{two tracks expected}
+        \item inbetween: not sure
+        \end{itemize}
+      }
+    \end{column}
+    \begin{column}{0.25\textwidth}
+      \includegraphics[width=\textwidth]{figures/b2display_screenshots/gcr_mc_2017-08_run4006_evt1_twotrackevent_annotaded.pdf}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 
 
 
 \begin{frame}
-  \frametitle{Trackfinding-independent selection of expected two-track-events}
-  \begin{block}{Select on:}
+  \frametitle{Parameters for selection of  two track events on data}
+  Parameters used to select expected two track events on data:
+  \begin{itemize}
+  \item number of CDC Hits in event
+  \item sum of CDCHit y-positions
+  \end{itemize}
+  \begin{center}
+    \includegraphics[width=0.45\textwidth]{figures/mcsplit_analysis/total_cdc_hits_gcraugust_30cm_split.pdf}
+    \includegraphics[width=0.45\textwidth]{figures/mcsplit_analysis/sum_y_distribution_gcraugust_30cm_split.pdf}
+  \end{center}
+\end{frame}
+  
+\begin{frame}
+  \begin{center}
+    \includegraphics[width=0.72\textwidth]{figures/mcsplit_analysis/sum_y_vs_hits_merged_gcraugust_30cm_split.pdf}
+  \end{center}
+  \begin{block}{cuts to select two track events on data}
     \begin{itemize}
-    \item Sum of CDCHit y-positions in event, should be near 0 for cosmics creating tracks on top and bottom
-    \item Total number of CDC Hits in event
-    \end{itemize}
+    \item $85 < \text{number of CDC hits} < 125$
+    \item $\abs{\sum{y}} < \SI{400}{\cm}$
+    \end{itemize}      
   \end{block}
-  Chooce cuts using MC, where
   \begin{itemize}
-  \item \textcolor{kit-red100}{one track events}: events with one MC track with hit distances $c\cdot\Delta t < \SI{5}{\cm}$
-  \item \textcolor{kit-green100}{two track events}: MC Track has been split on $c\cdot\Delta t > \SI{45}{\cm}$
-    and both remaining tracks have only hits with $c\cdot\Delta t < \SI{5}{\cm}$
+    \item \textbf{``purity'': 99.8\%} of 358\,k one track events are not in this cut\\
+    \item \textbf{``efficiency'': 43.8\%} of 1.288\,M two track events are in this cut
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \begin{center}
-    \includegraphics[width=0.44\textwidth]{figures/mcsplit_analysis/sum_y_distribution.pdf}
-    \includegraphics[width=0.44\textwidth]{figures/mcsplit_analysis/total_cdc_hits.pdf}    
-  \end{center}
-
-  \begin{alertblock}{Choose cut values}
-    \begin{itemize}
-    \item $85 < \text{number of CDC hits} < 100$
-    \item $\abs{\sum{y}} < 400$
-    \end{itemize}
-  \end{alertblock}
+  \frametitle{Typical examples of excluded one track events}
+  
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=0.7\textwidth]{figures/b2display_screenshots/gcr_2017-08_run4182_evt7_onetrackevent_58cdchits_editet.png}\\
+      58 CDC hits, lower than for two track events, because particle stopped at VXD
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=0.7\textwidth]{figures/b2display_screenshots/gcr_2017-08_run4017_evt1_onetrackevent_170cdchits_edited.png}\\
+      170 CDC hits, higher than for two track events, because there is no gap around VXD
+    \end{column}
+  \end{columns}
 \end{frame}
 
-
-
 \begin{frame}
-  \frametitle{Distribution of selection parameters for two- and one-track-events from MC datasets from $Delta t$ based selection}
-  \begin{center}
-    \includegraphics[width=1.0\textwidth]{figures/mcsplit_analysis/sum_y_vs_hits_merged.pdf}
-  \end{center}
+  \frametitle{Further cuts based on $p_T$ difference between the two tracks}
   \begin{itemize}
-  \item 0.7\% of events where we know from MC that one track is expected are in this cut (93\% ``purity'').\\
-  \item 14\% efficiency for our MC selection of two track events.
+  \item aim: exclude events where both found tracks are not related, but from different particles or secondary
+  \item idea: require that $p_T$ is similar for both tracks
+  \item problem: often bad fits due to low hit efficiencies
   \end{itemize}
+
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \center
+      \includegraphics[width=0.5\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3912_evt964508_f57_two_unrelated_tracks.png}\\
+      Looks like two independent particles
+      \\$\Delta p_T \approx \SI{11}{\GeV}$
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \center
+      \includegraphics[width=0.5\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3920_evt31009_two_tracks_found_but_bad_fit_r-phi.png}\\
+      Same particle, but only few assigned hits in top half (dark blue), bad fit\\
+      $\Delta p_T \approx \SI{17}{\GeV}$
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Event displays in different parameter regions}
+  \frametitle{Types of events where my selection does not work yet}
   
 \end{frame}
 
 \begin{frame}
-  \frametitle{Cut away unphysical events based on track parameters?}
-  
+  \frametitle{Insight: QCS-R visible on $\Delta p_T$ between upper and lower tracks}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Insight: QCS-R visible on $\Delta p_T$ between upper and
-    lower track}
-  
-\end{frame}
-
+\section{Results}
 \begin{frame}
   \frametitle{Efficiency Plots}
-  
+  \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_pt.pdf}
+\end{frame}
+
+\begin{frame}
+    \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_d0.pdf}\\
+    \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_z0.pdf}
+  \end{frame}
+
+\begin{frame}
+  \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_phi0.pdf}\\
+  \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_tan_lambda.pdf}
 \end{frame}
 
 \begin{frame}
@@ -230,11 +289,12 @@
 
 \begin{frame}
   \frametitle{Outlook}
-  
+  \begin{itemize}
+  \item Use cosmic muons to estimate hit efficiency
+  \end{itemize}
 \end{frame}
 
 \section{Backup}
-% \backupbegin
 
 \begin{frame}
   \begin{center}
@@ -242,35 +302,7 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Kinematic Distributions for Juli GCR}
-  \begin{itemize}
-  \item plots from GCR July 2017 run
-  \item on the left data, on the right MC
-  \item no trigger in July MC
 
-  \end{itemize}
-  \begin{center}
-    \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_pt_distribution_uncut.pdf}\\
-  \end{center}
-\end{frame}
-
-\begin{frame}
-  \begin{center}
-    \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_phi0_distribution_uncut.pdf}\\
-    \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_tan_lambda_distribution_uncut.pdf}
-  \end{center}
-  \begin{itemize}
-  \item modulation in $\phi_0$ due to varying trigger efficiencies in July run
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \begin{center}
-    \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_d0_distribution_uncut.pdf}\\
-    \includegraphics[width=0.8\textwidth]{figures/distributions/gcr_z0_distribution_uncut.pdf}
-  \end{center}
-\end{frame}
 
 \begin{frame}
   \frametitle{Distribution of Hit $\Delta t$ for all hits in all tracks}  
@@ -279,6 +311,24 @@
   \end{center}
 \end{frame}
 
+\begin{frame}
+  \frametitle{VXD dimensions}
+  \includegraphics[width=0.8\textwidth]{figures/vxd_dimensions.pdf}\\
+  Taken from Belle 2 technical design report (2010). All dimensions are given in mm.
+\end{frame}
+
+\begin{frame}
+  \frametitle{Kinematic Distributions for Juli GCR}
+  Data from Juli 2017 GCR and MC without trigger simulation
+  \begin{center}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_juli_2017_pt_distribution_normed=True.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_juli_2017_z0_distribution_normed=True.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_juli_2017_d0_distribution_normed=True.pdf}\\
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_juli_2017_phi0_distribution_normed=True.pdf}
+    \includegraphics[width=0.3\textwidth]{figures/distributions/gcr_juli_2017_tan_lambda_distribution_normed=True.pdf}
+  \end{center}
+\end{frame}
+  
 \begin{frame}[fragile]
   \frametitle{Code for Splitting Tracks in MC Track Finder}
 \begin{lstlisting}[language=C++]
@@ -309,7 +359,7 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
 }
 \end{lstlisting}
 \end{frame}
-% \backupend
+
 
 \end{document}
 

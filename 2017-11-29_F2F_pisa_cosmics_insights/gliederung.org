@@ -22,5 +22,4 @@ Cut
 * Backup
 ** Kinematic Distributions for Juli GCR
 ** MCTrack Splitting Code
-** Example Finding Fail Event
 ** Code for Splitting Tracks in MC Track Finder
