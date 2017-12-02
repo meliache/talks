@@ -60,8 +60,10 @@
 \begin{frame}
   \frametitle{Overview}
   \begin{itemize}
-  \item look at track parameter distributions for new GCR data
-  \item 
+  \item look at GCR August cosmics data and new MC with trigger simulation
+  \item method to select cosmic events where two track halves are expected
+  \item current results 
+  \item discussion and outlook
   \end{itemize}
   
 \end{frame}
@@ -149,9 +151,9 @@ MC generator acceptbox half widths:
   \item Select two datasets based on MC truth where we know that the event contains one / two tracks\\
     $\rightarrow$ use time between \texttt{CDCSimHit}s as MC truth
   \item Based on those, find good parameters to select events with two expected tracks on data. Optimize cuts for high ``purity''
-  \item Further refinement? E.g. discard events based on unphysical difference in track parameters (e.g. $\Delta p_T$)
+  \item Further refinement: E.g. discard events with unphysical difference in track parameters (e.g. $\Delta p_T$)
   \item In the resulting dataset, count events where only one track was found and create efficiency profiles
-  \item Compare this for MC and data and with finding efficency from MC truth matching
+  \item Compare this for MC and data and eventually with finding efficency from MC truth matching
   \end{itemize}
 \end{block}
 
@@ -234,63 +236,174 @@ MC generator acceptbox half widths:
 \end{frame}
 
 \begin{frame}
-  \frametitle{Further cuts based on $p_T$ difference between the two tracks}
+  \frametitle{Further cuts based on $\Delta p_T$  between the two tracks}
   \begin{itemize}
-  \item aim: exclude events where both found tracks are not related, but from different particles or secondary
-  \item idea: require that $p_T$ is similar for both tracks
-  \item problem: often bad fits due to low hit efficiencies
+  \item Aim: exclude events where both found tracks are not related, but from different particles or secondaries
+  \item Require that $p_T$ is similar for both tracks. Rough cut: $\abs{\Delta p_T} < \SI{2}{\GeV}$
+  \item Problem: Often bad fits due to low hit efficiencies
+  \item Highlighted in red and blue: matched hits for first and second track
   \end{itemize}
-
   \begin{columns}
     \begin{column}{0.5\textwidth}
       \center
-      \includegraphics[width=0.5\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3912_evt964508_f57_two_unrelated_tracks.png}\\
-      Looks like two independent particles
+      \includegraphics[width=0.45\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3912_evt964508_f57_two_unrelated_tracks.png}\\
+      two tracks by independent particles
       \\$\Delta p_T \approx \SI{11}{\GeV}$
     \end{column}
     \begin{column}{0.5\textwidth}
       \center
-      \includegraphics[width=0.5\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3920_evt31009_two_tracks_found_but_bad_fit_r-phi.png}\\
-      Same particle, but only few assigned hits in top half (dark blue), bad fit\\
+      \includegraphics[width=0.45\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3920_evt31009_two_tracks_found_but_bad_fit_r-phi.png}\\
+      two tracks by same particle, but only few matched hits in top half, bad fit\\
       $\Delta p_T \approx \SI{17}{\GeV}$
     \end{column}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Types of events where my selection does not work yet}
-  
+  \frametitle{More insights on $\Delta p_T$ between upper and lower track halves}
+  \begin{itemize}    
+  \item found bump in data at $\Delta p_T = \SI{0.5}{\GeV}$\\
+  \item consistent with MIP energy loss in QCS-R at high $z$ region
+  \item bump disappears with cut on $\abs{z_0} < \SI{50}{cm}$, but still does not explain wide $\Delta p_T$ distribution
+  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \begin{center}
+      \includegraphics[width=0.6\textwidth]{figures/efficiency_study/two_track_pt_distance_gcr_august2017_data_mc_z0max=500.pdf}\\
+      \includegraphics[width=0.6\textwidth]{figures/efficiency_study/two_track_pt_distance_gcr_august2017_data_mc_z0max=50.pdf}
+    \end{center}
+    \end{column}
+    \begin{column}{0.45\textwidth}
+      \centering
+      \includegraphics[width=1.\textwidth]{figures/efficiency_study/pt_distance_by_z0_gcr_august2017_data.pdf}
+    \end{column}    
+  \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Insight: QCS-R visible on $\Delta p_T$ between upper and lower tracks}
+  \frametitle{Types of events where my selection does not work yet}
+  \begin{itemize}
+  \item looked at events in my selection where only one track was found, expected only finding fails
+  \item still often events where there is actually only one findable tracks. Two main types:
+  \end{itemize}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item horizontal track $\rightarrow$ small $\sum y$
+      \end{itemize}
+      \begin{center}
+      \includegraphics[width=0.55\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3902_evt12895_false-finding-fail_1.png}
+    \end{center}
+
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \begin{itemize}
+      \item cluster with high $\abs{y}$ balances track in other half
+      \end{itemize}
+      \begin{center}
+      \includegraphics[width=0.55\textwidth]{figures/b2display_screenshots/gcr_data_2017-08_run3902_evt3839_false-finding-fail_2.png}
+    \end{center}
+    \end{column}
+  \end{columns}
+    (\textcolor{kit-blue100}{blue: assigned RecoHits}, \textcolor{kit-red100}{red: unassigned reco hits})
+\end{frame}
+
+
+\begin{frame}
+  \begin{center}
+    \huge Preliminary Results
+  \end{center}
 \end{frame}
 
 \section{Results}
 \begin{frame}
-  \frametitle{Efficiency Plots}
-  \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_pt.pdf}
+  \begin{block}{All cuts summarized}
+    \begin{itemize}
+    \item select events where
+      \begin{itemize}
+      \item $85 < \text{number of CDC hits} < 125$
+      \item $\abs{\sum{y}} < \SI{400}{\cm}$
+      \end{itemize}
+    \item require $\abs{\Delta p_T} < \SI{2}{\GeV}$ for two track events
+    \item because MC has narrower $d_0$ and $z_0$ distributions, cut on $\abs{z_0}_\mathrm{max} < \SI{40}{cm}$ and $\abs{d_0}_\mathrm{max} < \SI{20}{cm}$ on MC and data
+      to make both distributions more similar
+    \end{itemize}
+  \end{block}
+In the resulting dataset:
+  \begin{itemize}
+  \item calculate finding efficiency: $N_\mathrm{2\ tracks\ found}/N_\mathrm{2\ tracks\ expected}$
+  \item do that also in bins of track parameters (use mean of all tracks)
+  \item uncertainties: approximate using poisson error\\
+    $\sqrt{N_\mathrm{2\ tracks\ found}}/N_\mathrm{2\ tracks\ expected}$
+  \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Total count and $p_T$ profile}
+  \begin{block}{Total count}
+  \begin{tabular}{c|cc}
+    in selection of events where\\two tracks are expected & GCR August 2017 data &  MC (sample 1)\\
+    \hline
+    \# one track found & 1281 & 1636 \\
+    \# two tracks found &  38851 & 599579\\
+    efficiency & 96.8\% & 99.7\% \\
+  \end{tabular}
+\end{block}
+\begin{columns}
+  \begin{column}{0.5\textwidth}
+    \includegraphics[width=0.85\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_pt.pdf}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \begin{itemize}
+    \item $>$ 1\,GeV very few finding fails
+    \item at low $p_T$ steep decrease: bad efficiency or breakdown of method?
+    \item MC slightly better than data, especially at low $p_T$
+    \end{itemize}
+  \end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}
-    \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_d0.pdf}\\
-    \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_z0.pdf}
-  \end{frame}
-
-\begin{frame}
-  \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_phi0.pdf}\\
-  \includegraphics[width=0.7\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_tan_lambda.pdf}
+  \frametitle{Profiles by other track parameters}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_z0.pdf}\\
+      \includegraphics[width=0.85\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_d0.pdf}
+      
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \centering
+      \includegraphics[width=0.85\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_phi0.pdf}\\
+      \includegraphics[width=0.85\textwidth]{figures/efficiency_study/cosmicbased_findeff_over_tan_lambda.pdf}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Discussion of my Results}
+  \begin{itemize}
+  \item GOOD: Generally, finding fails very rare\\
+    $\rightarrow$  \textbf{Confirmation that tracking works on on real data!}
+  \item Many events where only one track is found are in low $p_T$ regions and extreme track parameter regions.
+    In these regions are large differences between MC and data
+  \item Cuts based on $\sum y$ assume almost straight track coming from above. We have seen that this does not always work, which might explain this low ``efficiencies'' in these regions.
+  \item Seen in event displays and track parameter differences between both track halves:
+    Often bad hit efficiencies and bad fit results. Only due to use of only half lengths (Glückstern Formula)?
+  \end{itemize}
   
 \end{frame}
 
 \begin{frame}
   \frametitle{Outlook}
   \begin{itemize}
-  \item Use cosmic muons to estimate hit efficiency
+  \item Increase trust on selection of events where we expect two tracks
+    \\$\rightarrow$ further cuts?
+  \item Compare with finding efficiency from MC matching? Difficult, because it works only well for merged tracks.
+  \item Use new GCR MC sample with large 8\,m acceptox. Do differences between MC and data remain?
+  \item Use cosmics to estimate hit efficiency. Create efficiency map?
   \end{itemize}
 \end{frame}
 
@@ -302,6 +415,15 @@ MC generator acceptbox half widths:
   \end{center}
 \end{frame}
 
+\begin{frame}
+  \frametitle{More on QCS-R Geometry and $p_T$ difference}
+  \includegraphics[width=0.4\textwidth]{figures/efficiency_study/pt_distance_by_z0_gcr_august2017_data.pdf}
+  \includegraphics[width=0.4\textwidth]{figures/efficiency_study/pt_distance_by_d0_gcr_august2017_data.pdf}\\
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{figures/QCS-R.png}\\
+    \scriptsize{(from Belle 2 Design Report 2010)}
+  \end{center}
+\end{frame}
 
 
 \begin{frame}
