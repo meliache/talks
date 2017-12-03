@@ -1,6 +1,6 @@
 \documentclass[18pt]{beamer}
 \usepackage[utf8]{inputenc}
-\usepackage{templates/mytemplate}
+% \usepackage{templates/mytemplate}
 \usepackage{templates/beamerthemekit}
 \usepackage{graphicx}
 \usepackage{microtype}
@@ -10,7 +10,6 @@
 \usepackage{multicol}
 \usepackage{siunitx}
 \usepackage{physics}
-\usepackage{appendixnumberbeamer}
 \usepackage{booktabs}
 \usepackage{longtable}
 
@@ -39,8 +38,6 @@
     filecolor=magenta,      % color of file links
     urlcolor=kit-blue100           % color of external links
   }
-
-\usepackage{amssymb}
 
 \title{First look at Cosmic CDC Tracks and Ideas for Estimating the Finding Efficiency} 
 \subtitle{F2F Tracking Meeting}
@@ -265,7 +262,7 @@
     \end{center}
   \end{frame}
   
-  \begin{frame}
+  \begin{frame}\label{lastbeforebackup}
     \frametitle{Outlook / TODO}
     \begin{itemize}
     \item get MC information on number of Reco Tracks with \texttt{SplitAfterDeltaT} and use it to test our methods
@@ -275,10 +272,8 @@
     \end{itemize}
   \end{frame}
 
-  \appendix
-  \section{Backupslides}
   \backupbegin
-  
+
   \begin{frame}
     \begin{center}
       \huge Backup
@@ -372,7 +367,7 @@ if (m_splitAfterDeltaT < 0.0) { // no splitting, vector will only contain a sing
       \includegraphics[width=0.46\textwidth]{figures/findeff_phi0_data_mc.png}
     \end{center}
   \end{frame}
-
+  
   \backupend
   
 \end{document}
