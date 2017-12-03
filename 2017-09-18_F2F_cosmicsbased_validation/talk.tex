@@ -12,6 +12,7 @@
 \usepackage{physics}
 \usepackage{booktabs}
 \usepackage{longtable}
+\usepackage{amssymb}
 
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
@@ -57,19 +58,23 @@
   \begin{frame}
     \frametitle{Introduction}
     \begin{itemize}
-    \item first cosmics data from Global Cosmic Run (GCR) 2017 available
-    \item Warmup: Reproduction of kinematic distributions, Sim vs. MC
-    \item Current tracking validation: Matching with MC Truth\\
-      $\Rightarrow$ Is a data-only approach possible?\\
-      $\Rightarrow$ confirmation of MC validation
+    \item First look cosmics data from Global Cosmic Run (GCR) 2017
+    \item Reproduced of kinematic distributions, Data and MC
+    \item Current tracking validation: Based on simulation and matching with MC Truth\\
+      $\Rightarrow$ Is it possible to test the tracking on cosmics \emph{data} without MC truth?\\
+      $\Rightarrow$ Compare with MC validation
     \end{itemize}
   \end{frame}
 
   \begin{frame}
     \frametitle{Used GCR Data and MC}
     \begin{itemize}
-    \item use data from Global Cosmic Run (GCR) taken in July 2017
-    \item use run numbers 3100--3370 (sugggested by Dong Thang)
+    \item first looked at GCR July run
+      \begin{itemize}
+      \item 6.4 Million data events of which I used 2.8 Million
+      \item data used back-to-back TSF trigger condition
+      \item trigger was at first not implemented 
+      \end{itemize}
       $\Rightarrow$ total 2.8\,Million cosmic events with trigger selecting central tracks\\
     \item also produced 50\,Million cosmic MC events with GCR setup
       \begin{itemize}
