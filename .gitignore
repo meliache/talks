@@ -294,3 +294,4 @@ TSWLatexianTemp*
 *_region_.tex
 *.el
 *.el
+/templates/beamerthemekit.sty.orig
