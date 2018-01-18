@@ -23,6 +23,7 @@
 \selectlanguage{english}
 
 \begin{frame}
+  \addtocounter{framenumber}{-1}
   \titlepage
 \end{frame}
 
@@ -50,8 +51,8 @@
     \begin{column}{0.5\textwidth}
       \centering
       Fraction of hits in a reco track
-      \only<1>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack_MC.pdf}}
-      \only<2>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack_MC_annotated.pdf}}
+      % \only<1>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack_MC.pdf}}
+      \only<1>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack_MC_annotated.pdf}}
     \end{column}
   \end{columns}
   \begin{itemize}
@@ -71,8 +72,8 @@
     \begin{column}{0.5\textwidth}
       \centering
       Fraction of hits in a reco track
-      \only<1>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack.pdf}}
-      \only<2>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack_annotated.pdf}}
+      % \only<1>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack.pdf}}
+      \only<1>{\includegraphics[width=1.\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_by_recotrack_annotated.pdf}}
     \end{column}
   \end{columns}
   \begin{itemize}
@@ -90,7 +91,7 @@
     \item Are the reasons known?
     \item Can that be fixed and are there plans?
     \end{itemize}
-  \item Noisy regions:
+  \item Noisy regions
     \begin{itemize}
     \item regions with many unmatched hits, e.g. superlayers 2, 3 and 9
     \item Is that known? Are there ideas, what the reasons might be? Noisy readout? Background?
@@ -98,16 +99,18 @@
   \end{itemize}
 \end{frame}
 
-% \begin{frame}
-%   \begin{center}
-%     \huge Backup
-%   \end{center}
-% \end{frame}
+\begin{frame}
+  \begin{center}
+    \huge Backup
+  \end{center}
+\end{frame}
 
-% \begin{frame}
-%   \frametitle{Hit Efficiencies by Layer}
-
-% \end{frame}
+\begin{frame}
+  \frametitle{Wire Hit Numbers and Track Matching Efficiencies averaged over Layers}
+  \centering
+  \includegraphics[width=0.7\textwidth]{figures/hit_efficiency_by_wire/hits_plotted_by_clayer.png}\\
+  \includegraphics[width=0.7\textwidth]{figures/hit_efficiency_by_wire/hit_ratio_matched_plotted_by_clayer.png}
+\end{frame}
 
 \end{document}
 
