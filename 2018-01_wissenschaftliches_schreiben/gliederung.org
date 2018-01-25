@@ -1,0 +1,25 @@
+* Overview
+- 
+* Update on GCR Data and MC
+* Track Parameter Distribution in August GCR Data and MC (prod. 1)
+* Reminder: Estimation of Finding Efficiency
+* Challenges
+* Sketch / Event Display of Finding Fail Event
+* Approach / Steps
+* Two-track dataset based on MC Truth: Split MC Tracks on MC hit distance
+General Idea, 
+* Distribution of Hit $\Delta t$ for all hits in all tracks} 
+* Trackfinding-independent selection of expected two-track-events
+* Distribution of selection parameters for two- and one-track-events
+* Event displays in different regions
+* Cut unphysical events based on track parameters?
+Cut 
+* Interesting: QCS-R seen in PT difference
+* Efficiency Plots
+* Discussion
+* Outlook
+
+* Backup
+** Kinematic Distributions for Juli GCR
+** MCTrack Splitting Code
+** Code for Splitting Tracks in MC Track Finder
