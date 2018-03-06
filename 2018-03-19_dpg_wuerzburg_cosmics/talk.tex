@@ -1,7 +1,7 @@
 \documentclass[18pt]{beamer}
 \usepackage[utf8]{inputenc}
 \usepackage{templates/mytemplate}
-\usepackage{templates/beamerthemekit}
+% \usepackage{templates/beamerthemekit}
 \usepackage{graphicx}
 \usepackage{microtype}
 \usepackage{listings}
@@ -10,11 +10,12 @@
 \usepackage{multicol}
 \usepackage{siunitx}
 \usepackage{physics}
+\usepackage{appendixnumberbeamer}
 
 \title{Insights into Tracking in the Belle II Drift Chamber from Cosmic Ray Data}
 \subtitle{SUBTITLE}
 \author{Michael Eliachevitch}
-\date{March 18, 2018}
+\date{March 19, 2018}
 \titleimage{transparent}
 \institute{ETP - KIT}
 
@@ -27,7 +28,22 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Tracking at Belle II}
+  \frametitle{The Belle II Experiment}
+  \begin{itemize}
+  \item B-factory in Tsukuba
+  \end{itemize}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{The Belle II Detector}
+  \centering
+  \includegraphics<1>[width=0.7\textwidth]{figures/belle2_detector_mylabels.pdf}p
+  \includegraphics<2->[width=0.7\textwidth]{figures/belle2_detector_mylabels_cdchighlight.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Challenges for Tracking at Belle II}
   % TODO: image of event display
   \includegraphics[width=.5\textwidth]{figures/Y4S_tagsig.pdf}
   \begin{itemize}
@@ -51,22 +67,34 @@
   % image of the belle 2 tracking detectors
 \end{frame}
 
-    
+
 \begin{frame}
-  \frametitle{Belle II Drift Chamber}
+  \frametitle{Cosmic Rays at Belle II}
+  \includegraphics[width=0.5\textwidth]{figures/cdc_finding_fail_diagram.pdf}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Insights into Wire Hit Efficiency and CDC performance}
   
 \end{frame}
 
 \begin{frame}
-  \frametitle{Cosmics at Belle II}
-  \includegraphics[width=0.5\textwidth]{figures/cdc_finding_fail_diagram.pdf}
+  \frametitle{Idea: Finding Efficiency Estimation with Cosmic Rays}
+  
 \end{frame}
 
+\begin{frame}
+  \frametitle{Event Selection}
+  
+\end{frame}
 
+\begin{frame}
+  \frametitle{Results}
+  
+\end{frame}
 
-
+\appendix
 \backupbegin
-
 \begin{frame}
   % \frametitle{Backup-Folien}
   \centering \huge
