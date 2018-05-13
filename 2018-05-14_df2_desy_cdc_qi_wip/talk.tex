@@ -93,12 +93,8 @@
     $\rightarrow$ full quality indicator wanted for analysis
     (\href{https://kds.kek.jp/indico/event/26522/session/10/contribution/75/material/slides/0.pdf}{overview
       talk})
-  \item 
-  
-
-    
-\end{itemize}
-  \end{block}
+  \end{itemize}
+\end{block}
 \end{frame}
 
 \begin{frame}
@@ -124,86 +120,150 @@
 \begin{frame}
   \frametitle{Results with CDC-only tracking}
   \begin{columns}
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.3\textwidth}
       \centering
       \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_primaries.pdf}\\
       \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_with_secondaries.pdf}
     \end{column}
-    \begin{column}{0.5\textwidth}
+    \begin{column}{0.3\textwidth}
       \centering
       \includegraphics[width=1.0\textwidth]{figures/ca_clone_rate.pdf}\\
       \includegraphics[width=1.0\textwidth]{figures/ca_fake_rate.pdf}
     \end{column}
   \end{columns}
-  with cut around 0.5:
-  \begin{itemize}
-  \item finding efficiency with added CA higher than without CA
-  \item fake and clone rate lower than in existing CDC-only tracking
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Results on full tracking,  including VXDTF2 + Kalman}
   \begin{columns}
-    \begin{column}{0.5\textwidth}
-      \centering
-      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_primaries_fullreco.pdf}\\
-      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_with_secondaries_fullreco.pdf}
+    \begin{column}{.4\textwidth}
+      \includegraphics[width=.7\textwidth]{figures/legend_ca_fom_fullreco.pdf}
     \end{column}
-    \begin{column}{0.5\textwidth}
-      \centering
-      \includegraphics[width=1.0\textwidth]{figures/ca_clone_rate_fullreco.pdf}\\
-      \includegraphics[width=1.0\textwidth]{figures/ca_fake_rate_fullreco.pdf}
-    \end{column}
-  \end{columns}
-  \begin{itemize}
-  \item finding efficiency on primaries changes $< \SI{0.5}{\percent}$\\
-    low-$p_T$ tracks found by VXDTF2
-  \item still large increase ($\sim$ \SI{2}{\percent}) with secondaries
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Hit efficiency in full tracking}
-  \begin{columns}
-    \begin{column}{0.7\textwidth}
-      \centering
-      \includegraphics[width=1.0\textwidth]{figures/ca_hit_efficiency_primaries_fullreco.pdf}\\
-    \includegraphics[width=1.0\textwidth]{figures/ca_hit_efficiency_with_secondaries_fullreco.pdf}\\
-\end{column}
-    \begin{column}{0.3\textwidth}
-      \begin{itemize}
-      \item \SI{2}{\percent}--\SI{3}{\percent} increase in hit efficiency
-      \end{itemize}
-
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Track distributions}
-  \begin{block}{Question}
-    \begin{itemize}
-    \item Classifier bias against interesting but rare tracks, e.g. with large impact parameters?
-    \item In which parameter regions are the added/rejected tracks?
-    \end{itemize}
-  \end{block}
-  \begin{columns}
-    \begin{column}{.5\textwidth}
-      \includegraphics[width=1.0\textwidth]{figures/rejected_vs_other_track_distributions_by_found_n_cdc_hits_normed=False_scaleByEvents=True_fullreco.pdf}
-    \end{column}
-    \begin{column}{.5\textwidth}
-      \includegraphics[width=1.0\textwidth]{figures/findeff_secondaries_by_d0_truth_fullreco.pdf}
+    \begin{column}{.6\textwidth}
+      good cut around 0.5: with respect to no CA increased finding efficiency and lower fake and
+      clone rate
     \end{column}
   \end{columns}  
 \end{frame}
 
 \begin{frame}
+  \frametitle{Results on full tracking,  including VXD}
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_primaries_fullreco.pdf}\\
+      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_with_secondaries_fullreco.pdf}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \centering
+      \includegraphics[width=1.0\textwidth]{figures/ca_clone_rate_fullreco.pdf}\\
+      \includegraphics[width=1.0\textwidth]{figures/ca_fake_rate_fullreco.pdf}
+    \end{column}
+  \end{columns}
+  \begin{columns}
+    \begin{column}{.4\textwidth}
+      \includegraphics[width=.7\textwidth]{figures/legend_ca_fom_fullreco.pdf}
+    \end{column}
+    \begin{column}{.6\textwidth}
+       with CA $< \SI{0.5}{\percent}$ improvement on primaries,\\but $> \SI{2}{\percent}$ on secondaries
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hit efficiency in full tracking}
+  \begin{center}
+    \includegraphics[width=.4\textwidth]{figures/ca_hit_efficiency_primaries_fullreco.pdf}
+    \includegraphics[width=.4\textwidth]{figures/ca_hit_efficiency_with_secondaries_fullreco.pdf}\\
+    \includegraphics[width=.3\textwidth]{figures/legend_ca_fom_fullreco.pdf}
+  \end{center}
+  \begin{itemize}
+  \item \SI{2}{\percent}--\SI{3}{\percent} increase in hit efficiency with addition of CA-tracking
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Track distributions}
+
+  \begin{itemize}
+  \item In which parameter regions do we \emph{gain} tracks through CA?
+  \item Where do we \emph{lose} tracks due to cuts on MVA classifier?
+  \item distributions of all tracks (with full tracking):
+  \end{itemize}
+    
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.7\textwidth]{figures/rejected_vs_other_track_distributions_by_found_n_cdc_hits_normed=False_scaleByEvents=True_fullreco.pdf}
+      
+    \end{column}
+    \begin{column}{.5\textwidth}
+      \centering
+\includegraphics[width=.7\textwidth]{figures/rejected_vs_other_track_distributions_by_found_pt_normed=False_scaleByEvents=True_fullreco.pdf}
+
+    \end{column}
+  \end{columns}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+\includegraphics[width=0.7\textwidth]{figures/legend_rejected_vs_other_track_distributions.pdf}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      $\Rightarrow$\\CA finds low-$p_T$ tracks with low number of hits      
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Finding efficiency profiles with full tracking (including secondaries)}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_pt_truth_fullreco.pdf}\\
+      \includegraphics[width=.7\textwidth]{figures/legend_fom_profile.pdf}\\
+      $\Rightarrow$ improvements at low $p_T$ and high perigee
+    \end{column}    
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_d0_truth_fullreco.pdf}\\
+      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_z0_truth_fullreco.pdf}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hit efficiency profiles with full tracking}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.65\textwidth]{figures/hiteff_by_pt_truth_fullreco.pdf}\\
+      \includegraphics[width=.65\textwidth]{figures/hiteff_by_tan_lambda_truth_fullreco.pdf}
+    \end{column}    
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.65\textwidth]{figures/hiteff_by_d0_truth_fullreco.pdf}\\
+      \includegraphics[width=.65\textwidth]{figures/hiteff_by_z0_truth_fullreco.pdf}
+    \end{column}
+  \end{columns}
+  \begin{center}
+    \includegraphics[width=.2\textwidth]{figures/legend_fom_profile.pdf}
+  \end{center}
+
+\end{frame}
+
+\begin{frame}
   \frametitle{Summary and outlook}
   \begin{itemize}
-  \item design the training target, to accurately reflect intentions
-  \item use event-wise features for clone-rejecting classifier
-  \item \greenbold{store quality} indicator in reco tracks from CDC
+    \item Summary
+      \begin{itemize}
+      \item adding CA-tracking increased hit efficiency and finding efficiency on secondaries in
+        full tracking
+      \item problems with clones/fakes can be solves even with naive MVA filter
+      \item classifier also reduces fakes and clones in regular tracking (without CA)
+      \end{itemize}
+    \item Next steps
+      \begin{itemize}
+      \item design of the training target, should better reflect intentions
+      \item look for better input features for classifier, e.g. event-wise variables
+      \item store \greenbold{quality indicator} in reco tracks as input for final track quality
+        indicator\\
+      $\rightarrow$ useful in analysis
+      \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -212,6 +272,81 @@
 \begin{frame}
   \centering \huge
   Backup
+\end{frame}
+
+\begin{frame}
+  \frametitle{Finding efficiency profiles with full tracking on primaries}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \includegraphics[width=.7\textwidth]{figures/findeff_by_pt_truth_fullreco.pdf}\\
+      \includegraphics[width=.7\textwidth]{figures/legend_fom_profile.pdf}\\
+      % $\Rightarrow$ improvements at low $p_T$ and high perigee
+    \end{column}    
+    \begin{column}{.5\textwidth}
+      \includegraphics[width=.7\textwidth]{figures/findeff_by_d0_truth_fullreco.pdf}\\
+      \includegraphics[width=.7\textwidth]{figures/findeff_by_z0_truth_fullreco.pdf}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Clone rate profiles in full tracking}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering    
+      \includegraphics[width=.55\textwidth]{figures/clone_rate_by_pt_truth_fullreco.pdf}\\
+      \includegraphics[width=.55\textwidth]{figures/clone_rate_by_tan_lambda_truth_fullreco.pdf}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.55\textwidth]{figures/clone_rate_by_z0_truth_fullreco.pdf}\\
+      \includegraphics[width=.55\textwidth]{figures/clone_rate_by_d0_truth_fullreco.pdf}
+    \end{column}
+  \end{columns}
+  \begin{center}
+    \includegraphics[width=.25\textwidth]{figures/legend_fom_profile.pdf}\\
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fake rate profiles in full tracking}
+  \begin{columns}
+      \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.55\textwidth]{figures/fake_rate_by_pt_truth_fullreco.pdf}\\
+      \includegraphics[width=.55\textwidth]{figures/fake_rate_by_tan_lambda_truth_fullreco.pdf}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.55\textwidth]{figures/fake_rate_by_z0_truth_fullreco.pdf}\\
+      \includegraphics[width=.55\textwidth]{figures/fake_rate_by_d0_truth_fullreco.pdf}      
+    \end{column}
+  \end{columns}
+  \begin{center}
+    \includegraphics[width=.25\textwidth]{figures/legend_fom_profile.pdf}\\
+  \end{center}  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Hit efficiency profiles on matched hits only}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.65\textwidth]{figures/hiteff_on_matched_by_pt_truth_fullreco.pdf}\\
+      \includegraphics[width=.65\textwidth]{figures/hiteff_on_matched_by_tan_lambda_truth_fullreco.pdf}
+    \end{column}    
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.65\textwidth]{figures/hiteff_on_matched_by_d0_truth_fullreco.pdf}\\
+      \includegraphics[width=.65\textwidth]{figures/hiteff_on_matched_by_z0_truth_fullreco.pdf}
+    \end{column}
+  \end{columns}
+  \begin{center}
+    \includegraphics[width=.2\textwidth]{figures/legend_fom_profile.pdf}
+  \end{center}
+
 \end{frame}
 
 \begin{frame}
