@@ -12,6 +12,7 @@
 \usepackage{booktabs}
 \usepackage{longtable}
 \usepackage{listings}
+\usepackage{upgreek}
 
 \hypersetup{colorlinks, linkcolor=black, urlcolor=kit-blue100}
 
@@ -30,11 +31,11 @@
 
 \title[Track Quality Estimation for CDC Tracking]{Multivariate Quality Estimation for CDC Tracks\\
   -- From Local Tracking to a CDC Quality Indicator}
-% \subtitle{From making CA tracking usable to a full CDC quality indicator}
+\subtitle{From making CA tracking usable to a full CDC quality indicator}
 \author{Michael Eliachevitch}
 \date{30 May 2018}
 \titleimage{tracks_wide}
-\institute{ETP - KIT}
+\institute{ETP -- KIT}
 
 \begin{document}
 \selectlanguage{english}
@@ -99,7 +100,7 @@
     \item implemented, turn on with: \lstinline[language=python, frame=single]{add_cdc_track_finding(with_CA=True)}            
     \end{itemize}
     
-  % \item solution: reject bad tracks \kitgreen{multivariate quality estimator}
+    % \item solution: reject bad tracks \kitgreen{multivariate quality estimator}
   \end{itemize}
   \pause
   \begin{alertblock}{Problem: increased clone and fake rate}
@@ -114,11 +115,18 @@
     \item filter: \textbf{reject ``bad'' tracks} (fakes or clones)\\
       $\rightarrow$ make CA tracking usable
     \item next step: input for full \textbf{track quality indicator (QI)}\\
-    $\rightarrow$ useful for analysis
-    (\href{https://kds.kek.jp/indico/event/26522/session/10/contribution/75/material/slides/0.pdf}{
-      overview talk})
-  \end{itemize}
-\end{block}
+      $\rightarrow$ useful for analysis
+      (\href{https://kds.kek.jp/indico/event/26522/session/10/contribution/75/material/slides/0.pdf}{
+        overview talk})
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{First Y(4S) collision with CA tracking}
+  \begin{center}
+    \includegraphics[width=0.48\textwidth]{figures/first_y4s_ca.png}
+  \end{center}
 \end{frame}
 
 \begin{frame}
@@ -171,17 +179,17 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Results on full tracking,  including VXD}
+  \frametitle{Results on full tracking (including VXD)}
   \begin{columns}
     \begin{column}{0.3\textwidth}
       \centering
-      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_primaries_fullreco.pdf}\\
-      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_with_secondaries_fullreco.pdf}
+      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_primaries_fullreco_trainedWithFakes.pdf}\\
+      \includegraphics[width=1.0\textwidth]{figures/ca_is_matched_with_secondaries_fullreco_trainedWithFakes.pdf}
     \end{column}
     \begin{column}{0.3\textwidth}
       \centering
-      \includegraphics[width=1.0\textwidth]{figures/ca_clone_rate_fullreco.pdf}\\
-      \includegraphics[width=1.0\textwidth]{figures/ca_fake_rate_fullreco.pdf}
+      \includegraphics[width=1.0\textwidth]{figures/ca_clone_rate_fullreco_trainedWithFakes.pdf}\\
+      \includegraphics[width=1.0\textwidth]{figures/ca_fake_rate_fullreco_trainedWithFakes.pdf}
     \end{column}
   \end{columns}
   \begin{columns}
@@ -189,21 +197,33 @@
       \includegraphics[width=.7\textwidth]{figures/legend_ca_fom_fullreco.pdf}
     \end{column}
     \begin{column}{.6\textwidth}
-       with CA $< \SI{0.5}{\percent}$ improvement on primaries,\\but $> \SI{2}{\percent}$ on secondaries
+      with CA very small $< \SI{0.5}{\percent}$ improvement on primaries\\(but $> \SI{2}{\percent}$ on secondaries)
     \end{column}
   \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Hit efficiency in full tracking}
-  \begin{center}
-    \includegraphics[width=.4\textwidth]{figures/ca_hit_efficiency_primaries_fullreco.pdf}
-    \includegraphics[width=.4\textwidth]{figures/ca_hit_efficiency_with_secondaries_fullreco.pdf}\\
-    \includegraphics[width=.3\textwidth]{figures/legend_ca_fom_fullreco.pdf}
-  \end{center}
-  \begin{itemize}
-  \item \SI{2}{\percent}--\SI{3}{\percent} increase in hit efficiency with addition of CA-tracking
-  \end{itemize}
+  
+\begin{columns}
+  \begin{column}{.5\textwidth}
+    \centering
+    \includegraphics[width=.7\textwidth]{figures/ca_hit_efficiency_matched_primaries_fullreco_trainedWithFakes.pdf}
+    
+    \includegraphics[width=.6\textwidth]{figures/legend_ca_fom_fullreco.pdf}
+  \end{column}
+
+  \begin{column}{.5\textwidth}
+    \begin{itemize}
+    \item \SI{2}{\percent} -- \SI{3}\percent increase in hit efficiency with addition of
+      CA-tracking
+      
+    \item reason: pick up CDC hits of low-$p_T$ tracks found in VXD
+    \end{itemize}
+  \end{column}
+\end{columns}    
+
+  
 \end{frame}
 
 \begin{frame}
@@ -212,24 +232,24 @@
   \begin{itemize}
   \item In which parameter regions do we \emph{gain} tracks through CA?
   \item Where do we \emph{lose} tracks due to cuts on MVA classifier?
-  \item distributions of all tracks (with full tracking):
   \end{itemize}
-    
+  
+  in full tracking:
   \begin{columns}
     \begin{column}{.5\textwidth}
       \centering
-      \includegraphics[width=.7\textwidth]{figures/rejected_vs_other_track_distributions_by_found_n_cdc_hits_normed=False_scaleByEvents=True_fullreco.pdf}
+      \includegraphics[width=.7\textwidth]{figures/rejected_vs_other_track_distributions_by_found_n_cdc_hits_normed=False_scaleByEvents=True_fullreco_trainedWithFakes.pdf}
       
     \end{column}
     \begin{column}{.5\textwidth}
       \centering
-\includegraphics[width=.7\textwidth]{figures/rejected_vs_other_track_distributions_by_found_pt_normed=False_scaleByEvents=True_fullreco.pdf}
+      \includegraphics[width=.7\textwidth]{figures/rejected_vs_other_track_distributions_by_found_pt_normed=False_scaleByEvents=True_fullreco_trainedWithFakes.pdf}
 
     \end{column}
   \end{columns}
   \begin{columns}
     \begin{column}{.5\textwidth}
-\includegraphics[width=0.5\textwidth]{figures/legend_rejected_vs_other_track_distributions.pdf}
+      \includegraphics[width=0.5\textwidth]{figures/legend_rejected_vs_other_track_distributions.pdf}
     \end{column}
     \begin{column}{.5\textwidth}
       $\Rightarrow$\\CA finds low-$p_T$ tracks with low number of hits      
@@ -238,18 +258,19 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Finding efficiency profiles with full tracking (including secondaries)}
+  \frametitle{Finding efficiency profiles}
+  in full tracking, including secondaries
   \begin{columns}
     \begin{column}{.5\textwidth}
       \centering
-      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_pt_truth_fullreco.pdf}\\
+      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_pt_truth_fullreco_trainedWithFakes.pdf}\\
       \includegraphics[width=.7\textwidth]{figures/legend_fom_profile.pdf}\\
       $\Rightarrow$ improvements at low $p_T$ and high perigee
     \end{column}    
     \begin{column}{.5\textwidth}
       \centering
-      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_d0_truth_fullreco.pdf}\\
-      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_z0_truth_fullreco.pdf}
+      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_d0_truth_fullreco_trainedWithFakes.pdf}\\
+      \includegraphics[width=.7\textwidth]{figures/findeff_secondaries_by_z0_truth_fullreco_trainedWithFakes.pdf}
     \end{column}
   \end{columns}
 \end{frame}
@@ -259,18 +280,39 @@
   \begin{columns}
     \begin{column}{.5\textwidth}
       \centering
-      \includegraphics[width=.60\textwidth]{figures/hiteff_by_pt_truth_fullreco.pdf}\\
-      \includegraphics[width=.60\textwidth]{figures/hiteff_by_tan_lambda_truth_fullreco.pdf}
+      \includegraphics[width=.60\textwidth]{figures/hiteff_on_matched_by_tan_lambda_truth_trainedWithFakes.pdf}\\
+      \includegraphics[width=.60\textwidth]{figures/hiteff_on_matched_by_tan_lambda_truth_fullreco_trainedWithFakes.pdf}
     \end{column}    
     \begin{column}{.5\textwidth}
       \centering
-      \includegraphics[width=.60\textwidth]{figures/hiteff_by_d0_truth_fullreco.pdf}\\
-      \includegraphics[width=.60\textwidth]{figures/hiteff_by_z0_truth_fullreco.pdf}
+      \includegraphics[width=.60\textwidth]{figures/hiteff_on_matched_by_d0_truth_fullreco_trainedWithFakes.pdf}\\
+      \includegraphics[width=.60\textwidth]{figures/hiteff_on_matched_by_z0_truth_fullreco_trainedWithFakes.pdf}
     \end{column}
   \end{columns}
   \begin{center}
     \includegraphics[width=.2\textwidth]{figures/legend_fom_profile.pdf}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Impact on resolution?}
+  Do additional hits improve the vertex resolution in full tracking?
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{center}
+        \includegraphics[width=0.6\textwidth]{figures/pt_resolution_on_matched_fullreco_trainedWithFakes.pdf}\\
+        \includegraphics[width=0.5\textwidth]{figures/legend_resolution_studies.pdf}
+      \end{center}
+      Sadly, does not seem to have much of an impact.
+    \end{column}
+    
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=0.6\textwidth]{figures/d0_resolution_on_matched_fullreco_trainedWithFakes.pdf}\\
+      \includegraphics[width=0.6\textwidth]{figures/z0_resolution_on_matched_fullreco_trainedWithFakes.pdf}
+    \end{column}
+  \end{columns}
+  
 \end{frame}
 
 \begin{frame}
@@ -331,7 +373,7 @@
       \item \lstinline{empty_s_max}
       \item \lstinline{empty_s_min}
       \item \lstinline{empty_s_sum}
-      % \item \lstinline{has_matching_segment}
+        % \item \lstinline{has_matching_segment}
       \item \lstinline{s_range}
       \end{itemize}      
     \end{column}
@@ -376,7 +418,7 @@
 \begin{frame}
   \frametitle{Fake rate profiles in full tracking}
   \begin{columns}
-      \begin{column}{.5\textwidth}
+    \begin{column}{.5\textwidth}
       \centering
       \includegraphics[width=.55\textwidth]{figures/fake_rate_by_pt_truth_fullreco_trainedWithFakes.pdf}\\
       \includegraphics[width=.55\textwidth]{figures/fake_rate_by_tan_lambda_truth_fullreco_trainedWithFakes.pdf}
@@ -410,6 +452,17 @@
   \begin{center}
     \includegraphics[width=.2\textwidth]{figures/legend_fom_profile.pdf}
   \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{First Y(4S) with CA and (old) MVA filter with cut of 0.5}
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{figures/first_y4s_ca_cut.png}
+  \end{center}
+  \begin{itemize}
+  \item not conclusive, because statistics missing
+  \item WIP image
+  \end{itemize}
 
 \end{frame}
 
