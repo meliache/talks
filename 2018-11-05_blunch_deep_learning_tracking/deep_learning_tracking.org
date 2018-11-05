@@ -1,0 +1,15 @@
+#+TITLE: Novel deep learning methods for track reconstruction
+#+SUBTITLE: B-Lunch talk
+#+AUTHOR: Michael Eliachevitch
+#+DATE: 6th November 2018
+#+OPTIONS: H:1 toc:nil num:nil
+#+LATEX_CLASS: etp-beamer-fancy
+#+LATEX_HEADER: \institute{ETP -- KIT}
+#+STARTUP: beamer
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+
+* First slide
+
+* Second slide
+
+* File local variable :noexport:ARCHIVE:
