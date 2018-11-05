@@ -1,15 +1,44 @@
 #+TITLE: Novel deep learning methods for track reconstruction
-#+SUBTITLE: B-Lunch talk
+#+SUBTITLE: B-Lunch Talk
 #+AUTHOR: Michael Eliachevitch
 #+DATE: 6th November 2018
-#+OPTIONS: H:1 toc:nil num:nil
+#+OPTIONS: H:2 toc:nil num:nil
 #+LATEX_CLASS: etp-beamer-fancy
-#+LATEX_HEADER: \institute{ETP -- KIT}
+#+BEAMER_HEADER: \institute{ETP -- KIT}
 #+STARTUP: beamer
 #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
 
-* First slide
+* Main Slides
+** Introduction
+- main sources
+** Challenges of tracking
 
-* Second slide
+** Jumping onto the ML bandwagon
 
+** Recurrent Neural Networks and LSTMs
+
+** Geometric Neural Networks
+
+** References and Further reading
+# :PROPERTIES:
+# :BEAMER_opt: allowframebreaks
+# :END:
+nocite:Farrell2:2018cjr
+nocite:Farrell:2017ifc
+
+# #+LATEX: \nocite{Farrell2:2018cjr}
+# #+LATEX: \nocite{Farrell:2017ifc}
+#+LATEX: \bibliographystyle{unsrt}
+#+LATEX: \bibliography{index}
+
+* Backup
+#+BEAMER:\backupbegin
+** Backup
+
+* Backupend
+#+BEAMER:\backupend
 * File local variable :noexport:ARCHIVE:
+
+# Local Variables:
+# org-latex-pdf-process: ("latexmk -interaction=nonstopmode -bibtex -output-directory=%o %f")
+# End:
