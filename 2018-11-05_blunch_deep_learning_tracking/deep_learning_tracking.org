@@ -12,37 +12,78 @@
 ** Future challanges of track reconstruction
 ** Using image recognition
 ** Back to space points
-** Recurrent Neural Networks and LSTMs
-*** Simple hit predictor mode
-#+ATTR_LATEX: :width 0.7\textwidth
-[[./figures/rnnFilterModel.png]]
-*** Gaussian hit predictor model
-#+ATTR_LATEX: :width 0.7\textwidth
-[[./figures/rnnGausFilterModel.png]]
-
+** Recurrent neural networks and LSTM's
 ** Kalman Filter
 - Kalman filter principle:
-#+ATTR_LATEX: :width 0.5\textwidth
+#+ATTR_BEAMER: :width 0.5\textwidth
 [[./figures/Basic_concept_of_Kalman_filtering.pdf]]
+** RNN-based hit prediction
+- based on previous hits in sequence, predict next one (regression)
+- architecture: long short-term memory (/LSTM/) layer and fully conctected (FC) layer
+- trained with mean-squared-error loss function
+*** Simple hit predictor model
+#+ATTR_BEAMER: :width .75\textwidth
+[[./figures/rnnFilterModel.png]]
+3D space point sequence \rightarrow 2D next step prediction
+** Results of simple hit predictor
+- prediciton of next hit for example track
+#+ATTR_BEAMER: :width 0.65\textwidth
+[[./figures/rnnFilterTrajectory.png]]
+- residual distributions
+#+ATTR_BEAMER: :width 0.55\textwidth
+[[./figures/rnnFilterResiduals.png]]
+
+** Gaussian model
+- outputs are gaussians PDF's with mean $\hat{\vec{r}}$ and covariance $\Sigma$
+- trained with max. log-likelihood loss function
+  $L(r, \hat{r}, \Sigma) = \log|\Sigma| + (r-\hat{r})^T \Sigma^{-1} (r-\hat{r})$
+- learns to /predict own uncertainty/
+  - important for scoring hits candidates in candidates
+  - intrinsic to Kalman filter
+*** Gaussian hit predictor model
+#+ATTR_BEAMER: :width .75\textwidth
+[[./figures/rnnGausFilterModel.png]]
+** Gaussian model results
+- predictions of gaussian model for example track
+#+ATTR_BEAMER: :width 0.65\textwidth
+[[./figures/rnnGausFilterTrajectory.png]]
+- pull-distribution: good prediction, but non-gaussian features
+#+ATTR_BEAMER: :width 0.55\textwidth
+[[./figures/rnnGausFilterPulls.png]]
+** Track building proof-of-concept
+- simple topology: no B-field, low-occupancy, no Bkg.,  particle-gun
+- seed of three true hits
+- /predict next/ hit with RNN, /select closest/ measured hit to track
+#+ATTR_BEAMER: :width 0.55\textwidth
+[[./figures/rnnFilterTreeSearch.png]]
+- /combinatorial tree search algorithm/ needed for proper tracking
+(like CKF with RNN instead of Kalman)
+** Switch color to red :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \switchcolor{kit-red100}
 ** Graph Neural Networks
+
 
 ** References and Further reading
 nocite:Farrell2:2018cjr
 nocite:Farrell:2017ifc
-#+LATEX: \bibliographystyle{unsrt}
+bibliographystyle:unsrt
 bibliography:index.bib
 
 * Backup
 #+BEAMER:\backupbegin
 ** Backupslide
 
-** Backupend
+** Backupend :B_ignoreheading:
 :PROPERTIES:
-:BEAMER_ENV: ignoreheading
+:BEAMER_env: ignoreheading
 :END:
 #+BEAMER:\backupend
 * File local variable :noexport:ARCHIVE:
 
 # Local Variables:
 # org-latex-pdf-process: ("latexmk -interaction=nonstopmode -bibtex -output-directory=%o %f")
+# eval: (plist-put org-format-latex-options :scale 1.4)
 # End:

@@ -296,3 +296,4 @@ TSWLatexianTemp*
 *.el
 /templates/beamerthemekit.sty.orig
 _region_.*
+ltximg/
