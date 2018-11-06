@@ -295,4 +295,4 @@ TSWLatexianTemp*
 *.el
 *.el
 /templates/beamerthemekit.sty.orig
-_region_.pdf
+_region_.*

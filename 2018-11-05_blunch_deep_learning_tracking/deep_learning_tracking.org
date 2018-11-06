@@ -6,36 +6,40 @@
 #+LATEX_CLASS: etp-beamer-fancy
 #+BEAMER_HEADER: \institute{ETP -- KIT}
 #+STARTUP: beamer
-#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
-
-* Main Slides
+# #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Slides
 ** Introduction
-- main sources
-** Challenges of tracking
-
-** Jumping onto the ML bandwagon
-
+** Future challanges of track reconstruction
+** Using image recognition
+** Back to space points
 ** Recurrent Neural Networks and LSTMs
+*** Simple hit predictor mode
+#+ATTR_LATEX: :width 0.7\textwidth
+[[./figures/rnnFilterModel.png]]
+*** Gaussian hit predictor model
+#+ATTR_LATEX: :width 0.7\textwidth
+[[./figures/rnnGausFilterModel.png]]
 
-** Geometric Neural Networks
+** Kalman Filter
+- Kalman filter principle:
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./figures/Basic_concept_of_Kalman_filtering.pdf]]
+** Graph Neural Networks
 
 ** References and Further reading
-# :PROPERTIES:
-# :BEAMER_opt: allowframebreaks
-# :END:
 nocite:Farrell2:2018cjr
 nocite:Farrell:2017ifc
-
-# #+LATEX: \nocite{Farrell2:2018cjr}
-# #+LATEX: \nocite{Farrell:2017ifc}
 #+LATEX: \bibliographystyle{unsrt}
-#+LATEX: \bibliography{index}
+bibliography:index.bib
 
 * Backup
 #+BEAMER:\backupbegin
-** Backup
+** Backupslide
 
-* Backupend
+** Backupend
+:PROPERTIES:
+:BEAMER_ENV: ignoreheading
+:END:
 #+BEAMER:\backupend
 * File local variable :noexport:ARCHIVE:
 
