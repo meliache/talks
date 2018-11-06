@@ -8,37 +8,63 @@
 #+STARTUP: beamer
 # #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
 * Slides
-** Introduction
-** Future challanges of track reconstruction
-** Using image recognition
+** Deep learning, the future of track reconstruction?
+- /HL-LHC/: expected pileup of 200, with O(10k) particles and O(100k) hits
+- existing track finding (combinatorial seed finding and track buidling) struggles
+  - scales badly with $O(N^2)$ or worse
+  - inherently serial
+- new /HEP.TrkX/ project: explore, whether machine learning can help
+  - models non-linear dependencies
+  - learn effective representations on high-dimensional data through training
+  - parallizes easily, e.g. on GPU's
+** Initial idea: Borrow from image recognition
+- deep learning has been applied very successfully computer vision and image recognition
+- fixed number of features, aligned in euclidean grid
+- learn higher order features via convolutional neural networks
+- first approach: use image-like representation of tracking data cite:Farrell:2017ifc
+#+ATTR_LATEX: :width .75\textwidth
+[[./figures/image_learning.png]]
+
+** Back to space points
+- image recognition algorithms don't scale to realistic HL-LHC conditions with high dimensionality and sparsity
+  - loss of information due to image representation
+  - real detector geometries not "grids"
+- \rightarrow need algorithms which can use the full precision of 3D /space points/ ("hits")
+- two candidates:
+  1. Recurrent neural networks (RNN's)
+  2. Graph neural networks (GNN's)
 ** Switch color                                            :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
 #+BEAMER: \switchcolor{kit-blue100}
-
-** Back to space points
-** Recurrent neural networks and LSTM's
-** Kalman Filter
-- Kalman filter principle:
-#+ATTR_LATEX: :width 0.5\linewidth
-[[./figures/Basic_concept_of_Kalman_filtering.pdf]]
-** RNN-based hit prediction
+** Hit Prediction with recurrent neural networks
+- RNN's useful for predicting/classifying the next item in a sequence, when it depends on the previous items
+  - e.g. very successfully applied prediction of next word, speech recognition etc.
+#+ATTR_LATEX: :width .4\textwidth
+[[./figures/Recurrent_neural_network_unfold.pdf]]
 - based on previous hits in sequence, predict next one (regression)
 - architecture: long short-term memory (/LSTM/) layer and fully conctected (FC) layer
 - trained with mean-squared-error loss function
 *** Simple hit predictor model
-#+ATTR_LATEX: :width .75\linewidth
-[[./figures/rnnFilterModel.png]]
-3D space point sequence \rightarrow 2D next step prediction
+#+ATTR_LATEX: :width .75\textwidth
+[[O./figures/rnnFilterModel.png]]
+
+** Interlude: data used for tests
+- MC data from ACTS cite:1742-6596-898-4-042011 with "generic" HL-LHC detector (image below)
+- events with one hard QCD scattering process and an avarage of 10 soft QCD pileup interactions
+- only tracks with $p > \SI{1}{\GeV}$
+- require that all barrel 10 layers are hit, remove duplicate layer hits
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/trackml_generic_detector.png]]
+
 ** Results of simple hit predictor
 - prediciton of next hit for example track
-#+ATTR_LATEX: :width 0.65\linewidth
+#+ATTR_LATEX: :width 0.65\textwidth
 [[./figures/rnnFilterTrajectory.png]]
 - residual distributions
-#+ATTR_LATEX: :width 0.55\linewidth
+#+ATTR_LATEX: :width 0.55\textwidth
 [[./figures/rnnFilterResiduals.png]]
-
 ** Gaussian model
 - outputs are gaussians PDF's with mean $\hat{\vec{r}}$ and covariance $\Sigma$
 - trained with max. log-likelihood loss function
@@ -47,20 +73,20 @@
   - important for scoring hits candidates in candidates
   - intrinsic to Kalman filter
 *** Gaussian hit predictor model
-#+ATTR_LATEX: :width .75\linewidth
+#+ATTR_LATEX: :width .75\textwidth
 [[./figures/rnnGausFilterModel.png]]
 ** Gaussian model results
 - predictions of gaussian model for example track
-#+ATTR_LATEX: :width 0.65\linewidth
+#+ATTR_LATEX: :width 0.65\textwidth
 [[./figures/rnnGausFilterTrajectory.png]]
 - pull-distribution: good prediction, but non-gaussian features
-#+ATTR_LATEX: :width 0.55\linewidth
+#+ATTR_LATEX: :width 0.55\textwidth
 [[./figures/rnnGausFilterPulls.png]]
 ** Track building proof-of-concept
-- simple topology: no B-field, low-occupancy, no Bkg.,  particle-gun
+- simple topology: no B-field, low-occupancy,  particle-gun
 - seed of three true hits
 - /predict next/ hit with RNN, /select closest/ measured hit to track
-#+ATTR_LATEX: :width 0.55\linewidth
+#+ATTR_LATEX: :width 0.55\textwidth
 [[./figures/rnnFilterTreeSearch.png]]
 - /combinatorial tree search algorithm/ needed for proper tracking
 (like CKF with RNN instead of Kalman)
@@ -72,13 +98,14 @@
 #+BEAMER: \switchcolor{kit-orange100}
 
 ** Graph Neural Networks (GNN's)
-- part of /Geometric Deep Learning/ cite:Bronstein:2016thv
+- part of /Geometric Deep Learning/ cite:Bronstein:2016thv:
+  exploit true geometry of problem domain instead of euclidean grid approach
 - represent hits (space points) as nodes in graph
 - connections (edges) can be restricted with geometric constraints/preprocessing
 - two applications developed
   1. hit classification: Which nodes belong to some track?
   2. segment classification: Which edges correspond to same-track hits?
-#+ATTR_LATEX: :width 0.4\linewidth
+#+ATTR_LATEX: :width 0.4\textwidth
 [[./figures/hitGraphDiagram.png]]
 
 ** Used GNN architecture
@@ -86,9 +113,8 @@
 For each edge, computes the weight based on the features of the two nodes which it connects.
 
 *** NodeNetwork
-For each node, compute the update the features values based on the features of the connected nodes,
-according to the edge weights, and the previous node features.
-
+For each node, aggregates featuress of the connected nodes in the previous and next layer according
+to the edge weights, and the current node features.
 *** end block                                             :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
@@ -97,21 +123,71 @@ according to the edge weights, and the previous node features.
 - applied in alternation
 - /information propagates/ through graph
 - /edges strengthened/weakened/ according to importance
-#+ATTR_LATEX: :width 0.75\linewidth
+#+ATTR_LATEX: :width 0.75\textwidth
 [[./figures/gnnModel.png]]
 
+** Graph hit classification
+- starting from /seed/ (three true hits), classify other hits whether they belong to track
+- ideally, find all hits of /single true track/
+- graph construction
+  - take four hits in each layer around true track
+  - connect all hits on adjacent layers
+- use seven graph iterations with one final node classification layer
+#+ATTR_LATEX: :width 0.4\textwidth
+[[./figures/hit_classification_principle.png]]
+
+** Hit classification results
+- 99.2% purity, 97.9% efficiency, 99.4% accuracy
+- ROC-Curve: excellent separation
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/gnnHitExample.png]]
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/gnnHitPerformance.png]]
+
+** Segment classification
+- classify edges, whether they connect two hits of same track
+- graph construction
+  - $\ang{45}$ cut on $\phi$
+  - $\SI{300}{\mm}$ cut on z
+- use four graph iterations and one final application of edge network
+#+ATTR_LATEX: :width 0.4\textwidth
+[[./figures/segment_classification_principle.png]]
+
+** Segment classification results
+- 99.5% purity, 98.7% efficiency, 99.5O% accuracy
+- ROC-Curve: excellent separation
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/gnnSegExample.png]]
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/gnnSegPerformance.png]]
+** Switch color :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \switchcolor{kit-red100}
+** Summary
+
+- two methods to apply deep learning to tracking with exact space point hit presentations
+- /Recurrent Neural Networks/ similar to Kalman filter, use for track following
+- /Graph Neural Networks/ learn graph presentation of hit data
+  - excellent results on toy data make hope that they scale for more realistic data
+  - "most promising" deep learning solution to address HL-LHC tracking challenge
+- /TODO/
+  - built RNN into combinatorial track tree search akin to CKF and test track-building with
+    full-occupancy data
+  - turn the GNN's into actual track finders, also scale up to realistic data
 
 ** References and Further reading
 nocite:Farrell2:2018cjr
-nocite:Farrell:2017ifc
 bibliographystyle:unsrt
 bibliography:index.bib
 
 * Backup
-#+BEAMER: \switchcolor{kit-red100}
 #+BEAMER:\backupbegin
-** Backupslide
-
+** Kalman Filter
+- Kalman filter principle:
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./figures/Basic_concept_of_Kalman_filtering.pdf]]
 ** Backupend :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
