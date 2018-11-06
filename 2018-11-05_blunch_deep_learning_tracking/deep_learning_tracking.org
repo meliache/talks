@@ -11,26 +11,32 @@
 ** Introduction
 ** Future challanges of track reconstruction
 ** Using image recognition
+** Switch color                                            :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \switchcolor{kit-blue100}
+
 ** Back to space points
 ** Recurrent neural networks and LSTM's
 ** Kalman Filter
 - Kalman filter principle:
-#+ATTR_BEAMER: :width 0.5\textwidth
+#+ATTR_LATEX: :width 0.5\linewidth
 [[./figures/Basic_concept_of_Kalman_filtering.pdf]]
 ** RNN-based hit prediction
 - based on previous hits in sequence, predict next one (regression)
 - architecture: long short-term memory (/LSTM/) layer and fully conctected (FC) layer
 - trained with mean-squared-error loss function
 *** Simple hit predictor model
-#+ATTR_BEAMER: :width .75\textwidth
+#+ATTR_LATEX: :width .75\linewidth
 [[./figures/rnnFilterModel.png]]
 3D space point sequence \rightarrow 2D next step prediction
 ** Results of simple hit predictor
 - prediciton of next hit for example track
-#+ATTR_BEAMER: :width 0.65\textwidth
+#+ATTR_LATEX: :width 0.65\linewidth
 [[./figures/rnnFilterTrajectory.png]]
 - residual distributions
-#+ATTR_BEAMER: :width 0.55\textwidth
+#+ATTR_LATEX: :width 0.55\linewidth
 [[./figures/rnnFilterResiduals.png]]
 
 ** Gaussian model
@@ -41,29 +47,58 @@
   - important for scoring hits candidates in candidates
   - intrinsic to Kalman filter
 *** Gaussian hit predictor model
-#+ATTR_BEAMER: :width .75\textwidth
+#+ATTR_LATEX: :width .75\linewidth
 [[./figures/rnnGausFilterModel.png]]
 ** Gaussian model results
 - predictions of gaussian model for example track
-#+ATTR_BEAMER: :width 0.65\textwidth
+#+ATTR_LATEX: :width 0.65\linewidth
 [[./figures/rnnGausFilterTrajectory.png]]
 - pull-distribution: good prediction, but non-gaussian features
-#+ATTR_BEAMER: :width 0.55\textwidth
+#+ATTR_LATEX: :width 0.55\linewidth
 [[./figures/rnnGausFilterPulls.png]]
 ** Track building proof-of-concept
 - simple topology: no B-field, low-occupancy, no Bkg.,  particle-gun
 - seed of three true hits
 - /predict next/ hit with RNN, /select closest/ measured hit to track
-#+ATTR_BEAMER: :width 0.55\textwidth
+#+ATTR_LATEX: :width 0.55\linewidth
 [[./figures/rnnFilterTreeSearch.png]]
 - /combinatorial tree search algorithm/ needed for proper tracking
 (like CKF with RNN instead of Kalman)
-** Switch color to red :B_ignoreheading:
+
+** Switch color                                            :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
-#+BEAMER: \switchcolor{kit-red100}
-** Graph Neural Networks
+#+BEAMER: \switchcolor{kit-orange100}
+
+** Graph Neural Networks (GNN's)
+- part of /Geometric Deep Learning/ cite:Bronstein:2016thv
+- represent hits (space points) as nodes in graph
+- connections (edges) can be restricted with geometric constraints/preprocessing
+- two applications developed
+  1. hit classification: Which nodes belong to some track?
+  2. segment classification: Which edges correspond to same-track hits?
+#+ATTR_LATEX: :width 0.4\linewidth
+[[./figures/hitGraphDiagram.png]]
+
+** Used GNN architecture
+*** EdgeNetwork
+For each edge, computes the weight based on the features of the two nodes which it connects.
+
+*** NodeNetwork
+For each node, compute the update the features values based on the features of the connected nodes,
+according to the edge weights, and the previous node features.
+
+*** end block                                             :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+- two-layer multi-layers perceptrons (MLP's)
+- applied in alternation
+- /information propagates/ through graph
+- /edges strengthened/weakened/ according to importance
+#+ATTR_LATEX: :width 0.75\linewidth
+[[./figures/gnnModel.png]]
 
 
 ** References and Further reading
@@ -73,6 +108,7 @@ bibliographystyle:unsrt
 bibliography:index.bib
 
 * Backup
+#+BEAMER: \switchcolor{kit-red100}
 #+BEAMER:\backupbegin
 ** Backupslide
 
