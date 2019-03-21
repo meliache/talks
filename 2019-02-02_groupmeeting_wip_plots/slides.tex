@@ -1,0 +1,105 @@
+% Created 2019-02-28 Do 03:39
+% Intended LaTeX compiler: pdflatex
+\documentclass[presentation]{etp-beamer-fancy}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{microtype}
+\usetheme{default}
+\author{Michael Eliachevitch}
+\date{2019-02-28}
+\title{Michael's current WIP}
+\subtitle{ETP B-group meeting}
+\institute{ETP -- KIT}
+\hypersetup{
+ pdfauthor={Michael Eliachevitch},
+ pdftitle={Michael's current WIP},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 25.2.2 (Org mode 9.2)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section*{Slides}
+\label{sec:org361cadc}
+\begin{frame}[label={sec:org08e928c},fragile]{Retraining and revalidating Master thesis results via \texttt{b2luigi}}
+ \texttt{luigi} dependency graph
+\begin{center}
+\includegraphics[width=\textwidth]{./figures/luigi_example_graph.png}
+\end{center}
+\end{frame}
+
+\begin{frame}[label={sec:org249767b},fragile]{Retraining and revalidating Master thesis results via \texttt{b2luigi}}
+ \begin{itemize}
+\item I needed to retrain the old weightfiles for the CDC QI
+\item my old scripts for training and validation needed to be updated (they were a mess)
+\item with my experience from the semitaonic hackathon, I decided to refactor and port them to \texttt{b2luigi}
+\item it was easy to do, the reproducibility helps me to trust my own results and showed that my past results still hold
+\item will definetly use that more, e.g. for testing the full quality indicator and of course in analysis
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org1d0a6ff},fragile]{Redid thesis efficiency plots with efficiencies via \texttt{uncertain\_panda}}
+ \alert{Warning}: here the finding efficiency is with CDC-only tracking, but normalized to primary MC
+ tracks which have hit anywhere in the detector (e.g. VXD only). The jobs with the correct MC
+ matching for the CDC are still running.
+\begin{columns}
+\begin{column}{.33\columnwidth}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./figures/cdc-finding-efficiency-by-cdc-qi-cut.pdf}
+\end{center}
+\end{column}
+
+\begin{column}{.33\columnwidth}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./figures/cdc-clone-rate-by-cdc-qi-cut.pdf}
+\end{center}
+\end{column}
+
+\begin{column}{.33\columnwidth}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./figures/cdc-fake-rate-by-cdc-qi-cut.pdf}
+\end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}[label={sec:org86d8f59}]{ROC Curve}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./figures/cdc-qi_roc_curve.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[label={sec:org1adf287}]{Get going with the merge requests}
+\begin{itemize}
+\item started with CDC QI (\href{https://stash.desy.de/projects/B2/repos/software/pull-requests/3633}{Link})
+\end{itemize}
+\begin{center}
+\includegraphics[width=.9\linewidth]{./figures/merge_request.png}
+\end{center}
+(I shouldn't be so nervous about that)
+\end{frame}
+
+\begin{frame}[label={sec:org431814e}]{Other news}
+\begin{itemize}
+\item enjoyed some of the talks from the KSETA workshop
+\item flavor-physics was presented from theory-side by Marta and Danny van Dyk
+\item how do I delete a talk from the ekp talk page?
+\end{itemize}
+\end{frame}
+\end{document}

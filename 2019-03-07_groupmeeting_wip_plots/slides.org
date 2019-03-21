@@ -1,0 +1,35 @@
+#+TITLE: Michael's current WIP
+#+SUBTITLE: ETP B-group meeting
+#+AUTHOR: Michael Eliachevitch
+#+DATE: 2019-03-07
+#+OPTIONS: H:2 toc:nil num:nil
+#+LATEX_CLASS: etp-beamer-fancy
+#+BEAMER_HEADER: \institute{ETP -- KIT}
+#+STARTUP: beamer
+# #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Slides
+** Redid testing of CDC QI with full tracking
+*** full tracking finding efficiency on primaries                   :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.33
+:END:
+#+ATTR_LATEX: :width \textwidth
+[[./figures/full-finding-efficiency-by-cdc-qi-cut.pdf]]
+[[./figures/full-qi_roc_curve.pdf]]
+*** full tracking finding efficiency on primary and secondary particles
+:PROPERTIES:
+:BEAMER_col: 0.33
+:END:
+#+ATTR_LATEX: :width \textwidth
+[[./figures/full-finding-efficiency-secondaries-by-cdc-qi-cut.pdf]]
+
+** Validation for PR to check for hidden changes
+#+ATTR_LATEX: :width \textwidth
+[[./figures/FullTrackingValidation_Full_finding_efficiency_by_p_t.pdf]]
+
+* File local variable :noexport:ARCHIVE:
+
+# Local Variables:
+# org-latex-pdf-process: ("latexmk -interaction=nonstopmode -bibtex -output-directory=%o %f")
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# End:

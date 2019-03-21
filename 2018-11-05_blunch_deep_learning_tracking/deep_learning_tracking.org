@@ -48,7 +48,7 @@
 - trained with mean-squared-error loss function
 *** Simple hit predictor model
 #+ATTR_LATEX: :width .75\textwidth
-[[O./figures/rnnFilterModel.png]]
+[[./figures/rnnFilterModel.png]]
 
 ** Interlude: data used for tests
 - MC data from ACTS cite:1742-6596-898-4-042011 with "generic" HL-LHC detector (image below)

@@ -1,0 +1,64 @@
+#+TITLE: Michael's current WIP
+#+SUBTITLE: ETP B-group meeting
+#+AUTHOR: Michael Eliachevitch
+#+DATE: 2019-02-28
+#+OPTIONS: H:2 toc:nil num:nil
+#+LATEX_CLASS: etp-beamer-fancy
+#+BEAMER_HEADER: \institute{ETP -- KIT}
+#+STARTUP: beamer
+# #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Slides
+** Retraining and revalidating Master thesis results via =b2luigi=
+=luigi= dependency graph
+#+ATTR_LATEX: :width \textwidth
+[[./figures/luigi_example_graph.png]]
+
+** Retraining and revalidating Master thesis results via =b2luigi=
+- I needed to retrain the old weightfiles for the CDC QI
+- my old scripts for training and validation needed to be updated (they were a mess)
+- with my experience from the semitaonic hackathon, I decided to refactor and port them to =b2luigi=
+- it was easy to do, the reproducibility helps me to trust my own results and showed that my past results still hold
+- will definetly use that more, e.g. for testing the full quality indicator and of course in analysis
+
+** Redid thesis efficiency plots with efficiencies via =uncertain_panda=
+ *Warning*: here the finding efficiency is with CDC-only tracking, but normalized to primary MC
+  tracks which have hit anywhere in the detector (e.g. VXD only). The jobs with the correct MC
+  matching for the CDC are still running.
+*** finding efficiency                                              :BMCOL:
+:PROPERTIES:
+:BEAMER_col: .33
+:END:
+[[./figures/cdc-finding-efficiency-by-cdc-qi-cut.pdf]]
+
+*** clone rate                                                      :BMCOL:
+:PROPERTIES:
+:BEAMER_col: .33
+:END:
+[[./figures/cdc-clone-rate-by-cdc-qi-cut.pdf]]
+
+*** fake rate                                                       :BMCOL:
+:PROPERTIES:
+:BEAMER_col: .33
+:END:
+[[./figures/cdc-fake-rate-by-cdc-qi-cut.pdf]]
+
+
+** ROC Curve
+[[./figures/cdc-qi_roc_curve.pdf]]
+
+** Get going with the merge requests
+- started with CDC QI ([[https://stash.desy.de/projects/B2/repos/software/pull-requests/3633][Link]])
+[[./figures/merge_request.png]]
+(I shouldn't be so nervous about that)
+
+** Other news
+- enjoyed some of the talks from the KSETA workshop
+- flavor-physics was presented from theory-side by Marta and Danny van Dyk
+- how do I delete a talk from the ekp talk page?
+
+* File local variable :noexport:ARCHIVE:
+
+# Local Variables:
+# org-latex-pdf-process: ("latexmk -interaction=nonstopmode -bibtex -output-directory=%o %f")
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# End:

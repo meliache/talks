@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2018-11-06 Di 13:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Novel deep learning methods for track reconstruction</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Michael Eliachevitch" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2018 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Novel deep learning methods for track reconstruction
+<br />
+<span class="subtitle">B-Lunch Talk</span>
+</h1>
+<div id="outline-container-orgcabca22" class="outline-2">
+<h2 id="orgcabca22">Slides</h2>
+<div class="outline-text-2" id="text-orgcabca22">
+</div>
+<div id="outline-container-orgd6a2734" class="outline-3">
+<h3 id="orgd6a2734">Deep learning, the future of track reconstruction?</h3>
+<div class="outline-text-3" id="text-orgd6a2734">
+<ul class="org-ul">
+<li><i>HL-LHC</i>: expected pileup of 200, with O(10k) particles and O(100k) hits</li>
+<li>existing track finding (combinatorial seed finding and track buidling) struggles
+<ul class="org-ul">
+<li>scales badly with \(O(N^2)\) or worse</li>
+<li>inherently serial</li>
+</ul></li>
+<li>new <i>HEP.TrkX</i> project: explore, whether machine learning can help
+<ul class="org-ul">
+<li>models non-linear dependencies</li>
+<li>learn effective representations on high-dimensional data through training</li>
+<li>parallizes easily, e.g. on GPU's</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2c527b6" class="outline-3">
+<h3 id="org2c527b6">Initial idea: Borrow from image recognition</h3>
+<div class="outline-text-3" id="text-org2c527b6">
+<ul class="org-ul">
+<li>deep learning has been applied very successfully computer vision and image recognition</li>
+<li>fixed number of features, aligned in euclidean grid</li>
+<li>learn higher order features via convolutional neural networks</li>
+<li>first approach: use image-like representation of tracking data <a class='org-ref-reference' href="#Farrell:2017ifc">Farrell:2017ifc</a></li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/image_learning.png" alt="image_learning.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf300ea2" class="outline-3">
+<h3 id="orgf300ea2">Back to space points</h3>
+<div class="outline-text-3" id="text-orgf300ea2">
+<ul class="org-ul">
+<li>image recognition algorithms don't scale to realistic HL-LHC conditions with high dimensionality and sparsity
+<ul class="org-ul">
+<li>loss of information due to image representation</li>
+<li>real detector geometries not "grids"</li>
+</ul></li>
+<li>&rarr; need algorithms which can use the full precision of 3D <i>space points</i> ("hits")</li>
+<li>two candidates:
+<ol class="org-ol">
+<li>Recurrent neural networks (RNN's)</li>
+<li>Graph neural networks (GNN's)</li>
+</ol></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-org2329dc8" class="outline-3">
+<h3 id="org2329dc8">Hit Prediction with recurrent neural networks</h3>
+<div class="outline-text-3" id="text-org2329dc8">
+<ul class="org-ul">
+<li>RNN's useful for predicting/classifying the next item in a sequence, when it depends on the previous items
+<ul class="org-ul">
+<li>e.g. very successfully applied prediction of next word, speech recognition etc.</li>
+</ul></li>
+</ul>
+<p>
+<a href="./figures/Recurrent_neural_network_unfold.pdf">./figures/Recurrent_neural_network_unfold.pdf</a>
+</p>
+<ul class="org-ul">
+<li>based on previous hits in sequence, predict next one (regression)</li>
+<li>architecture: long short-term memory (<i>LSTM</i>) layer and fully conctected (FC) layer</li>
+<li>trained with mean-squared-error loss function</li>
+</ul>
+</div>
+<ul class="org-ul">
+<li><a id="org4220c3c"></a>Simple hit predictor model<br />
+<div class="outline-text-4" id="text-org4220c3c">
+
+<div class="figure">
+<p><img src="./figures/rnnFilterModel.png" alt="rnnFilterModel.png" />
+</p>
+</div>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org517feec" class="outline-3">
+<h3 id="org517feec">Interlude: data used for tests</h3>
+<div class="outline-text-3" id="text-org517feec">
+<ul class="org-ul">
+<li>MC data from ACTS <a class='org-ref-reference' href="#1742-6596-898-4-042011">1742-6596-898-4-042011</a> with "generic" HL-LHC detector (image below)</li>
+<li>events with one hard QCD scattering process and an avarage of 10 soft QCD pileup interactions</li>
+<li>only tracks with \(p > \SI{1}{\GeV}\)</li>
+<li>require that all barrel 10 layers are hit, remove duplicate layer hits</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/trackml_generic_detector.png" alt="trackml_generic_detector.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org59cfe41" class="outline-3">
+<h3 id="org59cfe41">Results of simple hit predictor</h3>
+<div class="outline-text-3" id="text-org59cfe41">
+<ul class="org-ul">
+<li>prediciton of next hit for example track</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/rnnFilterTrajectory.png" alt="rnnFilterTrajectory.png" />
+</p>
+</div>
+<ul class="org-ul">
+<li>residual distributions</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/rnnFilterResiduals.png" alt="rnnFilterResiduals.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgdb9c4f1" class="outline-3">
+<h3 id="orgdb9c4f1">Gaussian model</h3>
+<div class="outline-text-3" id="text-orgdb9c4f1">
+<ul class="org-ul">
+<li>outputs are gaussians PDF's with mean \(\hat{\vec{r}}\) and covariance \(\Sigma\)</li>
+<li>trained with max. log-likelihood loss function
+\(L(r, \hat{r}, \Sigma) = \log|\Sigma| + (r-\hat{r})^T \Sigma^{-1} (r-\hat{r})\)</li>
+<li>learns to <i>predict own uncertainty</i>
+<ul class="org-ul">
+<li>important for scoring hits candidates in candidates</li>
+<li>intrinsic to Kalman filter</li>
+</ul></li>
+</ul>
+</div>
+<ul class="org-ul">
+<li><a id="orgf039415"></a>Gaussian hit predictor model<br />
+<div class="outline-text-4" id="text-orgf039415">
+
+<div class="figure">
+<p><img src="./figures/rnnGausFilterModel.png" alt="rnnGausFilterModel.png" />
+</p>
+</div>
+</div>
+</li>
+</ul>
+</div>
+<div id="outline-container-org95902ea" class="outline-3">
+<h3 id="org95902ea">Gaussian model results</h3>
+<div class="outline-text-3" id="text-org95902ea">
+<ul class="org-ul">
+<li>predictions of gaussian model for example track</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/rnnGausFilterTrajectory.png" alt="rnnGausFilterTrajectory.png" />
+</p>
+</div>
+<ul class="org-ul">
+<li>pull-distribution: good prediction, but non-gaussian features</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/rnnGausFilterPulls.png" alt="rnnGausFilterPulls.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-orgaa79124" class="outline-3">
+<h3 id="orgaa79124">Track building proof-of-concept</h3>
+<div class="outline-text-3" id="text-orgaa79124">
+<ul class="org-ul">
+<li>simple topology: no B-field, low-occupancy,  particle-gun</li>
+<li>seed of three true hits</li>
+<li><i>predict next</i> hit with RNN, <i>select closest</i> measured hit to track</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/rnnFilterTreeSearch.png" alt="rnnFilterTreeSearch.png" />
+</p>
+</div>
+<ul class="org-ul">
+<li><i>combinatorial tree search algorithm</i> needed for proper tracking</li>
+</ul>
+<p>
+(like CKF with RNN instead of Kalman)
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6ebbdeb" class="outline-3">
+<h3 id="org6ebbdeb">Graph Neural Networks (GNN's)</h3>
+<div class="outline-text-3" id="text-org6ebbdeb">
+<ul class="org-ul">
+<li>part of <i>Geometric Deep Learning</i> <a class='org-ref-reference' href="#Bronstein:2016thv">Bronstein:2016thv</a>:
+exploit true geometry of problem domain instead of euclidean grid approach</li>
+<li>represent hits (space points) as nodes in graph</li>
+<li>connections (edges) can be restricted with geometric constraints/preprocessing</li>
+<li>two applications developed
+<ol class="org-ol">
+<li>hit classification: Which nodes belong to some track?</li>
+<li>segment classification: Which edges correspond to same-track hits?</li>
+</ol></li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/hitGraphDiagram.png" alt="hitGraphDiagram.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf1c24bc" class="outline-3">
+<h3 id="orgf1c24bc">Used GNN architecture</h3>
+<div class="outline-text-3" id="text-orgf1c24bc">
+</div>
+<ul class="org-ul">
+<li><a id="orgdec0f4a"></a>EdgeNetwork<br />
+<div class="outline-text-4" id="text-orgdec0f4a">
+<p>
+For each edge, computes the weight based on the features of the two nodes which it connects.
+</p>
+</div>
+</li>
+
+<li><a id="org8130a23"></a>NodeNetwork<br />
+<div class="outline-text-4" id="text-org8130a23">
+<p>
+For each node, aggregates featuress of the connected nodes in the previous and next layer according
+to the edge weights, and the current node features.
+</p>
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org609986d" class="outline-3">
+<h3 id="org609986d">Graph hit classification</h3>
+<div class="outline-text-3" id="text-org609986d">
+<ul class="org-ul">
+<li>starting from <i>seed</i> (three true hits), classify other hits whether they belong to track</li>
+<li>ideally, find all hits of <i>single true track</i></li>
+<li>graph construction
+<ul class="org-ul">
+<li>take four hits in each layer around true track</li>
+<li>connect all hits on adjacent layers</li>
+</ul></li>
+<li>use seven graph iterations with one final node classification layer</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/hit_classification_principle.png" alt="hit_classification_principle.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org75ae460" class="outline-3">
+<h3 id="org75ae460">Hit classification results</h3>
+<div class="outline-text-3" id="text-org75ae460">
+<ul class="org-ul">
+<li>99.2% purity, 97.9% efficiency, 99.4% accuracy</li>
+<li>ROC-Curve: excellent separation</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/gnnHitExample.png" alt="gnnHitExample.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="./figures/gnnHitPerformance.png" alt="gnnHitPerformance.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orge26bb3f" class="outline-3">
+<h3 id="orge26bb3f">Segment classification</h3>
+<div class="outline-text-3" id="text-orge26bb3f">
+<ul class="org-ul">
+<li>classify edges, whether they connect two hits of same track</li>
+<li>graph construction
+<ul class="org-ul">
+<li>\(\ang{45}\) cut on \(\phi\)</li>
+<li>\(\SI{300}{\mm}\) cut on z</li>
+</ul></li>
+<li>use four graph iterations and one final application of edge network</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/segment_classification_principle.png" alt="segment_classification_principle.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-orgf04b31b" class="outline-3">
+<h3 id="orgf04b31b">Segment classification results</h3>
+<div class="outline-text-3" id="text-orgf04b31b">
+<ul class="org-ul">
+<li>99.5% purity, 98.7% efficiency, 99.5O% accuracy</li>
+<li>ROC-Curve: excellent separation</li>
+</ul>
+
+<div class="figure">
+<p><img src="./figures/gnnSegExample.png" alt="gnnSegExample.png" />
+</p>
+</div>
+
+<div class="figure">
+<p><img src="./figures/gnnSegPerformance.png" alt="gnnSegPerformance.png" />
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org50db2a3" class="outline-3">
+<h3 id="org50db2a3">Summary</h3>
+<div class="outline-text-3" id="text-org50db2a3">
+<ul class="org-ul">
+<li>two methods to apply deep learning to tracking with exact space point hit presentations</li>
+<li><i>Recurrent Neural Networks</i> similar to Kalman filter, use for track following</li>
+<li><i>Graph Neural Networks</i> learn graph presentation of hit data
+<ul class="org-ul">
+<li>excellent results on toy data make hope that they scale for more realistic data</li>
+<li>"most promising" deep learning solution to address HL-LHC tracking challenge</li>
+</ul></li>
+<li><i>TODO</i>
+<ul class="org-ul">
+<li>built RNN into combinatorial track tree search akin to CKF and test track-building with
+full-occupancy data</li>
+<li>turn the GNN's into actual track finders, also scale up to realistic data</li>
+</ul></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org541d04e" class="outline-3">
+<h3 id="org541d04e">References and Further reading</h3>
+<div class="outline-text-3" id="text-org541d04e">
+<p>
+<a class='org-ref-reference' href="#Farrell2:2018cjr">Farrell2:2018cjr</a>
+
+<h1 class='org-ref-bib-h1'>Bibliography</h1>
+<ul class='org-ref-bib'><li><a id="Farrell:2017ifc">[Farrell:2017ifc]</a> <a name="Farrell:2017ifc"></a>"Farrell & others", The HEP.TrkX Project: deep neural networks for HL-LHC online and offline  tracking, <i>"EPJ Web Conf."</i>, <b>150</b>, 00003 (2017). <a href="http://dx.doi.org/10.1051/epjconf/201715000003">doi</a>.</li>
+<li><a id="1742-6596-898-4-042011">[1742-6596-898-4-042011]</a> <a name="1742-6596-898-4-042011"></a>C Gumpert, A Salzburger, M Kiehn, J Hrdinka, N Calace, ATLAS & Collaboration, ACTS: from ATLAS software towards a common track reconstruction software, <i>Journal of Physics: Conference Series</i>, <b>898(4)</b>, 042011 (2017). <a href="http://stacks.iop.org/1742-6596/898/i=4/a=042011">link</a>.</li>
+<li><a id="Bronstein:2016thv">[Bronstein:2016thv]</a> <a name="Bronstein:2016thv"></a>"Bronstein, Bruna, LeCun, Szlam, & Vandergheynst, Geometric Deep Learning: Going beyond Euclidean data, <i>"IEEE Sig. Proc. Mag."</i>, <b>34(4)</b>, 18-42 (2017). <a href="http://dx.doi.org/10.1109/MSP.2017.2693418">doi</a>.</li>
+<li><a id="Farrell2:2018cjr">[Farrell2:2018cjr]</a> <a name="Farrell2:2018cjr"></a>"Farrell & others", Novel deep learning methods for track reconstruction, in in: "4th International Workshop Connecting The Dots 2018
+                        (CTD2018) Seattle, Washington, USA, March 20-22, 2018", edited by (2018)</li>
+</ul>
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org04a2922" class="outline-2">
+<h2 id="org04a2922">Backup</h2>
+<div class="outline-text-2" id="text-org04a2922">
+</div>
+<div id="outline-container-org05e61e3" class="outline-3">
+<h3 id="org05e61e3">Kalman Filter</h3>
+<div class="outline-text-3" id="text-org05e61e3">
+<ul class="org-ul">
+<li>Kalman filter principle:</li>
+</ul>
+<p>
+<a href="./figures/Basic_concept_of_Kalman_filtering.pdf">./figures/Basic_concept_of_Kalman_filtering.pdf</a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: 6th November 2018</p>
+<p class="author">Author: Michael Eliachevitch</p>
+<p class="date">Created: 2018-11-06 Di 13:04</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
