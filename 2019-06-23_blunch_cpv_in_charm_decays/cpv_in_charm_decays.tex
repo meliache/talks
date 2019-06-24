@@ -12,6 +12,8 @@
 \usepackage{booktabs}
 \usepackage{subcaption}
 \usepackage{blkarray}
+\usepackage{tikz-feynman}
+\usepackage{physics}
 
 \title{Observation of $CP$ violation in charm decays}
 \subtitle{Tracking Meeting}
@@ -37,12 +39,13 @@
       \item Sakharov: theoretical requirement for \kitemph{baryon-asymmetry} of the universe
       \item arises in SM from a \textcolor{kit-red100}{non-vanishing complex phase} for a
         \kitemph{quark mixing} matrix with 3 (\kitemph{$V_{\rm CKM}$}) or more generations
-      \item \kitemph{suppressed for charm}\\$\mathcal{O}(A_{CP}) = 10^{-4} - 10^{-3}$
+      \item \kitemph{suppressed for charm}$\mathcal{O}(A_{CP}) = 10^{-4} - 10^{-3}$
       \end{itemize}
     \end{column}
 
-    \begin{column}{.5\textwidth}
-      \begin{center}
+    \begin{column}{.7\textwidth}
+      \centering
+        \includegraphics[width=0.5\textwidth]{figures/cp_application_feyn.pdf}
         \begin{equation*}
           \begin{blockarray}{cccc}
             \textcolor{kit-green100}{\Pdown} & \textcolor{kit-green100}{\Pstrange} & \textcolor{kit-green100}{\Pbottom}{} \\
@@ -51,13 +54,25 @@
               -\lambda             & 1          & \lambda^2           & \textcolor{kit-green100}{\Pcharm} \\
               -\lambda^3 e^{-i\textcolor{kit-red100}{\phi}} & -\lambda^2 & 1                  & \textcolor{kit-green100}{\Ptop}   \\
             \end{block}
-          \end{blockarray}
+          \end{blockarray}\\
           (\lambda \approx 0.22)
         \end{equation*}
-      \end{center}
-
     \end{column}
   \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reminder: Different types of CPV}
+  \begin{description}
+  \item[\textbf{CPV in decay (direct):}]
+   % \[\frac{\Gamma(M \rightarrow f)}{\Gamma(\bar{M} \rightarrow \bar{f})} =
+   %   \frac{\abs{A_f}^2}{\abs{\bar{A}_\bar{f}}^2} \neq 1\]
+    \[\Gamma(M \rightarrow f) \neq \Gamma(\bar{M} \rightarrow \bar{f})\]
+ \item[\textbf{CPV from mixing (indirect)}]
+   \[\Gamma(M^0 \rightarrow \bar{M}^0) \neq \Gamma(\bar{M}^0 \rightarrow M^0)\]
+ \item[\textbf{CPV from interference of mixing and decay}]
+   \[\Gamma(M^0 \rightarrow f_{CP}) \neq \Gamma(\bar{M}^0 \rightarrow f_{CP})\]
+  \end{description}
 \end{frame}
 
 \begin{frame}
@@ -80,18 +95,16 @@
     \item CPV with \kitemph{up-type quarks}
     \item theory challenge: low-energy QCD
     \end{itemize}
-
   \end{exampleblock}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Reminder: Different sources of CPV}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{The LHCb single-arm forward Spectrometer}
-
+  \frametitle{The LHCb Experiment and used dataset}
+  \begin{itemize}
+  \item specialized flavor-physics experiment at CERN
+  \item single-arm forward spectrometer
+  \item pp@\SI{13}{\TeV}: large cross-section for 
+  \end{itemize}
 \end{frame}
 
 \begin{frame}

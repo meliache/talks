@@ -1,0 +1,183 @@
+#+TITLE: Informal Introduction to Tracking in HEP
+#+AUTHOR: Michael Eliachevitchg
+#+SUBTITLE: KSETA/GK Workshop
+#+DATE: April 2019
+#+OPTIONS: H:2 toc:nil num:nil
+#+LATEX_CLASS: etp-beamer-fancy
+#+BEAMER_HEADER: \institute{ETP -- KIT}
+#+STARTUP: beamer
+# #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Slides
+** What is tracking and why do we need it?
+:PROPERTIES:
+:BEAMER_env: columns
+:END:
+*** Col 1                                                        :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_COL: 0.6
+:END:
+- HEP accelerator: produce particles in collisions
+- goal: reconstruct physically meaningful particle properties and event topology
+  - energy, momentum-vector, primary and secondary vertices, dE/dXn (\rightarrow type;)
+- tracking detectors: measure ionization from charged particles (stable: e, \mu,
+  K, \pi, p)
+- track reconstruction (tracking):
+  - find tracks (pattern recognition)
+  - extract parameters (fitting)
+*** Image of bubble chamber                                      :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_COL: 0.4
+:END:
+[[./figures/fermilab_bubble_chamber_scanner.jpg]]
+** What we measure
+- energy depositions: "hits"
+- 2D measurements: pixel detectors
+- 1D measurements: strip detectors, wire chamber (measurements are times)
+- binary or non-binary information (useful for dE/dX, weighting)
+** Why is difficult? Example: (HL)-LHC
+- pile-up and underlying event \rightarrow large number of tracks from IP
+  - combinatorics + ambiguities
+- lumi + large cross section \rightarrow high event rate \rightarrow little time per event
+- HLLHC: current CPU-time surpasses computing budget
+  - faster algorithms required
+*** Heavy ION CMS event                                          :B_column:
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_env: column
+:END:
+[[./figures/cms_heavy_ion_eventdisplay.png]]
+*** Generic HLLHC pp event                                       :B_column:
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:BEAMER_env: column
+:END:
+[[./figures/trackml_generic_detector.png]]
+** Interlude: Belle II
+- e^{+}e^{-} B-factory operating on the Y(4S) resonance at 11.58 GeV
+- asymmetric beam energies to resolve B decay vertices
+*** C1
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/eplus_eminus_to_b_bar_diagram.pdf]]
+#+ATTR_LATEX: :width \textwidth
+[[./figures/belle2_detector_dpgaachen.pdf]]
+*** C2
+:PROPERTIES:
+:BEAMER_COL: 0.4
+:END:
+[[./figures/belle2_detector_trackingzoom.png]]
+** Tracking subdetectors
+*** CDC
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+[[./figures/my_cdc_wire_configuration_plot.pdf]]
+**** axial
+:PROPERTIES:
+:BEAMER_COL: 0.35
+:END:
+[[./figures/axial_layer_cropped.pdf]]
+**** stereo
+:PROPERTIES:
+:BEAMER_COL: 0.35
+:END:
+[[./figures/stereo_layer_hyperboloid_cropped.pdf]]
+*** VXD
+:PROPERTIES:
+:BEAMER_COL: 0.5
+:END:
+#+ATTR_LATEX: :width .8\textwidth
+[[./figures/vxd_layers_labelled.png]]
+[[./figures/vertexdetector_cropped.jpg]]
+
+** Why is difficult? Example: Belle II
+- Y(4S) decays: only *11 tracks* per event
+- high luminosity \rightarrow large beam-induced background
+  - PXD: *10^4 backkground hits* expected
+- $\sqrt{s} = 10.58 GeV$: *low-momentum* tracks
+- curl in tracking system
+- scattering significant
+- physics panalyzes: require reconstruction of whole event
+** How I learned it
+*** Text
+:PROPERTIES:
+:BEAMER_COL: 0.6
+:END:
+- curvature in B-field allows momentum estimation
+- $p_T = \frac{R}{qB}$, $p_T = p \cos{theta}$
+- estimate curvature from sagitta s
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/tracking_uncertainty_hartmann.png]]
+*** Image
+:PROPERTIES:
+:BEAMER_COL: 0.4
+:END:
+[[./figures/tracking_sagitta_hartmann.png]]
+** How it's done: Local and global algorithms
+- global
+  - take all hits into account at the same
+  - assume helical tracks from IP
+  - stable with backgrounds and gaps in hit pattern
+- local
+  - build track via local relations between hits
+  - can handle large scattering and tracks not from IP
+** Legendre algorithm: Hough Transform
+*** C1                                                           :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_COL: .7
+:END:
+- Legendre algorithm is extension of *Hough Transform*
+  - transform xy-space into \rho\theta-space, where each line is represented as a point
+  - $\rho = x \cos{\theta} + y \sin{\theta}$
+  - for each point in the original space, draw all points in the \rho\theta-space
+    consistent with a line through through that point
+;**** Algorithmus von [[https://de.wikipedia.org/wiki/Hough-Transformation][Wikipedia]]                           :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+begin_src
+ foreach pixel != 0:
+    for theta := 0 to pi:
+       rho := pixel_x * cos(theta)
+              + pixel_y * sin(theta)
+       houghRaum[theta][rho]++
+#+end_src
+*** C2 Star Wars Trench                                          :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_COL: 0.3
+:END:
+[[./figures/deathstar_trench_src.png]]
+[[./figures/deathstar_trench_dst.png]]
+[[./figures/deathstar_trench_hough.png]]
+[[./figures/death-star-trench-hud.png]]
+** Legendre: Linearize circular tracks
+- circles through origin again described by only two parameters (in 2D)
+- do the same thing again
+#+ATTR_LATEX: :width .7\textwidth
+[[./figures/legendre_inverted_plane.png]]
+
+** Legendre
+#+ATTR_LATEX: :width .7\textwidth
+[[./figures/legendre_transform.png]]
+
+** Local: Cellular Automaton
+- search for longest path in graph (DAG) with nodes and edges
+- length = sum of weightes edges and nodes
+- e.g. CDC: nodes are hit triplets, edges from BDT
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/segment_from_triplets.png]]
+** Local: Combinatorial Kalman Filter
+** How it all comes together
+#+ATTR_LATEX: :width .55\textwidth
+[[./figures/full_track_finding_simplified.pdf]]
+** When it works
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/b2phase3_1st_bantib_like_event_cropped.png]]
+*** COMMENT Image of 1st phase3 collisions at Belle II
+** Extra: deep learning approaches to track finding
