@@ -4,7 +4,6 @@
 \usepackage{templates/beamerthemekit}
 \usepackage{graphicx}
 \usepackage{microtype}
-\usepackage{xcolor}
 \usepackage{hyperref}
 \usepackage{siunitx}
 \usepackage{upgreek}
@@ -12,7 +11,7 @@
 \usepackage{appendixnumberbeamer}
 \usepackage{booktabs}
 \usepackage{subcaption}
-
+\usepackage{blkarray}
 
 \title{Observation of $CP$ violation in charm decays}
 \subtitle{Tracking Meeting}
@@ -30,18 +29,59 @@
 
 \begin{frame}
   \frametitle{$CP$ violation in the Standard Model}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item $CP$-violation (CPV): breaking of the invariance with respect to the combined transformation \kitemph{charge
+        conjugation ($C$)} and \kitemph{parity inversion ($P$)}
+      \item Sakharov: theoretical requirement for \kitemph{baryon-asymmetry} of the universe
+      \item arises in SM from a \textcolor{kit-red100}{non-vanishing complex phase} for a
+        \kitemph{quark mixing} matrix with 3 (\kitemph{$V_{\rm CKM}$}) or more generations
+      \item \kitemph{suppressed for charm}\\$\mathcal{O}(A_{CP}) = 10^{-4} - 10^{-3}$
+      \end{itemize}
+    \end{column}
 
+    \begin{column}{.5\textwidth}
+      \begin{center}
+        \begin{equation*}
+          \begin{blockarray}{cccc}
+            \textcolor{kit-green100}{\Pdown} & \textcolor{kit-green100}{\Pstrange} & \textcolor{kit-green100}{\Pbottom}{} \\
+            \begin{block}{(ccc)c}
+              1                    & \lambda    & \lambda^3 e^{i\textcolor{kit-red100}{\phi}} & \textcolor{kit-green100}{\Pup}    \\
+              -\lambda             & 1          & \lambda^2           & \textcolor{kit-green100}{\Pcharm} \\
+              -\lambda^3 e^{-i\textcolor{kit-red100}{\phi}} & -\lambda^2 & 1                  & \textcolor{kit-green100}{\Ptop}   \\
+            \end{block}
+          \end{blockarray}
+          (\lambda \approx 0.22)
+        \end{equation*}
+      \end{center}
+
+    \end{column}
+  \end{columns}
 \end{frame}
 
-
 \begin{frame}
-  \frametitle{History of $CP$ violation}
+  \frametitle{Motivation: Why bother?}
+  \begin{block}{CPV discoveries so far}
+    \begin{description}
+    \item[1956] Wu: Discovery of parity violation
+    \item[1964] Cronin, Fitch: CPV in \PK decays
+    \item[1973] Kobayashi, Mask's: CKM matrix
+    \item[2001] BaBar and Belle: CPV in \PBzero\\
+      $\Rightarrow$ CPV well-established
+    \end{description}
+  \end{block}
+  \pause
+  \begin{exampleblock}{Motivation for charm studies}
+    \begin{itemize}
+    \item CPV \kitemph{too low in SM} to explain baryon-asymmetry\\
+      $\rightarrow$ NP contributions?
+    \item small SM CPV in charm $\rightarrow$ \kitemph{sensitive to NP}
+    \item CPV with \kitemph{up-type quarks}
+    \item theory challenge: low-energy QCD
+    \end{itemize}
 
-\end{frame}
-
-\begin{frame}
-  \frametitle{Why bother to look for $CP$ violation in the charm sector?}
-
+  \end{exampleblock}
 \end{frame}
 
 \begin{frame}
@@ -60,8 +100,43 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Analysis strategy:  $\Delta A_{CP}$?}
+  \frametitle{Analysis strategy: What is $\Delta A_{CP}$ and why use it?}
 
+\end{frame}
+
+\begin{frame}
+  \frametitle{{\PDzero}/{\APDzero} flavor tagging}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Event selection}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fitting method}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fit results}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Systematic uncertainties}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{Results}
+  
+\end{frame}
+
+\begin{frame}
+  \frametitle{SM comparison}
+  
 \end{frame}
 
 \end{document}
