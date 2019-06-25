@@ -195,40 +195,175 @@
       \item[$\frac{\Delta\left<t\right>}{\tau(\PDzero)}$:] \textcolor{kit-green100}{$\approx 0.1$}, diff. in mean reconstructed
         $\PDzero \rightarrow \hh$ decay times normalized to \PDzero lifetime
       \item[$A_\Gamma$:] asymmetry of $\PDzero/\APDzero \rightarrow \hh$ effective decay widths,
-        \textcolor{kit-green100}{$\matchcal{O}(10^{-6})$ in SM}
+        \textcolor{kit-green100}{$\mathcal{O}(10^{-4})$ in SM}
       \end{description}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Event selection}
+  \frametitle{Event selection: Fiducial requirements}
+  \begin{columns}
+    \begin{column}{.65\textwidth}
+        \begin{itemize}
+        \item exclude kinematic regions, where tagging pions of only a specific charge curve out of the acceptance
+        \item high $A_D$ $\Rightarrow$ raw asymmetry close to 100\%
+        \end{itemize}
+    \end{column}
+    \begin{column}{.35\textwidth}
+      \includegraphics[width=\textwidth]{figures/charm_cpv_fiducial_sketch.png}
+    \end{column}
+  \end{columns}
+
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      soft pions \textbf{leave outer acceptance}
+      \includegraphics[width=.7\textwidth]{figures/charm_cpv_fiducial_outer.pdf}
+    \end{column}
+    \begin{column}{.5\textwidth}
+      soft pions enter \textbf{beam-pipe}
+      \includegraphics[width=.7\textwidth]{figures/charm_cpv_fiducial_beampipe.pdf}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Reweighting of kinematic distributions}
+  \begin{itemize}
+  \item $A_D$ and $A_P$ depend on kinematics
+  \item might not cancel well if kin.\ distributions of $\PDzero\rightarrow f$ differ for
+    $f = \PKplus\PKminus$ and $f = \Ppiplus\Ppiminus$
+  \item $\Rightarrow$ \kitemph{event-by-event reweighting} of $\PKplus\PKminus$ sample in $p_T$,
+    $\eta$, $\phi$ of \PDstarplus / \PDzero
+  \item result: effect on $\Delta A_{CP}$ below $10^{-4}$
+  \end{itemize}
+  \centering
+  \includegraphics[width=\textwidth]{figures/charm_cpv_reweighting.png}
+\end{frame}
+
+\begin{frame}
+  \frametitle{$A_{\rm raw}$ measurement: Fit of mass distributions}
+  \begin{itemize}
+  \item extract $A_{\rm raw}$ signal by simultaneous least-squares fits of \kitemph{binned mass distributions}
+  \item advantage: distributions the same for \PKplus\PKminus and \Ppiplus\Ppiminus
+  \item \textbf{\Ppi tagged}
+    \begin{itemize}
+    \item simultaneous fit of $m(\PDzero\Ppiplus)$ and $m(\APDzero\Ppiminus)$
+    \item $A_{\rm raw}$ parameter shared
+    \item signal mass model: sum of 3 gaussians and Johnson $S_U$ function (``asymm. gaussian'') 
+    \item background: empirical function of two free parameters
+    \end{itemize}
+      \item \textbf{\Pmu tagged}
+    \begin{itemize}
+    \item simultaneous fit of $m(\PDzero)$ and $m(\APDzero)$
+    \item $A_{\rm raw}$ parameter shared
+    \item signal mass model: sum of 2 gaussians convolved with truncated power law for FSR
+    \item background: exponential function
+    \item feed-down from \PKplus\Ppiminus modeled as tail of additional gaussian
+    \end{itemize}
+  \end{itemize}
   
 \end{frame}
 
 \begin{frame}
-  \frametitle{Fitting method}
-  
+  \frametitle{Fit results: \Ppi tagged}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \textbf{\PKplus\PKminus final states}
+      \includegraphics[width=.7\textwidth]{figures/charm_cpv_fit_pitagged_KK.pdf}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \centering
+            \textbf{\Ppiplus\Ppiminus final states}
+      \includegraphics[width=.7\textwidth]{figures/charm_cpv_fit_pitagged_pipi.pdf}
+    \end{column}
+  \end{columns}
+  \begin{itemize}
+  \item 44 and 14 million \PKplus\PKminus and \Ppiplus\Ppiminus events, respectively
+  \end{itemize}
+
 \end{frame}
 
 \begin{frame}
-  \frametitle{Fit results}
-  
+  \frametitle{Fit: \Pmu tagged}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \textbf{\PKplus\PKminus final states}
+      \includegraphics[width=.7\textwidth]{figures/charm_cpv_fit_mutagged_KK.pdf}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \centering
+            \textbf{\Ppiplus\Ppiminus final states}
+      \includegraphics[width=.7\textwidth]{figures/charm_cpv_fit_mutagged_pipi.pdf}
+    \end{column}
+  \end{columns}
+    \begin{itemize}
+  \item 9 and 3 million \PKplus\PKminus and \Ppiplus\Ppiminus events, respectively
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Systematic uncertainties}
-  
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \begin{itemize}
+      \item \textbf{\Ppi-tagged systematics} dominated by
+        \begin{itemize}
+        \item fit model\\
+          (from from fitting alternative models to toy-MC)
+        \item misreconstructed background peaking in $m(\PDzero\Ppiplus)$ and not in $m(\PDzero)$\\
+          (from yield and asymmetries of backgrounds on $m(\PDzero)$ distributions)
+        \end{itemize}
+      \item \textbf{\Pmu-tagged systematics} dominated by
+        \begin{itemize}
+        \item mistag: wrong muon\\
+          from \PKminus\Ppiplus control sample
+        \item \PB reconstruction efficiency as function of decay time between \PKplus\PKminus and
+          \Ppiplus\Ppiminus, might worsen cancellation of $A_P$
+        \end{itemize}
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \includegraphics[width=\textwidth]{figures/charm_cpv_systematics.pdf}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}
   \frametitle{Results}
-  
+  \begin{eqnarray*}
+    \Delta A_{CP}^{\Ppi-\mathrm{tagged}} & = & \left[-18.2 \pm 3.2 (\mathrm{stat.}) \pm 0.9
+                                               (\mathrm{syst.} )\right] \times 10^{-4} \\
+    \Delta A_{CP}^{\Pmu-\mathrm{tagged}} & = & \left[-9 \pm 8 (\mathrm{stat.}) \pm 5
+                                               (\mathrm{syst.} )\right] \times 10^{-4} \\
+  \end{eqnarray*}
+
+  \begin{block}{Combined}
+    \begin{equation*}
+          \Delta A_{CP} = \left(-15.4 \pm 2.9)\right) \times 10^{-4}
+        \end{equation*}
+        \begin{itemize}
+        \item \kitemph{5.3$\sigma$} significance for deviation from 0
+        \item at upper end but compatible with SM
+        \end{itemize}
+\end{block}
+With $A_\Gamma$ and $\Delta <t>$ from LHCb averages and world average \PDzero lifetime:
+\begin{equation*}
+  \Delta a_{CP}^{\rm dir} = \left(-15.7 \pm 2.9\right) \times 10^{-4} \Rightarrow \text{mostly direct CPV}
+\end{equation*}
+
 \end{frame}
 
 \begin{frame}
-  \frametitle{SM comparison}
+  \frametitle{Thanks for listening}
   
 \end{frame}
+
 
 \end{document}
 
