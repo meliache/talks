@@ -8,6 +8,7 @@
 \usepackage{siunitx}
 \usepackage{upgreek}
 \usepackage{hepnames}
+\usepackage{hepparticles}
 \usepackage{appendixnumberbeamer}
 \usepackage{booktabs}
 \usepackage{subcaption}
@@ -25,6 +26,9 @@
 \date{25 June 2019}
 
 \newcommand{\kitemph}[1]{\textcolor{kit-green100}{\bf{#1}}}
+
+\newcommand{\PDstarplus}{\HepParticle{D}{}{*+}}
+\newcommand{\hh}{h^+h^-}
 
 \begin{document}
 \maketitle
@@ -45,7 +49,7 @@
 
     \begin{column}{.7\textwidth}
       \centering
-        \includegraphics[width=0.5\textwidth]{figures/cp_application_feyn.pdf}
+      \includegraphics[width=0.5\textwidth]{figures/cp_application_feyn.pdf}
         \begin{equation*}
           \begin{blockarray}{cccc}
             \textcolor{kit-green100}{\Pdown} & \textcolor{kit-green100}{\Pstrange} & \textcolor{kit-green100}{\Pbottom}{} \\
@@ -54,9 +58,9 @@
               -\lambda             & 1          & \lambda^2           & \textcolor{kit-green100}{\Pcharm} \\
               -\lambda^3 e^{-i\textcolor{kit-red100}{\phi}} & -\lambda^2 & 1                  & \textcolor{kit-green100}{\Ptop}   \\
             \end{block}
-          \end{blockarray}\\
-          (\lambda \approx 0.22)
+          \end{blockarray}
         \end{equation*}
+        ($\lambda \approx 0.22$)
     \end{column}
   \end{columns}
 \end{frame}
@@ -80,9 +84,10 @@
   \begin{block}{CPV discoveries so far}
     \begin{description}
     \item[1956] Wu: Discovery of parity violation
-    \item[1964] Cronin, Fitch: CPV in \PK decays
+    \item[1964] Cronin, Fitch: CPV in \PK decays (mixing)
     \item[1973] Kobayashi, Mask's: CKM matrix
-    \item[2001] BaBar and Belle: CPV in \PBzero\\
+    \item[1999] NA31/48, KTeV: Direct CPV in \PK decays
+    \item[2001] BaBar and Belle: CPV in $\PBzero \rightarrow \PJpsi\PKshort$\\
       $\Rightarrow$ CPV well-established
     \end{description}
   \end{block}
@@ -99,27 +104,100 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{The LHCb Experiment and used dataset}
+  \frametitle{The LHCb Experiment}
+  \begin{columns}
+    \begin{column}{0.45\textwidth}
+      \begin{itemize}
+      \item ``single-arm forward spectrometer''
+      \item $pp$ @ \SI{13}{\TeV}: large cross-section for \PB and \PD-meson production
+      \item large boosts $\rightarrow$ displaced vertices
+      \item good PID capabilities
+      \item analysis used \SI{5.9}{\per\femto\barn}
+      \item triggers: 1 hardware, 2 software (``turbo stream'' online reco)
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.55\textwidth}
+      \includegraphics[width=\textwidth]{figures/Lhcbview.jpg}
+    \end{column}
+  \end{columns}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Tagged  $\PDzero \rightarrow \PKplus\PKminus/\Ppiplus\Ppiminus$ decays at LHCb}
+  \begin{columns}
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.5\textwidth]{figures/D0_to_hh_decays_at_lhcb_pitagged.pdf}\\
+      \textbf{\Ppi tagged}\\
+      \begin{itemize}
+      \item prompt decays $\PDstarplus \rightarrow \Ppiplus\PDzero(\rightarrow h^+h^-)$
+      \item kaons/pions from \PDzero form displaced vertex
+      \item pion charge determines flavor, forms \PDstarplus vertex at primary vertex
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.5\textwidth}
+      \centering
+      \includegraphics[width=.6\textwidth]{figures/D0_to_hh_decays_at_lhcb_mutagged.pdf}\\
+      \textbf{\Pgm tagged}\\
+      \begin{itemize}
+      \item semileptonic \PB decays $\PBminus \rightarrow \Pgm\APnum\PDzero(\rightarrow h^+h^-)$
+      \item muon paired with \PDzero at displaced vertex tags flavor
+      \item $m_{\rm corr}$ is the \PDzero\Pmuon mass corrected for the missing neutrino $p_T$
+      \end{itemize}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame} \frametitle{Measuring charge asymmetry}
+\begin{itemize}
+\item CP asymmetry (time-integrated)
+\begin{equation*}
+  \textcolor{kit-green100}{A_{CP}(\PDzero \rightarrow \hh)} = \frac{\Gamma(\PDzero \rightarrow \hh) - \Gamma(\APDzero \rightarrow \hh)}{\Gamma(\PDzero \rightarrow \hh) + \Gamma(\APDzero \rightarrow \hh)}
+\end{equation*}
+\item Raw measured asymmetry
+  \begin{eqnarray*}
+  A_{\rm raw}(\PDzero \rightarrow \hh) & = & \frac{N(\PDzero \rightarrow \hh) - N(\APDzero \rightarrow
+                                         \hh)}{N(\PDzero \rightarrow \hh) + N(\APDzero \rightarrow
+                                         \hh)}\\
+                                       & \approx & \textcolor{kit-green100}{A_{CP}(\PDzero \rightarrow \hh)} + \textcolor{kit-red100}{A_D(\Ppi/\Pmu)}
+                                                   + \textcolor{kit-blue100}{A_P(\PDstar/\PBminus)}
+  \end{eqnarray*}
   \begin{itemize}
-  \item specialized flavor-physics experiment at CERN
-  \item single-arm forward spectrometer
-  \item pp@\SI{13}{\TeV}: large cross-section for 
+  \item \textcolor{kit-red100}{$A_D$ detection asymmetries:} charge-dependent reconstruction
+    efficiencies for pions/muons
+  \item \textcolor{kit-blue100}{$A_P$ production asymmetries:} from hadronization asymmetries of \PDstar and
+    \Pbottom in $pp$-collisions
   \end{itemize}
+\end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{$\PDzero \rightarrow h^+h^- (h \in {\PK, \Pgp})$ decays at LHCb}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Analysis strategy: What is $\Delta A_{CP}$ and why use it?}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{{\PDzero}/{\APDzero} flavor tagging}
-  
+  \frametitle{What is measured: $\Delta A_{CP}$}
+  \begin{itemize}
+  \item detection and production asymmetries \kitemph{cancel in difference}
+    \textcolor{kit-green100}{
+    \begin{eqnarray*}
+      \Delta A_{CP} & = & A_{CP}(\PKplus\PKminus) - A_{CP}(\Ppiplus\Ppiminus) \\
+                      & \approx & A_{\rm raw}(\PKplus\PKminus) - A_{\rm raw}(\Ppiplus\Ppiminus)
+    \end{eqnarray*}
+}
+  \item Interpretation: Approx. the CP asymmetry in first order via
+    \begin{equation*}
+      A_{CP}(f)  \approx  a_{CP}^{\rm dir}(f) -
+      \frac{\left<t(f)\right>}{\tau(\PDzero)}A_\Gamma(f)
+      \Rightarrow \textcolor{kit-green100}{\Delta A_{CP}   \approx  \Delta a_{CP}^{\rm dir} -
+        \frac{\Delta\left<t\right>}{\tau(\PDzero)}A_\Gamma}
+    \end{equation*}
+      \begin{description}
+      \item[$\Delta a_{CP}^{\rm dir}$:] difference in \kitemph{direct CP asymmetry}
+      \item[$\frac{\Delta\left<t\right>}{\tau(\PDzero)}$:] \textcolor{kit-green100}{$\approx 0.1$}, diff. in mean reconstructed
+        $\PDzero \rightarrow \hh$ decay times normalized to \PDzero lifetime
+      \item[$A_\Gamma$:] asymmetry of $\PDzero/\APDzero \rightarrow \hh$ effective decay widths,
+        \textcolor{kit-green100}{$\matchcal{O}(10^{-6})$ in SM}
+      \end{description}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
