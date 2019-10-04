@@ -1,0 +1,46 @@
+#+TITLE: Michael Eliachvitch -- Introduction
+#+SUBTITLE: BAMM!
+#+AUTHOR: Michael Eliachevitch
+#+DATE: 10th November 2019
+#+OPTIONS:  toc:nil num:nil title:nil
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [8pt, numbering=none]
+#+BEAMER_HEADER: \institute{formerly KIT--ETP, now Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=mDarkBrown}
+#+BEAMER_THEME: metropolis
+# #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* BAMM! Introduction: Michael Eliachevitch -- Tracking $\rightarrow R(D^{(*)})$
+#+BEAMER: \thispagestyle{empty} \centering
+BAMM! meeting, 7th October 2019
+** Textcolumn                                                     :B_column:
+:PROPERTIES:
+:BEAMER_COL: 0.7
+:BEAMER_env: column
+:END:
+- *Mini-CV:*
+  - Did all my studies so far at KIT. Started at Belle II with my masters in
+    tracking: cosmics data studies and [[https://confluence.desy.de/display/BI/MVA+Track+Quality+Indicator][MVA track quality estimation]]
+  - Ph.D. candidate at KIT since 2019-09-15: Finished quality indicator,
+    some ACTS tracking service work, teaching/admin. More info at [[https://www-kseta.ttp.kit.edu/fellows/Michael.Eliachevitch][KSETA page]].
+- *Ph.D. topic:* Transition from tracking to analysis, work on $R(D^{(*)})$ with Max' and Felix
+  Metzners framework on Belle II data
+- *Move to Bonn:* Currently doing home-office from KIT and looking for an
+  apparment. Will move when I have it, aiming to do that this year (Nov./Dec.)
+- *Contact:* [[mailto:michael.eliachevitch@desy.de][michael.eliachevitch@desy.de]] (current recommendation) [[mailto:m.eliachevitch@gmx.net][m.eliachevitch@gmx.net]] (private),
+  [[mailto:michael.eliachevitch@kit.edu][michael.eliachevitch@kit.edu]] (until 2019-11-01)\\
+- *Hobbies:* Judo, Climbing/Bouldering (looking for partners in Bonn),
+  science and coding, customizing emacs
+** Image column                                                   :B_column:
+:PROPERTIES:
+:BEAMER_COL: 0.3
+:BEAMER_env: column
+:END:
+
+#+ATTR_LATEX: :width \textwidth
+[[file:figures/me_from_alcatraz_with_SF_in_bkg_cut.jpg]]
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# org-latex-pdf-process: ("latexmk -interaction=nonstopmode -bibtex -output-directory=%o %f")
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:
