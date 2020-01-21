@@ -1,0 +1,43 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{metropolisbonn}[2020-01-21 Metropolis theme with Uni Bonn
+colors and some other personal tweaks by Michael Eliachevitch]
+
+% use metropolis theme as base
+% see https://github.com/matze/mtheme
+\usetheme{metropolis}
+
+% some customizations of metropolis theme
+\metroset{numbering=fraction, progressbar=foot, block=fill}
+
+\RequirePackage[utf8]{inputenc}
+
+% Change font to Calibri clone Carlito, b/c Calibri is offical Bonn font
+% This requires compilations with lualatex or xelatex
+\RequirePackage{fontspec}
+\setsansfont{Carlito}
+
+\RequirePackage[english, ngerman]{babel}
+
+% nicer typography
+\RequirePackage[babel]{microtype}
+
+% use for units
+\RequirePackage{siunitx}
+
+% for table separators
+\RequirePackage{booktabs}
+
+% for code blocks
+\RequirePackage{listings}
+
+% Define some Bonn colors according to 
+% https://www.uni-bonn.de/einrichtungen/universitaetsverwaltung/organisationsplan/dezernat-8/hochschulkommunikation/ubo_manual_12032018.pdf
+\definecolor{bonnblue}{RGB}{7, 82, 154}
+\definecolor{bonnyellow}{RGB}{234, 185, 12}
+\definecolor{bonnunigrau}{RGB}{144,144,133 }
+\definecolor{bonntextgrau}{RGB}{77, 77, 77}
+
+\setbeamercolor{frametitle}{fg=bonnyellow, bg=bonnblue}
+\setbeamercolor{progress bar}{fg=bonnyellow, bg=bonnunigrau}
+\setbeamercolor{normal text}{fg=bonntextgrau}
+\setbeamercolor{alerted text}{fg=bonnyellow}
