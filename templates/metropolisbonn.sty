@@ -11,12 +11,12 @@ colors and some other personal tweaks by Michael Eliachevitch]
 
 \RequirePackage[utf8]{inputenc}
 
+\RequirePackage{amsmath, amsfonts, amssymb} % Mathesymbole usw.
+
 % Change font to Calibri clone Carlito, b/c Calibri is offical Bonn font
-% This requires compilations with lualatex or xelatex
+% This requires compilations with xetex
 \RequirePackage{fontspec}
 \setsansfont{Carlito}
-
-\RequirePackage[english, ngerman]{babel}
 
 % nicer typography
 \RequirePackage[babel]{microtype}
@@ -41,3 +41,6 @@ colors and some other personal tweaks by Michael Eliachevitch]
 \setbeamercolor{progress bar}{fg=bonnyellow, bg=bonnunigrau}
 \setbeamercolor{normal text}{fg=bonntextgrau}
 \setbeamercolor{alerted text}{fg=bonnyellow}
+
+\RequirePackage{graphicx}
+\RequirePackage[absolute,overlay]{textpos}

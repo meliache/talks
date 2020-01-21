@@ -2,7 +2,7 @@
 #+SUBTITLE: BAMM! Meeting
 #+AUTHOR: Michael Eliachevitch
 #+DATE: \today
-#+LATEX_COMPILER: lualatex
+#+LATEX_COMPILER: xelatex
 #+OPTIONS:  toc:nil num:nil title:t
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [12pt]
@@ -11,7 +11,6 @@
 #+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
 #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
 * Introduction
-
 * Slide 2
 * Slide 3
 * Hello Max
@@ -19,6 +18,7 @@
 
 * Local variables                                          :noexport:ARCHIVE:
 # Local Variables:
+# TeX-engine: xetex
 # eval: (plist-put org-format-latex-options :scale 1.4)
 # eval: (org-beamer-mode 1)
 # End:
