@@ -1,0 +1,35 @@
+#+TITLE: Analysisplans $R(D^{(*)})$
+#+SUBTITLE: BAMM! Meeting
+#+AUTHOR: Michael Eliachevitch
+#+DATE: \today
+#+LATEX_COMPILER: lualatex
+#+OPTIONS:  toc:nil num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=mDarkBrown}
+#+BEAMER_THEME: metropolis
+#+BEAMER_HEADER: \metroset{numbering=fraction, progressbar=foot, block=fill}
+#+BEAMER_HEADER: \usepackage{fontspec}
+#+BEAMER_HEADER: \setsansfont{Carlito}
+#+BEAMER_HEADER: \definecolor{blue100}{RGB}{7, 82, 154}
+#+BEAMER_HEADER: \definecolor{yellow100}{RGB}{234, 185, 12}
+#+BEAMER_HEADER: \definecolor{unigrau}{RGB}{144,144,133 }
+#+BEAMER_HEADER: \definecolor{textgrau}{RGB}{77, 77, 77}
+#+BEAMER_HEADER: \setbeamercolor{frametitle}{bg=blue100}
+#+BEAMER_HEADER: \setbeamercolor{progress bar}{fg=yellow100, bg=unigrau}
+#+BEAMER_HEADER: \setbeamercolor{normal text}{fg=textgrau}
+#+BEAMER_HEADER: \setbeamercolor{alerted text}{fg=yellow100}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Introduction
+
+* Slide 2
+* Slide 3
+* Hello Max
+* asdfasdf
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:
