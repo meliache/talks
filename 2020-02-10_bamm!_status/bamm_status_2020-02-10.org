@@ -1,0 +1,63 @@
+#+STARTUP: showall
+#+TITLE: Status report
+#+SUBTITLE: BAMM! Meeting
+#+AUTHOR: Michael Eliachevitch
+#+DATE: \today
+#+LATEX_COMPILER: xelatex
+#+OPTIONS:  toc:t num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 18pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}}
+#+BEAMER_HEADER: \newcommand{\rdstar}{R\left(\PDmstar\right)}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}}, stringstyle=\color{bonnyellow},
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Overview of things I did last week
+1. fix B_{sig} in last weeks reconstruction of $B \rightarrow D (\rightarrow K\pi\pi) \ell \nu_{\ell}$
+2. reconstruct that on grid with 100 fb^{-1} of MC13
+3. in the process figured out how to send basf2 paths from "steering files" with
+   dependencies (e.g. python packages) to grid via gbasf2
+4. started implementing tasks that in b2luigi
+5. found out how to send grid jobs from NAF, BAF and from my notebook
+
+
+* Update on last weeks MC13 reconstruction
+- Felix' b2bii =rdstar= online reconstruction based on framework functions & classes
+- instead of trying adopt too Belle II simultaneously, start with more classical
+  reconstruction script
+- import some helper functions and cuts from =analysistools= and =rdstar= piece
+  by piece to get to know them
+    #+CAPTION: Code example
+    #+ATTR_LATEX: :options basicstyle=\tiny\ttfamily, xleftmargin=-5pt
+    #+begin_src python
+    pi_charged_cuts = [cut for cut in fsp_utils.charged_pion.cuts if "IDBelle" not in cut]
+    pi_charged_cuts += ["pionID > 0.1"]
+    mA.cutAndCopyList("pi+:fsp", "pi+:good", cut_list_to_string(pi_charged_cuts), path=path)
+    #+end_src
+    #+RESULTS:
+
+- last BAMM! presentation: R_2 cut w/o eventshape reco prevented B_{sig} reconstruction
+
+* What was broken last week
+-
+* How to I send grid jobs without needing the python packages installed there
+
+*
+* Compilation command                                              :noexport:
+#+begin_src elisp
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
+#+RESULTS:
+: /home/michael/talks/2020-02-10_bamm!_status/bamm_status_2020-02-10.pdf
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# TeX-engine: xetex
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:
