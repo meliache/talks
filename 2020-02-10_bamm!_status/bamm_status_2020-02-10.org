@@ -13,7 +13,7 @@
 #+BEAMER_HEADER: \newcommand{\rdstar}{R\left(\PDmstar\right)}
 #+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
 #+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
-#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}}, stringstyle=\color{bonnyellow},
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
 #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
 * Overview of things I did last week
 1. fix B_{sig} in last weeks reconstruction of $B \rightarrow D (\rightarrow K\pi\pi) \ell \nu_{\ell}$
