@@ -1,20 +1,70 @@
-#+TITLE: Analysisplans $R(D^{(*)})$
+#+STARTUP: showall
+#+TITLE: Analysisplans \rdstar
 #+SUBTITLE: BAMM! Meeting
 #+AUTHOR: Michael Eliachevitch
 #+DATE: \today
 #+LATEX_COMPILER: xelatex
 #+OPTIONS:  toc:nil num:nil title:t
 #+LATEX_CLASS: beamer
-#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 18pt]
 #+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
-#+BEAMER_HEADER: \institute{Physikalisches Institut --- Universität Bonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}}
+#+BEAMER_HEADER: \newcommand{\rdstar}{R\left(\PDmstar\right)}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
 #+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
 #+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
 * Introduction
-* Slide 2
-* Slide 3
-* Hello Max
-* asdfasdf
+- I'm a Ph.D student from KIT now in his second year
+- learned basf2 software development and analysis in python in tracking
+- got stuck on my service task off implementing an **MVA track quality
+  indicator** ([[https://confluence.desy.de/display/BI/MVA+Track+Quality+Indicator][confluence]] documentation)
+
+#+ATTR_LATEX: :width .4\textwidth
+[[./figures/qi_fake_roc.pdf]]
+
+* $\rdstar$ in a nutshell
+- $\rdstar = \frac{Br(\PB \rightarrow \PDmstar \tau \nu__{}{\tau} )}{Br(\PB \rightarrow \PDmstar \ell \nu__{}{\ell} )}$
+- excessis of taonic decays to light leptons when compared to SM prediction (global fit 3--4 \sigma )
+- last years' Moriond results show a smaller 2\sigma excess with smaller uncertainties, trust that results?
+- everybody jumping on that train
+
+* Belle RDStar Analysis Framework by Felix Metzner with contributions from Max
+- physics:
+  - $\rdstar$ analysis with hadronic tag and leptonic tau decays (similar as Matthias Huschle's Belle analysis)
+  - use BaBar approach of common M_{miss}^2 and p_\ell fit
+- software quality
+  - separate analysis-agnostic and analysis specific repositories:
+    - [[https://gitlab.etp.kit.edu/fmetzner/AnalysisTools][AnalysisTools]]
+    - [[https://gitlab.etp.kit.edu/fmetzner/RDStar][RDStar]] (my fork [[https://gitlab.etp.kit.edu/meliachevitch/RDStar][here]])
+  - a pip-installable python-projects
+  - use [[https://github.com/nils-braun/b2luigi][b2luigi]] for for sending jobs on KEKCC
+    - luigi: software for task managment
+    - ensures reproducability
+
+* What should I do?
+- make b2luigi work with grid (build on gbasf2/DIRAC)?
+- adapt Felix framework to work on gbasf2?
+- make a new Belle II framework adapting only parts from Felix' framework?
+
+* Current status
+- waiting for new Belle VO to be activated (can't do grid jobs)
+- learning analysis and producing my first NTuples
+- for testing started using Will's MDST files
+#+ATTR_LATEX: :width .4\textwidth
+[[file:figures/M_D.pdf]]
+#+BEAMER: \appendix
+
+* Backup
+
+* Compilation command                                              :noexport:
+#+begin_src elisp
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
+#+RESULTS:
+: /home/michael/talks/2020-01-27_bamm!_analysisplans/bamm_analysisplans.pdf
 
 * Local variables                                          :noexport:ARCHIVE:
 # Local Variables:

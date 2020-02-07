@@ -7,7 +7,7 @@ colors and some other personal tweaks by Michael Eliachevitch]
 \usetheme{metropolis}
 
 % some customizations of metropolis theme
-\metroset{numbering=fraction, progressbar=foot, block=fill}
+\metroset{numbering=fraction, progressbar=foot, block=fill, titleformat=allcaps}
 
 \RequirePackage[utf8]{inputenc}
 
@@ -17,6 +17,9 @@ colors and some other personal tweaks by Michael Eliachevitch]
 % This requires compilations with xetex
 \RequirePackage{fontspec}
 \setsansfont{Carlito}
+
+% for starting backup with \appendix
+\RequirePackage{appendixnumberbeamer}
 
 % nicer typography
 \RequirePackage[babel]{microtype}
@@ -39,8 +42,18 @@ colors and some other personal tweaks by Michael Eliachevitch]
 
 \setbeamercolor{frametitle}{fg=bonnyellow, bg=bonnblue}
 \setbeamercolor{progress bar}{fg=bonnyellow, bg=bonnunigrau}
-\setbeamercolor{normal text}{fg=bonntextgrau}
+\setbeamercolor{normal text}{fg=bonntextgrau, bg=white}
 \setbeamercolor{alerted text}{fg=bonnyellow}
 
-\RequirePackage{graphicx}
-\RequirePackage[absolute,overlay]{textpos}
+% % Fix including graphicx with xetex https://tex.stackexchange.com/a/215284
+% \RequirePackage[dvips,xetex]{graphicx}
+% \RequirePackage{ifpdf,mla}% <-- mla.sty requires ifpdf.sty, but (perversely) doesn't load it
+% %\usepackage{fontspec}
+
+% Use bonn logo
+\titlegraphic{
+  \flushright
+  \includegraphics[width=18mm]{logos/belle2-logo.pdf}
+  \hspace{1.5mm}
+  \includegraphics[width=38mm]{logos/bonnlogo_cut.pdf}
+}
