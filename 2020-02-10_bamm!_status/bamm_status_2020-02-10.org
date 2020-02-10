@@ -1,10 +1,10 @@
 #+STARTUP: showall
-#+TITLE: Status report
+#+TITLE: Weekly report
 #+SUBTITLE: BAMM! Meeting
 #+AUTHOR: Michael Eliachevitch
 #+DATE: \today
 #+LATEX_COMPILER: xelatex
-#+OPTIONS:  toc:t num:nil title:t
+#+OPTIONS:  toc:nil num:nil title:t
 #+LATEX_CLASS: beamer
 #+LATEX_CLASS_OPTIONS: [aspectratio=169, 18pt]
 #+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
@@ -38,14 +38,27 @@
     mA.cutAndCopyList("pi+:fsp", "pi+:good", cut_list_to_string(pi_charged_cuts), path=path)
     #+end_src
     #+RESULTS:
-
-- last BAMM! presentation: R_2 cut w/o eventshape reco prevented B_{sig} reconstruction
-
-* What was broken last week
--
+- last BAMM! presentation: R_2 cut w/o eventshape/RO reco prevented B_{sig} reconstruction
+* $m_{D^+}$ plot on a sub
+* B_{sig} plots
 * How to I send grid jobs without needing the python packages installed there
-
-*
+- import particle classes etc. from =AnalysisTools= and =RDStar= \\
+  \rightarrow not installed on grid workers
+- produces a basf2.Path object, which itself has no depencencies except basf2
+- idea: serialize the path as a pickle and send it to grid with a wrapper
+  steering file that just executes the pickle
+- use existing functions =basf2.pickle_path=: =write_path_to_file= and =get_path_from_file=
+- also possible on CLI with =basf2 --dump_path= and =basf2 --execute_path=
+* Next steps
+** Reconstruction
+- I could keep adding to my own trivial script, e.g. add ROE reco, more
+  channels, more variables
+- Or: Start adapting Felix' offline reconstruction properly
+- Use Felix' offline analysis tools, e.g. to make better plots
+** Grid
+- Write a b2luigi wrapper to create path pickles, wrapper scripts and send them
+  to script automatically
+- Pretty straightforward, let =gbasf2= do the work
 * Compilation command                                              :noexport:
 #+begin_src elisp
   (let ((async nil))
