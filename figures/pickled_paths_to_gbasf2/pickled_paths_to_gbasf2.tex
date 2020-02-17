@@ -1,0 +1,34 @@
+\documentclass[crop,tikz]{standalone}
+\usetikzlibrary{positioning}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{../../templates/bonncolors}
+
+\begin{document}
+    \begin{tikzpicture}[
+    align=center,
+        mybox/.style={
+        rectangle,minimum size=5mm,
+        thick,draw=bonnblue!80,
+        text=bonntextgrau,
+        fill=bonnyellow!50}
+        ]
+        \node [mybox] (steeringfile) {steering file\\with dependencies\\ \ttfamily{\tiny import
+        analysistools, rdstar, \ldots}};
+        \node [mybox, below=of steeringfile] (pickle) {serialized path\\(pickle)};
+        \node [mybox, right=3cm of pickle] (wrapper) {wrapper script\\
+          without depencies\\};
+        \node [mybox, below left=1cm of wrapper] (gbasf2) {gbasf2};
+        \node [mybox, below=of gbasf2] (grid) {grid};
+        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (steeringfile) -- (pickle) node
+        [font=\footnotesize\ttfamily, midway, left] {\ttfamily write\_path\_to\_file()};
+        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (wrapper) -- (pickle) node
+        [font=\footnotesize, midway, above] {\ttfamily get\_path\_from\_file()};
+        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (gbasf2) -- (wrapper.south) node
+        [font=\footnotesize, midway, sloped, below] {includes via -i};
+        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (gbasf2) -- (pickle.south) node
+        [font=\footnotesize, midway, sloped, below] {includes via -f};
+        \draw [->, thick, dotted, draw=bonnblue, text=bonntextgrau] (gbasf2) -- (grid) node
+        [font=\footnotesize, midway, left] {sents job to};
+    \end{tikzpicture}
+\end{document}

@@ -9,7 +9,7 @@
 #+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
 #+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
 #+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
-#+BEAMER_HEADER: \usepackage{tikz} \usetikzlibrary{positioning}
+#+BEAMER_HEADER: \usepackage[mode=build]{standalone}
 #+BEAMER_HEADER: \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}
 #+BEAMER_HEADER: \newcommand{\rdstar}{R\left(\PDmstar\right)}
 #+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
@@ -84,31 +84,7 @@ $\Delta E$
 
 * Using path serialization to send jobs to grid
 #+begin_export latex
-\begin{tikzpicture}[
-align=center,
-    mybox/.style={
-    rectangle,minimum size=5mm,
-    thick,draw=bonnblue!80,
-    text=bonntextgrau,
-    fill=bonnyellow!50}
-    ]
-    \node [mybox] (steeringfile) {steering file\\ \ttfamily{\tiny import
-    analysistools, rdstar, \ldots}};
-    \node [mybox, below=of steeringfile] (pickle) {serialized path\\(pickle)};
-    \node [mybox, right=3cm of pickle] (wrapper) {wrapper steering file};
-    \node [mybox, below left=1cm of wrapper] (gbasf2) {gbasf2};
-    \node [mybox, below=of gbasf2] (grid) {grid};
-    \draw [->, thick, draw=bonnblue] (steeringfile) -- (pickle) node
-    [font=\footnotesize\ttfamily, midway, left] {\ttfamily write\_path\_to\_file(path)};
-    \draw [->, thick, draw=bonnblue] (wrapper) -- (pickle) node
-    [font=\footnotesize, midway, above] {executes path from};
-    \draw [->, thick, draw=bonnblue] (gbasf2) -- (wrapper.south) node
-    [font=\footnotesize, midway, sloped, below] {includes via -i};
-    \draw [->, thick, draw=bonnblue] (gbasf2) -- (pickle.south) node
-    [font=\footnotesize, midway, sloped, below] {includes via -f};
-    \draw [->, thick, draw=bonnblue] (gbasf2) -- (grid) node
-    [font=\footnotesize, midway, left] {sents job to};
-\end{tikzpicture}
+\includestandalone[width=0.8\textwidth]{figures/pickled_paths_to_gbasf2/pickled_paths_to_gbasf2}
 #+end_export
 * Compilation command                                              :noexport:
 #+begin_src elisp
