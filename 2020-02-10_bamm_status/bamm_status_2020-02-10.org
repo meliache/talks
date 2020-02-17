@@ -6,7 +6,7 @@
 #+LATEX_COMPILER: xelatex
 #+OPTIONS:  toc:nil num:nil title:t
 #+LATEX_CLASS: beamer
-#+LATEX_CLASS_OPTIONS: [aspectratio=169, 18pt]
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
 #+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
 #+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
 #+BEAMER_HEADER: \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}}
@@ -39,8 +39,14 @@
     #+end_src
     #+RESULTS:
 - last BAMM! presentation: R_2 cut w/o eventshape/RO reco prevented B_{sig} reconstruction
-* $m_{D^+}$ plot on a sub
+* $m_{D^+}$ plot on 100 fb^{-1}
+#+ATTR_LATEX: :width .4\textwidth
+[[./figures/M_D.pdf]]
 * B_{sig} plots
+#+ATTR_LATEX: :width .25\textwidth
+[[./figures/B_Mbc.pdf]]
+#+ATTR_LATEX: :width .25\textwidth
+[[./figures/B_deltaE.pdf]]
 * How to I send grid jobs without needing the python packages installed there
 - import particle classes etc. from =AnalysisTools= and =RDStar= \\
   \rightarrow not installed on grid workers
@@ -50,11 +56,14 @@
 - use existing functions =basf2.pickle_path=: =write_path_to_file= and =get_path_from_file=
 - also possible on CLI with =basf2 --dump_path= and =basf2 --execute_path=
 * Next steps
-** Reconstruction
-- I could keep adding to my own trivial script, e.g. add ROE reco, more
-  channels, more variables
-- Or: Start adapting Felix' offline reconstruction properly
-- Use Felix' offline analysis tools, e.g. to make better plots
+** Analysis
+- online
+  - I could keep adding to my own trivial script, e.g. add ROE reco, more
+    channels, more variables
+  - Or: Start adapting Felix' offline reconstruction properly
+- offline
+  - use framework tools in my notebooks: hists via =TemplateFitter=, fitting etc.
+  - to prepare for high amount of data, adapt framework Dask
 ** Grid
 - Write a b2luigi wrapper to create path pickles, wrapper scripts and send them
   to script automatically

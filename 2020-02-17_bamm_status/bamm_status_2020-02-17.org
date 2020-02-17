@@ -1,0 +1,132 @@
+#+STARTUP: showall
+#+TITLE: Weekly report
+#+SUBTITLE: BAMM! Meeting -- My train is 30 minutes late, so I'll be at the Bonn Hbf at 10:45. Slides are WIP in the train.
+#+AUTHOR: Michael Eliachevitch
+#+DATE: \today
+#+LATEX_COMPILER: xelatex
+#+OPTIONS:  toc:nil num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \usepackage{tikz} \usetikzlibrary{positioning}
+#+BEAMER_HEADER: \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}
+#+BEAMER_HEADER: \newcommand{\rdstar}{R\left(\PDmstar\right)}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Overview of things I did last week
+- use histogramming functions from =TemplateFitter=
+- learn Dask and use it in my notebook
+- write luigi task for pickling steering files and sending to grid
+
+* Use =TemplateFitter= histogram classes and plot styles
+- still only reconstructing $B \rightarrow D (\rightarrow K\pi\pi) \ell \nu_{\ell}$
+- =isSignal= for B decays already fixed, but not in plots
+** M_D                                                            :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_col: 0.33
+:END:
+$M_{D^+}$
+[[./figures/M_D.pdf]]
+** M_{bc}                                                            :B_column:
+:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_col: 0.33
+:END:
+$M_{bc}$
+[[./figures/B_Mbc.pdf]]
+** \Delta E
+:PROPERTIES:
+:BEAMER_env: column
+:BEAMER_col: 0.33
+:END:
+$\Delta E$
+[[./figures/B_deltaE.pdf]]
+* Dask
+- pandas :: useful for exploration, but requires all data in memory\\
+  workaround: do cuts, save to disk and read only required branches into memory
+- root :: iterates over data on disk, recently implemented its own =RDataFrames=
+- [[https://dask.org/][dask]] :: =daskarray= & =daskframe=: *blocked* alternatives for =np.array= & =pd.DataFrame=
+  - delays all calculations until the final =.compute()= is called
+  - delayed calculations make up graph (similar to =luigi=, =tensorflow=, =basf2.add_module=)
+  - loads only blocks that it currently needs into memory
+  - dask scheduler parallelizes computations and manages memory
+  - [[https://stackoverflow.com/questions/60189433/how-to-avoid-too-many-open-files-error-when-using-uproot-daskframes-to-create/60191127#60191127][stackoverflow]] on reading many root files into daskframe
+  
+* Example dask computation graphs
+**                                                                   :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+ATTR_LATEX: :options basicstyle=\tiny\ttfamily, xleftmargin=-5pt
+#+begin_src python
+  D_dd = daskframe_from_rootfiles(
+      Dplus_ntupels[0:5], key="ntuple")
+  D_dd.isSignal.sum().visualize()
+#+end_src
+#+ATTR_LATEX: :width .55\textwidth
+[[./figures/dask_graph_sum.pdf]]
+**                                                                   :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+ATTR_LATEX: :options basicstyle=\tiny\ttfamily, xleftmargin=-5pt
+#+begin_src python
+  h, bins = da.histogram(
+      D_dd.M, bins=np.linspace(1.8, 1.9, 10))
+  h.visualize()
+#+end_src
+#+ATTR_LATEX: :width .45\textwidth
+[[./figures/dask_graph_hist.pdf]]
+
+* How to I send grid jobs without needing the python packages installed there
+#+begin_export latex
+\begin{tikzpicture}[
+align=center,
+    mybox/.style={
+    rectangle,minimum size=6mm,
+    thick,draw=black!50,
+    top color=white,bottom color=black!20},
+    gridbox/.style={
+    rectangle,minimum size=6mm,rounded corners=3mm,
+    thick,draw=black!50!blue!50,
+    top color=white,bottom color=blue!50!black!20,
+    }
+    ]
+
+    \node [mybox] (steeringfile) {steering file\\ \ttfamily{\tiny import
+    analysistools, rdstar, \ldots}};
+    \node [mybox, below=of steeringfile] (pickle) {serialized path\\(pickle)};
+    \node [mybox, right=3cm of pickle] (wrapper) {wrapper steering file};
+    \node [mybox, below left=1cm of wrapper] (gbasf2) {gbasf2};
+    \node [gridbox, below=of gbasf2] (grid) {grid};
+    \draw [->, thick, draw=black!80] (steeringfile) -- (pickle) node
+    [font=\footnotesize\ttfamily, midway, left] {write\_path\_to\_file};
+    \draw [->, thick, draw=black!80] (wrapper) -- (pickle) node
+    [font=\footnotesize, midway, above] {executes path from};
+    \draw [->, thick, draw=black!80] (gbasf2) -- (wrapper.south) node
+    [font=\footnotesize, midway, sloped, below] {includes via -i};
+    \draw [->, thick, draw=black!80] (gbasf2) -- (pickle.south) node
+    [font=\footnotesize, midway, sloped, below] {includes via -f};
+    \draw [->, thick, draw=black!80] (gbasf2) -- (grid) node
+    [font=\footnotesize, midway, left] {sents job to};
+\end{tikzpicture}
+#+end_export
+* Compilation command                                              :noexport:
+#+begin_src elisp
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
+#+RESULTS:
+: /home/michael/talks/2020-02-10_bamm!_status/bamm_status_2020-02-10.pdf
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# TeX-engine: xetex
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:

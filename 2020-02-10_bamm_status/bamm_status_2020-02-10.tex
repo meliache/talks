@@ -1,0 +1,116 @@
+% Created 2020-02-10 Mo 11:01
+% Intended LaTeX compiler: xelatex
+\documentclass[aspectratio=169, 16pt]{beamer}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[babel]{microtype}
+\author{Michael Eliachevitch}
+\date{\today}
+\title{Weekly report}
+\subtitle{BAMM! Meeting}
+\usepackage{templates/metropolisbonn}
+\usepackage{hepnames, hepparticles}
+\newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}}
+\newcommand{\rdstar}{R\left(\PDmstar\right)}
+\institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+\hypersetup{colorlinks, urlcolor=bonnblue}
+\lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+\hypersetup{
+ pdfauthor={Michael Eliachevitch},
+ pdftitle={Weekly report},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.0.50 (Org mode 9.3.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}[label={sec:org8fcde09}]{Overview of things I did last week}
+\begin{enumerate}
+\item fix B\textsubscript{sig} in last weeks reconstruction of \(B \rightarrow D (\rightarrow K\pi\pi) \ell \nu_{\ell}\)
+\item reconstruct that on grid with 100 fb\textsuperscript{-1} of MC13
+\item in the process figured out how to send basf2 paths from "steering files" with
+dependencies (e.g. python packages) to grid via gbasf2
+\item started implementing tasks that in b2luigi
+\item found out how to send grid jobs from NAF, BAF and from my notebook
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}[label={sec:org956ec8d},fragile]{Update on last weeks MC13 reconstruction}
+ \begin{itemize}
+\item Felix' b2bii \texttt{rdstar} online reconstruction based on framework functions \& classes
+\item instead of trying adopt too Belle II simultaneously, start with more classical
+reconstruction script
+\item import some helper functions and cuts from \texttt{analysistools} and \texttt{rdstar} piece
+by piece to get to know them
+\lstset{language=Python,label= ,caption={Code example},captionpos=b,numbers=none,basicstyle=\tiny\ttfamily, xleftmargin=-5pt}
+\begin{lstlisting}
+pi_charged_cuts = [cut for cut in fsp_utils.charged_pion.cuts if "IDBelle" not in cut]
+pi_charged_cuts += ["pionID > 0.1"]
+mA.cutAndCopyList("pi+:fsp", "pi+:good", cut_list_to_string(pi_charged_cuts), path=path)
+\end{lstlisting}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:orgaa9689f}]{\(m_{D^+}\) plot on 100 fb\textsuperscript{-1}}
+\begin{center}
+\includegraphics[width=.4\textwidth]{./figures/M_D.pdf}
+\end{center}
+\end{frame}
+\begin{frame}[label={sec:orgafba358}]{B\textsubscript{sig} plots}
+\begin{center}
+\includegraphics[width=.25\textwidth]{./figures/B_Mbc.pdf}
+\end{center}
+\begin{center}
+\includegraphics[width=.25\textwidth]{./figures/B_deltaE.pdf}
+\end{center}
+\end{frame}
+\begin{frame}[label={sec:orgf335e33},fragile]{How to I send grid jobs without needing the python packages installed there}
+ \begin{itemize}
+\item import particle classes etc. from \texttt{AnalysisTools} and \texttt{RDStar} \\
+\(\rightarrow\) not installed on grid workers
+\item produces a basf2.Path object, which itself has no depencencies except basf2
+\item idea: serialize the path as a pickle and send it to grid with a wrapper
+steering file that just executes the pickle
+\item use existing functions \texttt{basf2.pickle\_path}: \texttt{write\_path\_to\_file} and \texttt{get\_path\_from\_file}
+\item also possible on CLI with \texttt{basf2 -{}-dump\_path} and \texttt{basf2 -{}-execute\_path}
+\end{itemize}
+\end{frame}
+\begin{frame}[label={sec:org5885a38},fragile]{Next steps}
+ \begin{block}{Analysis}
+\begin{itemize}
+\item online
+\begin{itemize}
+\item I could keep adding to my own trivial script, e.g. add ROE reco, more
+channels, more variables
+\item Or: Start adapting Felix' offline reconstruction properly
+\end{itemize}
+\item offline
+\begin{itemize}
+\item use framework tools in my notebooks: hists via \texttt{TemplateFitter}, fitting etc.
+\item to prepare for high amount of data, adapt framework Dask
+\end{itemize}
+\end{itemize}
+\end{block}
+\begin{block}{Grid}
+\begin{itemize}
+\item Write a b2luigi wrapper to create path pickles, wrapper scripts and send them
+to script automatically
+\item Pretty straightforward, let \texttt{gbasf2} do the work
+\end{itemize}
+\end{block}
+\end{frame}
+\end{document}
