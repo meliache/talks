@@ -36,17 +36,7 @@ colors and some other personal tweaks by Michael Eliachevitch]
 \RequirePackage{listings}
 
 % Define some Bonn colors according to 
-% https://www.uni-bonn.de/einrichtungen/universitaetsverwaltung/organisationsplan/dezernat-8/hochschulkommunikation/ubo_manual_12032018.pdf
-\definecolor{bonnblue}{RGB}{7, 82, 154}
-\definecolor{bonnyellow}{RGB}{234, 185, 12}
-\definecolor{bonnunigrau}{RGB}{144,144,133 }
-\definecolor{bonntextgrau}{RGB}{77, 77, 77}
-
-\setbeamercolor{frametitle}{fg=white, bg=bonnyellow}
-\setbeamercolor{progress bar}{fg=bonnblue, bg=bonnunigrau}
-\setbeamercolor{normal text}{fg=bonntextgrau, bg=white}
-\setbeamercolor{alerted text}{fg=bonnyellow}
-
+\RequirePackage{templates/bonncolors}
 % % Fix including graphicx with xetex https://tex.stackexchange.com/a/215284
 % \RequirePackage[dvips,xetex]{graphicx}
 % \RequirePackage{ifpdf,mla}% <-- mla.sty requires ifpdf.sty, but (perversely) doesn't load it
