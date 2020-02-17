@@ -82,36 +82,31 @@ $\Delta E$
 #+ATTR_LATEX: :width .45\textwidth
 [[./figures/dask_graph_hist.pdf]]
 
-* How to I send grid jobs without needing the python packages installed there
+* Using path serialization to send jobs to grid
 #+begin_export latex
 \begin{tikzpicture}[
 align=center,
     mybox/.style={
-    rectangle,minimum size=6mm,
-    thick,draw=black!50,
-    top color=white,bottom color=black!20},
-    gridbox/.style={
-    rectangle,minimum size=6mm,rounded corners=3mm,
-    thick,draw=black!50!blue!50,
-    top color=white,bottom color=blue!50!black!20,
-    }
+    rectangle,minimum size=5mm,
+    thick,draw=bonnblue!80,
+    text=bonntextgrau,
+    fill=bonnyellow!50}
     ]
-
     \node [mybox] (steeringfile) {steering file\\ \ttfamily{\tiny import
     analysistools, rdstar, \ldots}};
     \node [mybox, below=of steeringfile] (pickle) {serialized path\\(pickle)};
     \node [mybox, right=3cm of pickle] (wrapper) {wrapper steering file};
     \node [mybox, below left=1cm of wrapper] (gbasf2) {gbasf2};
-    \node [gridbox, below=of gbasf2] (grid) {grid};
-    \draw [->, thick, draw=black!80] (steeringfile) -- (pickle) node
-    [font=\footnotesize\ttfamily, midway, left] {write\_path\_to\_file};
-    \draw [->, thick, draw=black!80] (wrapper) -- (pickle) node
+    \node [mybox, below=of gbasf2] (grid) {grid};
+    \draw [->, thick, draw=bonnblue] (steeringfile) -- (pickle) node
+    [font=\footnotesize\ttfamily, midway, left] {\ttfamily write\_path\_to\_file(path)};
+    \draw [->, thick, draw=bonnblue] (wrapper) -- (pickle) node
     [font=\footnotesize, midway, above] {executes path from};
-    \draw [->, thick, draw=black!80] (gbasf2) -- (wrapper.south) node
+    \draw [->, thick, draw=bonnblue] (gbasf2) -- (wrapper.south) node
     [font=\footnotesize, midway, sloped, below] {includes via -i};
-    \draw [->, thick, draw=black!80] (gbasf2) -- (pickle.south) node
+    \draw [->, thick, draw=bonnblue] (gbasf2) -- (pickle.south) node
     [font=\footnotesize, midway, sloped, below] {includes via -f};
-    \draw [->, thick, draw=black!80] (gbasf2) -- (grid) node
+    \draw [->, thick, draw=bonnblue] (gbasf2) -- (grid) node
     [font=\footnotesize, midway, left] {sents job to};
 \end{tikzpicture}
 #+end_export
