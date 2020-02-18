@@ -11,7 +11,10 @@
         rectangle,minimum size=5mm,
         thick,draw=bonnblue!80,
         text=bonntextgrau,
-        fill=bonnyellow!50}
+        % rounded corners=.5mm,
+        top color=white,bottom color=bonnyellow!50
+        % fill=bonnyellow!50
+}
         ]
         \node [mybox] (steeringfile) {steering file\\with dependencies\\ \ttfamily{\tiny import
         analysistools, rdstar, \ldots}};
@@ -24,10 +27,10 @@
         [font=\footnotesize\ttfamily, midway, left] {\ttfamily write\_path\_to\_file()};
         \draw [->, thick, draw=bonnblue, text=bonntextgrau] (wrapper) -- (pickle) node
         [font=\footnotesize, midway, above] {\ttfamily get\_path\_from\_file()};
-        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (gbasf2) -- (wrapper.south) node
-        [font=\footnotesize, midway, sloped, below] {includes via -i};
-        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (gbasf2) -- (pickle.south) node
-        [font=\footnotesize, midway, sloped, below] {includes via -f};
+        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (gbasf2.east) -| (wrapper.south) node
+        [font=\footnotesize, near start, below] {includes as\\steering file};
+        \draw [->, thick, draw=bonnblue, text=bonntextgrau] (gbasf2.west) -| (pickle.south) node
+        [font=\footnotesize, near start, below] {includes via -f};
         \draw [->, thick, dotted, draw=bonnblue, text=bonntextgrau] (gbasf2) -- (grid) node
         [font=\footnotesize, midway, left] {sents job to};
     \end{tikzpicture}
