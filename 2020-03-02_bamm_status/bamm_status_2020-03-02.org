@@ -1,0 +1,91 @@
+#+STARTUP: showall
+#+TITLE: Weekly report
+#+SUBTITLE: BAMM! Meeting -- My train is 30 minutes late, so I'll be at the Bonn Hbf at 10:45. Slides are WIP in the train.
+#+AUTHOR: Michael Eliachevitch
+#+DATE: \today
+#+LATEX_COMPILER: xelatex
+#+OPTIONS:  toc:nil num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \usepackage[mode=build]{standalone}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Using path serialization to send jobs to grid
+#+begin_export latex
+\centering
+\includestandalone[width=0.8\textwidth]{figures/pickled_paths_to_gbasf2/pickled_paths_to_gbasf2}
+#+end_export
+* gbasf2 b2luigi task
+- base class, user can inheret and implement =create_path()= fucntion
+- creates pickle and wrapper steering file
+- sends grid jobs via =gbasf2= and downloads them if all are =Done=
+- stores =gbasf2= environment in dictionary and uses it only in subprocess calls
+  to gbasf2 commands
+#+begin_export latex
+\appendix
+#+end_export
+
+* Usage
+#+ATTR_LATEX: :options basicstyle=\tiny\ttfamily, xleftmargin=-5pt
+#+begin_src python
+import b2luigi
+from rdstar.online_analysis import reconstruction_belle2
+from rdstar.online_analysis.gbasf2_tasks import Gbasf2Task
+
+
+class MyGbasf2Task(Gbasf2Task):
+    def create_path(self):
+        return reconstruction_belle2.create_BtoDlnu_reconstruction_path()
+
+
+class MasterTask(b2luigi.WrapperTask):
+    def requires(self):
+        yield MyGbasf2Task(
+            max_event=100,
+            project_name="luigi_testproject4",
+            input_dataset="/belle/MC/release-04-00-03/DB00000757/MC13a/prod00009434/s00/e1003/4S/r00000/mixed/mdst/sub00/mdst_000255_prod00009434_task10020000255.root",
+        )
+
+if __name__ == '__main__':
+    b2luigi.process(MasterTask())
+#+end_src
+* How environment is set up
+#+ATTR_LATEX: :options basicstyle=\tiny\ttfamily, xleftmargin=-5pt
+#+begin_src python
+    #: cached gbasf2 enviromnent, initiallized and accessed via ``self.env``
+    _cached_env = None
+
+    @property
+    def env(self) -> dict:
+        """
+        Return dictionary with gbasf2 environment from ``self.env_script``.
+
+        Runs the script only once and then caches the result in ``self._cached_env``
+        to prevent unnecessary password prompts.
+        """
+        if self._cached_env is None:
+            print(f"Setting up environment by sourcing {self.env_script}")
+            command = shlex.split(f"env -i bash -c 'source {self.env_script} > /dev/null && env'")
+            output = subprocess.check_output(command, encoding="utf-8")
+            self._cached_env = dict(line.split("=", 1) for line in output.splitlines())
+        return self._cached_env
+#+end_src
+* Compilation command                                              :noexport:
+#+begin_src elisp
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
+#+RESULTS:
+: /home/michael/talks/2020-02-10_bamm!_status/bamm_status_2020-02-10.pdf
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# TeX-engine: xetex
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:
