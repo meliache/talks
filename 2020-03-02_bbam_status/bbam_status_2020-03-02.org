@@ -1,6 +1,6 @@
 #+STARTUP: showall
 #+TITLE: Weekly report
-#+SUBTITLE: BAMM! Meeting -- My train is 30 minutes late, so I'll be at the Bonn Hbf at 10:45. Slides are WIP in the train.
+#+SUBTITLE: BBAM! Meeting
 #+AUTHOR: Michael Eliachevitch
 #+DATE: \today
 #+LATEX_COMPILER: xelatex
