@@ -1,0 +1,152 @@
+% Created 2020-04-28 Di 14:02
+% Intended LaTeX compiler: xelatex
+\documentclass[aspectratio=169, 12pt]{beamer}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[babel]{microtype}
+\author{Michael Eliachevitch (\href{mailto:meliache@uni-bonn.de}{meliache@uni-bonn.de})}
+\date{\today}
+\title{WG1 Meeting: Status and plans}
+\subtitle{Adapting Felix Metzners \texttt{b2bii}-based R(D\textsuperscript{(*)}) framework for to Belle II data}
+\usepackage{templates/metropolisbonn}
+\usepackage{hepnames, hepparticles}
+\usepackage[mode=build]{standalone}
+\institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+\hypersetup{colorlinks, urlcolor=bonnyellow}
+\lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+\hypersetup{
+ pdfauthor={Michael Eliachevitch (\href{mailto:meliache@uni-bonn.de}{meliache@uni-bonn.de})},
+ pdftitle={WG1 Meeting: Status and plans},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.0.50 (Org mode 9.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+
+
+\begin{frame}[label={sec:orgc132c2e}]{Belle RDStar Analysis Framework by Felix Metzner}
+\begin{itemize}
+\item \alert{\alert{physics approach:}}
+\begin{itemize}
+\item \(\rdstar\) analysis with hadronic tag and leptonic signal tau decays
+\item use BaBar approach of common M\textsubscript{miss}\textsuperscript{2} and p\textsubscript{\(\ell\)} fit
+\end{itemize}
+\item \alert{\alert{software software:}}
+\begin{itemize}
+\item separation into analysis-agnostic and specific pip-installable python packages
+\begin{itemize}
+\item \href{https://gitlab.etp.kit.edu/fmetzner/AnalysisTools}{AnalysisTools}
+\item \href{https://gitlab.etp.kit.edu/fmetzner/RDStar}{RDStar} (my work on fork \href{https://gitlab.etp.kit.edu/meliachevitch/RDStar}{here})
+\end{itemize}
+\item use \href{https://github.com/nils-braun/b2luigi}{b2luigi} for managing KEKCC
+jobs (\href{https://b2luigi.readthedocs.io/en/stable/}{documentation})
+\begin{itemize}
+\item luigi: software for task managment / pipelining
+\item facilitates varying trying parameter variation while ensuring reproducibility
+\end{itemize}
+\end{itemize}
+\end{itemize}
+\begin{block}{Problems for Belle II data}
+\begin{itemize}
+\item difficult to send jobs with complex dependencies to grid
+\item luigi did not support grid jobs
+\end{itemize}
+\end{block}
+\end{frame}
+\begin{frame}[label={sec:org01a945a},fragile]{My work so far: Technical solutions for working with grid}
+ \begin{itemize}
+\item to enable working with the grid, instead of sending the whole python projects,
+do only send the basf2 paths that they produce
+\item exploit \texttt{pickle\_path} module from basf2 to save/load paths from/to disk
+\end{itemize}
+\begin{center}
+\includestandalone[width=0.65\textwidth]{figures/pickled_paths_to_gbasf2/pickled_paths_to_gbasf2}
+\end{center}
+\end{frame}
+\begin{frame}[label={sec:org28a79f3},fragile]{Build a \texttt{gbasf2} backend for \texttt{b2luigi} around that}
+ \begin{itemize}
+\item uses the \texttt{pickle\_path} functions to send arbitrary basf2 tasks to the grid via luigi
+\item code on my own \href{https://github.com/meliache/b2luigi/tree/feature/gbasf2-wrapper-batch-process}{github fork} (\href{https://meliache.github.io/b2luigi/docs/\_build/html/usage/batch.html\#gbasf2-wrapper-for-lcg}{documentation with example}), \href{https://github.com/nils-braun/b2luigi/pull/32}{pull request} pending
+\end{itemize}
+\begin{block}{Features}
+\begin{itemize}
+\item send gbasf2 jobs from the basf2 environment (no need to setup gbasf2
+manually, but requires that gbasf2 is installed)
+\item automatic gbasf2 project submission and download
+\item if enabled, automatically reschedule failed jobs until a maximum number of
+retries is reached
+\end{itemize}
+\end{block}
+\end{frame}
+
+
+\begin{frame}[label={sec:org9c6238f}]{Summer plans: Physics}
+\begin{itemize}
+\item so far I only produced ntuples of limited channels to learn the modular analysis
+framework and how gbasf2 works
+\item now: combine my tools with Felix framwork to produce proof-of-concept NTuples
+with all channels and variables on MC and Data
+\item study cut flows
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org38f8181}]{Backup}
+\appendix
+\end{frame}
+\begin{frame}[label={sec:orgdac5cf3},fragile]{Backup: Luigi Gbasf2 example \href{https://meliache.github.io/b2luigi/docs/\_build/html/usage/batch.html\#gbasf2-wrapper-for-lcg}{(documented here)}}
+ \lstset{language=Python,label= ,caption= ,captionpos=b,numbers=none,basicstyle=\Tiny\ttfamily, xleftmargin=-5pt}
+\begin{lstlisting}
+from os.path import join
+import b2luigi
+from b2luigi.basf2_helper.tasks import Basf2PathTask
+import example_mdst_analysis
+
+class MyAnalysisTask(Basf2PathTask):
+    batch_system = "gbasf2"
+    gbasf2_project_name_prefix = b2luigi.Parameter()
+    gbasf2_input_dataset = b2luigi.Parameter(hashed=True)
+
+    mbc_lower_cut = b2luigi.IntParameter()
+
+    def create_path(self):
+        mbc_range = (self.mbc_lower_cut, 5.3)
+        return example_mdst_analysis.create_analysis_path(mbc_range=mbc_range)
+
+    def output(self):
+        yield self.add_to_output(self.gbasf2_project_name_prefix)
+
+class MasterTask(b2luigi.WrapperTask):
+    def requires(self):
+        input_dataset = join("/belle/MC/release-04-00-03/DB00000757/MC13a/prod00009434/s00/e1003/",
+                             "4S/r00000/mixed/mdst/sub00/mdst_000255_prod00009434_task10020000255.root")
+        mbc_lower_cuts = [5.15, 5.2, 5.25]
+        for mbc_lower_cut in mbc_lower_cuts:
+            yield MyAnalysisTask(
+                mbc_lower_cut=mbc_lower_cut,
+                gbasf2_project_name_prefix="luigiFreeFunctions",
+                gbasf2_input_dataset=input_dataset,
+                max_event=25,
+            )
+
+if __name__ == '__main__':
+    master_task_instance = MasterTask()
+    n_gbasf2_tasks = len(list(master_task_instance.requires()))
+    b2luigi.process(master_task_instance, workers=n_gbasf2_tasks)
+\end{lstlisting}
+\end{frame}
+\end{document}

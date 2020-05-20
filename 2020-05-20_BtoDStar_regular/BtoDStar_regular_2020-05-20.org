@@ -1,0 +1,84 @@
+#+STARTUP: showall
+#+TITLE: My status and ideas for collaboration
+#+SUBTITLE: Regular meeting to discuss hadronically tagged $\PB \rightarrow \PDmstar \ell \nu_\ell$
+#+AUTHOR: Michael Eliachevitch
+#+DATE: \today
+#+LATEX_COMPILER: xelatex
+#+OPTIONS:  toc:nil num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \usepackage[mode=build]{standalone}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+#+LATEX_HEADER: \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}
+* My analysis project status 
+- working on another package for hadronically tagged $\PB \rightarrow \PDmstar \ell
+  \nu_\ell$ decays
+- started as a fork of Felix Metzner's =b2bii=-based =RDStar= framwork for Belle
+- recently decoupled my framework, made it a separate python
+  package, repository now public on [[https://stash.desy.de/projects/B2A/repos/meliache_b2_rdstar][B2A: =meliache_b2_rdstar=]]
+- where useful re-use existing functionality from =RDStar= and the =AnalysisTools=
+  packages (via python imports)
+- adapt selection to Belle II data
+- use b2luigi with my [[https://meliache.github.io/b2luigi/docs/_build/html/usage/batch.html#gbasf2-wrapper-for-lcg-jobs][gbasf2 extension]] for grid job submission
+- status: implemented all \PD and \PDstar decay channels and preparing to produce my own
+  ntuples using MC13a FEI-skims
+
+* Ideas for collaboration
+Offer help / assistance e.g. in: 
+- $M_{miss}^2$ resolution
+- PID uncertainties
+- (template) fits
+- cross-checks: reproduce ntuples with my package and validate signal yield\\
+  (requires cut-flows for interpretation)
+
+* Backup
+#+begin_export latex
+\appendix
+#+end_export
+* Example b2luigi gbasf2 task
+#+ATTR_LATEX: :options basicstyle=\scriptsize\ttfamily, xleftmargin=-5pt
+#+begin_src python
+  import b2luigi
+  from b2luigi.basf2_helper.tasks import Basf2PathTask
+  from b2_rdstar.online_analysis import reconstruction
+
+  class OnlineReconstructionTask(Basf2PathTask):
+      batch = "gbasf2"
+      gbasf2_project_name_prefix = "OnlineReco"
+      gbasf2_input_dataset = \
+          "/belle/MC/release-04-01-04/DB00000774/SkimM13ax1/prod00011778/e1003/4S/r00000/mixed/11180100/udst/sub00"
+
+      def create_path(self):
+          return reconstruction.create_online_reconstruction_path()
+
+      def output(self):
+          yield self.add_to_output("D+:Kpipi_ntuple.root")
+          yield self.add_to_output("B0:sig_ntuple.root")
+
+  if __name__ == '__main__':
+      b2luigi.process(OnlineReconstructionTask())
+#+end_src
+
+* Compilation command                                              :noexport:
+
+#+begin_src elisp
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
++RESULTS:
+: /home/michael/talks/2020-02-10_bamm!_status/bamm_status_2020-02-10.pdf
+
+
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# TeX-engine: xetex
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:

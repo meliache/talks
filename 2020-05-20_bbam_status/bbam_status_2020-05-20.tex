@@ -1,0 +1,110 @@
+% Created 2020-05-20 Mi 04:03
+% Intended LaTeX compiler: xelatex
+\documentclass[aspectratio=169, 16pt]{beamer}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[babel]{microtype}
+\author{Michael Eliachevitch}
+\date{\today}
+\title{BBAM! Meeting}
+\subtitle{Roundtable-like report illustrated with slides}
+\usepackage{templates/metropolisbonn}
+\usepackage{hepnames, hepparticles}
+\usepackage[mode=build]{standalone}
+\institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+\hypersetup{colorlinks, urlcolor=bonnblue}
+\lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+\hypersetup{
+ pdfauthor={Michael Eliachevitch},
+ pdftitle={BBAM! Meeting},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.0.50 (Org mode 9.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}[label={sec:org5c962f9}]{Note: Belle II Data available on the NAF}
+\begin{itemize}
+\item I shifted to working almost only on NAF: little latency, easy to work
+interactively, with gbasf2 and htcondor (confluence: \href{https://confluence.desy.de/display/BI/DESY+Analysis+Facility}{Desy Analysis Facility})
+\item found out most Belle II data is already there or can be requested to be downloaded:\\
+Confluence: \href{https://confluence.desy.de/display/BI/Belle+II+Data+at+DESY}{Belle II Data at DESY}
+\item I added \href{https://confluence.desy.de/display/BI/Belle+II+MC+at+DESY\#BelleIIMCatDESY-MC13:Skims}{MC13a FEI skims} which I currently use for prototyping
+
+\item Email from Andread Gellrich (2020-05-13):
+\end{itemize}
+\begin{quote}
+\scriptsize
+Auf laengere Sicht werden Ressourcen tatsaechlich ein
+Problem sein, wenn erst richtig viele Daten von
+Belle II kommen.
+Bis dahin koennen wir schon mal ueben, uns entsprechend
+zu organisieren - auch mit den Kollegen hier am DESY.
+[\ldots{}]
+
+Je groesser unser (Belle II @ NAF) Gewicht in Belle II ist,
+desto mehr Moeglochkeiten haben wir, auch in Belle II
+ein Modell fuer das effiziente Verteilen der Daten (mdst)
+zu entwickeln.
+\end{quote}
+\end{frame}
+
+\begin{frame}[label={sec:org9ac439f},fragile]{New repository for my analysis framework}
+ \begin{itemize}
+\item created new repository on my stash: \href{https://stash.desy.de/users/meliache/repos/b2\_rdstar/browse}{\texttt{b2\_rstar}}\\
+in principle public, but on my personal stash space, not on \href{https://stash.desy.de/projects/B2A}{B2A}, could in principle easily move
+\item decoupled code from Belle b2bii-based \texttt{RDStar} framework (of which it was
+previously a fork),
+\item still imports classes and functions from \texttt{RDStar} and \texttt{AnalysisTools}
+packages, which I forked to stash, so that non-KIT people can collaborate
+\item uses my \href{https://github.com/meliache/b2luigi}{b2luigi fork} for grid job submission
+\end{itemize}
+
+\begin{center}
+\includegraphics[width=.5\textwidth]{./figures/b2_rdstar_readme_screenshot.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}[label={sec:orga622488},fragile]{Status}
+ \begin{columns}
+\begin{column}{0.7\columnwidth}
+\begin{itemize}
+\item since beginning of last week working hard to get full online reconstruction
+runnin
+\item included all \PD and \PDstar channels from Felix' \texttt{RDStar} analysis
+\item testing that on MC13a skims with hadronic FEI, mixed BG\texttimes{}1, trained on \PBzero
+and \PBpm
+\item Some current ToDo's (there's much more):
+\begin{itemize}
+\item testing reconstruction of \UpsilonFourS, event shape, cut on R\textsubscript{2}
+\item ensure online selection for ntuple production is comparable with that of MCGill group
+\item include custom variables used e.g. by Will
+\item make plots of variables of produced ntuples
+\end{itemize}
+\end{itemize}
+\end{column}
+\begin{column}{0.3\columnwidth}
+\begin{center}
+\begin{center}
+\includegraphics[width=1\textwidth]{./figures/b2_rdstar_commit_activity.pdf}
+\end{center}
+\end{center}
+*
+\end{column}
+\end{columns}
+\end{frame}
+\end{document}

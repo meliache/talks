@@ -1,0 +1,93 @@
+#+STARTUP: showall
+#+TITLE: BBAM! Meeting
+#+SUBTITLE: Roundtable-like report illustrated with slides
+#+AUTHOR: Michael Eliachevitch
+#+DATE: \today
+#+LATEX_COMPILER: xelatex
+#+OPTIONS:  toc:nil num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \usepackage[mode=build]{standalone}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+* Note: Belle II Data available on the NAF
+- I shifted to working almost only on NAF: little latency, easy to work
+  interactively, with gbasf2 and htcondor (confluence: [[https://confluence.desy.de/display/BI/DESY+Analysis+Facility][Desy Analysis Facility]])
+- found out most Belle II data is already there or can be requested to be downloaded:\\
+  Confluence: [[https://confluence.desy.de/display/BI/Belle+II+Data+at+DESY][Belle II Data at DESY]]
+- I added [[https://confluence.desy.de/display/BI/Belle+II+MC+at+DESY#BelleIIMCatDESY-MC13:Skims][MC13a FEI skims]] which I currently use for prototyping
+
+- Email from Andread Gellrich (2020-05-13):
+#+begin_quote
+#+LATEX: \scriptsize
+Auf laengere Sicht werden Ressourcen tatsaechlich ein
+Problem sein, wenn erst richtig viele Daten von
+Belle II kommen.
+Bis dahin koennen wir schon mal ueben, uns entsprechend
+zu organisieren - auch mit den Kollegen hier am DESY.
+[...]
+
+Je groesser unser (Belle II @ NAF) Gewicht in Belle II ist,
+desto mehr Moeglochkeiten haben wir, auch in Belle II
+ein Modell fuer das effiziente Verteilen der Daten (mdst)
+zu entwickeln.
+#+end_quote
+
+* New repository for my analysis framework
+- created new repository on my stash: [[https://stash.desy.de/users/meliache/repos/b2_rdstar/browse][=b2_rstar=]]\\
+  in principle public, but on my personal stash space, not on [[https://stash.desy.de/projects/B2A][B2A]], could in principle easily move
+- decoupled code from Belle b2bii-based =RDStar= framework (of which it was
+  previously a fork),
+- still imports classes and functions from =RDStar= and =AnalysisTools=
+  packages, which I forked to stash, so that non-KIT people can collaborate
+- uses my [[https://github.com/meliache/b2luigi][b2luigi fork]] for grid job submission
+
+#+ATTR_LATEX: :width .5\textwidth
+[[./figures/b2_rdstar_readme_screenshot.pdf]]
+
+* Status
+** Text column                                                       :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.7
+:END:
+- since beginning of last week working hard to get full online reconstruction
+  runnin
+- included all \PD and \PDstar channels from Felix' =RDStar= analysis
+- testing that on MC13a skims with hadronic FEI, mixed BG\times1, trained on \PBzero
+  and \PBpm
+- Some current ToDo's (there's much more):
+  - testing reconstruction of \UpsilonFourS, event shape, cut on R_2
+  - ensure online selection for ntuple production is comparable with that of MCGill group
+  - include custom variables used e.g. by Will
+  - make plots of variables of produced ntuples
+** Figure column                                                     :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+#+begin_center
+#+ATTR_LATEX: :width 1\textwidth
+[[./figures/b2_rdstar_commit_activity.pdf]]
+#+end_center
+*
+* Compilation command                                              :noexport:
+
+#+begin_src elisp
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
++RESULTS:
+: /home/michael/talks/2020-02-10_bamm!_status/bamm_status_2020-02-10.pdf
+
+
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# TeX-engine: xetex
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:

@@ -25,6 +25,8 @@
 - sends grid jobs via =gbasf2= and downloads them if all are =Done=
 - stores =gbasf2= environment in dictionary and uses it only in subprocess calls
   to gbasf2 commands
+
+#+ATTR_LATEX: :options basicstyle=\tiny\ttfamily, xleftmargin=-5pt
 #+begin_export latex
 \appendix
 #+end_export

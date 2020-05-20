@@ -1,0 +1,103 @@
+% Created 2020-05-20 Mi 00:44
+% Intended LaTeX compiler: xelatex
+\documentclass[aspectratio=169, 16pt]{beamer}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[babel]{microtype}
+\author{Michael Eliachevitch}
+\date{\today}
+\title{Weekly report}
+\subtitle{BBAM! Meeting}
+\usepackage{templates/metropolisbonn}
+\usepackage{hepnames, hepparticles}
+\usepackage[mode=build]{standalone}
+\institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+\hypersetup{colorlinks, urlcolor=bonnblue}
+\lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+\hypersetup{
+ pdfauthor={Michael Eliachevitch},
+ pdftitle={Weekly report},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.0.50 (Org mode 9.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}[label={sec:org19ae89f}]{Using path serialization to send jobs to grid}
+\centering
+\includestandalone[width=0.8\textwidth]{figures/pickled_paths_to_gbasf2/pickled_paths_to_gbasf2}
+\end{frame}
+\begin{frame}[label={sec:org175e2ef},fragile]{gbasf2 b2luigi task}
+ \begin{itemize}
+\item base class, user can inheret and implement \texttt{create\_path()} fucntion
+\item creates pickle and wrapper steering file
+\item sends grid jobs via \texttt{gbasf2} and downloads them if all are \texttt{Done}
+\item stores \texttt{gbasf2} environment in dictionary and uses it only in subprocess calls
+to gbasf2 commands
+\end{itemize}
+
+\appendix
+\end{frame}
+
+\begin{frame}[label={sec:org00950e7},fragile]{Usage}
+ \lstset{language=Python,label= ,caption= ,captionpos=b,numbers=none,basicstyle=\tiny\ttfamily, xleftmargin=-5pt}
+\begin{lstlisting}
+import b2luigi
+from rdstar.online_analysis import reconstruction_belle2
+from rdstar.online_analysis.gbasf2_tasks import Gbasf2Task
+
+
+class MyGbasf2Task(Gbasf2Task):
+    def create_path(self):
+        return reconstruction_belle2.create_BtoDlnu_reconstruction_path()
+
+
+class MasterTask(b2luigi.WrapperTask):
+    def requires(self):
+        yield MyGbasf2Task(
+            max_event=100,
+            project_name="luigi_testproject4",
+            input_dataset="/belle/MC/release-04-00-03/DB00000757/MC13a/prod00009434/s00/e1003/4S/r00000/mixed/mdst/sub00/mdst_000255_prod00009434_task10020000255.root",
+        )
+
+if __name__ == '__main__':
+    b2luigi.process(MasterTask())
+\end{lstlisting}
+\end{frame}
+\begin{frame}[label={sec:orga73c833},fragile]{How environment is set up}
+ \lstset{language=Python,label= ,caption= ,captionpos=b,numbers=none,basicstyle=\tiny\ttfamily, xleftmargin=-5pt}
+\begin{lstlisting}
+#: cached gbasf2 enviromnent, initiallized and accessed via ``self.env``
+_cached_env = None
+
+@property
+def env(self) -> dict:
+    """
+    Return dictionary with gbasf2 environment from ``self.env_script``.
+
+    Runs the script only once and then caches the result in ``self._cached_env``
+    to prevent unnecessary password prompts.
+    """
+    if self._cached_env is None:
+        print(f"Setting up environment by sourcing {self.env_script}")
+        command = shlex.split(f"env -i bash -c 'source {self.env_script} > /dev/null && env'")
+        output = subprocess.check_output(command, encoding="utf-8")
+        self._cached_env = dict(line.split("=", 1) for line in output.splitlines())
+    return self._cached_env
+\end{lstlisting}
+\end{frame}
+\end{document}

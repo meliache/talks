@@ -1,0 +1,123 @@
+#+STARTUP: showall
+#+TITLE: WG1 Meeting: Status and plans
+#+SUBTITLE: Adapting Felix Metzners =b2bii=-based R(D^{(*)}) framework for to Belle II data
+#+AUTHOR: Michael Eliachevitch ([[mailto:meliache@uni-bonn.de][meliache@uni-bonn.de]])
+#+DATE: \today
+#+LATEX_COMPILER: xelatex
+#+OPTIONS:  toc:nil num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 12pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \usepackage[mode=build]{standalone}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnyellow}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+#+ATTR_LATEX: :options basicstyle=\tiny\ttfamily, xleftmargin=-5pt
+
+
+* Belle RDStar Analysis Framework by Felix Metzner
+- **physics approach:**
+  - $\rdstar$ analysis with hadronic tag and leptonic signal tau decays
+  - use BaBar approach of common M_{miss}^2 and p_\ell fit
+- **software software:**
+  - separation into analysis-agnostic and specific pip-installable python packages
+    - [[https://gitlab.etp.kit.edu/fmetzner/AnalysisTools][AnalysisTools]]
+    - [[https://gitlab.etp.kit.edu/fmetzner/RDStar][RDStar]] (my work on fork [[https://gitlab.etp.kit.edu/meliachevitch/RDStar][here]])
+  - use [[https://github.com/nils-braun/b2luigi][b2luigi]] for managing KEKCC
+    jobs ([[https://b2luigi.readthedocs.io/en/stable/][documentation]])
+    - luigi: software for task managment / pipelining
+    - facilitates varying trying parameter variation while ensuring reproducibility
+** Problems for Belle II data                                      :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+- difficult to send jobs with complex dependencies to grid
+- luigi did not support grid jobs
+* My work so far: Technical solutions for working with grid
+- to enable working with the grid, instead of sending the whole python projects,
+  do only send the basf2 paths that they produce 
+- exploit =pickle_path= module from basf2 to save/load paths from/to disk
+#+begin_export latex
+\begin{center}
+\includestandalone[width=0.65\textwidth]{figures/pickled_paths_to_gbasf2/pickled_paths_to_gbasf2}
+\end{center}
+#+end_export
+* Build a =gbasf2= backend for =b2luigi= around that
+- uses the =pickle_path= functions to send arbitrary basf2 tasks to the grid via luigi
+- code on my own [[https://github.com/meliache/b2luigi/tree/feature/gbasf2-wrapper-batch-process][github fork]] ([[https://meliache.github.io/b2luigi/docs/_build/html/usage/batch.html#gbasf2-wrapper-for-lcg][documentation with example]]), [[https://github.com/nils-braun/b2luigi/pull/32][pull request]] pending
+** Features                                                        :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+  - send gbasf2 jobs from the basf2 environment (no need to setup gbasf2
+    manually, but requires that gbasf2 is installed)
+  - automatic gbasf2 project submission and download
+  - if enabled, automatically reschedule failed jobs until a maximum number of
+    retries is reached  
+    
+
+* Summer plans: Physics
+- so far I only produced ntuples of limited channels to learn the modular analysis
+  framework and how gbasf2 works
+- now: combine my tools with Felix framwork to produce proof-of-concept NTuples
+  with all channels and variables on MC and Data
+- study cut flows
+ 
+* Backup    
+#+begin_export latex
+\appendix
+#+end_export
+* Backup: Luigi Gbasf2 example [[https://meliache.github.io/b2luigi/docs/_build/html/usage/batch.html#gbasf2-wrapper-for-lcg][(documented here)]] 
+#+ATTR_LATEX: :options basicstyle=\Tiny\ttfamily, xleftmargin=-5pt
+#+begin_src python
+from os.path import join
+import b2luigi
+from b2luigi.basf2_helper.tasks import Basf2PathTask
+import example_mdst_analysis
+
+class MyAnalysisTask(Basf2PathTask):
+    batch_system = "gbasf2"
+    gbasf2_project_name_prefix = b2luigi.Parameter()
+    gbasf2_input_dataset = b2luigi.Parameter(hashed=True)
+    
+    mbc_lower_cut = b2luigi.IntParameter()
+
+    def create_path(self):
+        mbc_range = (self.mbc_lower_cut, 5.3)
+        return example_mdst_analysis.create_analysis_path(mbc_range=mbc_range)
+
+    def output(self):
+        yield self.add_to_output(self.gbasf2_project_name_prefix)
+        
+class MasterTask(b2luigi.WrapperTask):
+    def requires(self):
+        input_dataset = join("/belle/MC/release-04-00-03/DB00000757/MC13a/prod00009434/s00/e1003/",
+                             "4S/r00000/mixed/mdst/sub00/mdst_000255_prod00009434_task10020000255.root")
+        mbc_lower_cuts = [5.15, 5.2, 5.25]
+        for mbc_lower_cut in mbc_lower_cuts:
+            yield MyAnalysisTask(
+                mbc_lower_cut=mbc_lower_cut,
+                gbasf2_project_name_prefix="luigiFreeFunctions",
+                gbasf2_input_dataset=input_dataset,
+                max_event=25,
+            )
+
+if __name__ == '__main__':
+    master_task_instance = MasterTask()
+    n_gbasf2_tasks = len(list(master_task_instance.requires()))
+    b2luigi.process(master_task_instance, workers=n_gbasf2_tasks)
+#+end_src
+* Compilation command                                              :noexport:
+#+begin_src elisp :results none
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# TeX-engine: xetex
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:

@@ -1,0 +1,95 @@
+% Created 2020-05-20 Mi 16:40
+% Intended LaTeX compiler: xelatex
+\documentclass[aspectratio=169, 16pt]{beamer}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{physics}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage[babel]{microtype}
+\newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}
+\author{Michael Eliachevitch}
+\date{\today}
+\title{My status and ideas for collaboration}
+\subtitle{Regular meeting to discuss hadronically tagged \PB \rightarrow \PDmstar \ell \nu_\ell}
+\usepackage{templates/metropolisbonn}
+\usepackage{hepnames, hepparticles}
+\usepackage[mode=build]{standalone}
+\institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+\hypersetup{colorlinks, urlcolor=bonnblue}
+\lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+\hypersetup{
+ pdfauthor={Michael Eliachevitch},
+ pdftitle={My status and ideas for collaboration},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 28.0.50 (Org mode 9.3.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{frame}[label={sec:orge64fa0b},fragile]{My analysis project status}
+ \begin{itemize}
+\item working on another package for hadronically tagged \(\PB \rightarrow \PDmstar \ell
+  \nu_\ell\) decays
+\item started as a fork of Felix Metzner's \texttt{b2bii}-based \texttt{RDStar} framwork for Belle
+\item recently decoupled my framework, made it a separate python
+package, repository now public on \href{https://stash.desy.de/projects/B2A/repos/meliache\_b2\_rdstar}{B2A: \texttt{meliache\_b2\_rdstar}}
+\item where useful re-use existing functionality from \texttt{RDStar} and the \texttt{AnalysisTools}
+packages (via python imports)
+\item adapt selection to Belle II data
+\item use b2luigi with my \href{https://meliache.github.io/b2luigi/docs/\_build/html/usage/batch.html\#gbasf2-wrapper-for-lcg-jobs}{gbasf2 extension} for grid job submission
+\item status: implemented all \PD and \PDstar decay channels and preparing to produce my own
+ntuples using MC13a FEI-skims
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org64e2821}]{Ideas for collaboration}
+Offer help / assistance e.g. in: 
+\begin{itemize}
+\item \(M_{miss}^2\) resolution
+\item PID uncertainties
+\item (template) fits
+\item cross-checks: reproduce ntuples with my package and validate signal yield\\
+(requires cut-flows for interpretation)
+\end{itemize}
+\end{frame}
+
+\begin{frame}[label={sec:org21db1cc}]{Backup}
+\appendix
+\end{frame}
+\begin{frame}[label={sec:org8444811},fragile]{Example b2luigi gbasf2 task}
+ \lstset{language=Python,label= ,caption= ,captionpos=b,numbers=none,basicstyle=\scriptsize\ttfamily, xleftmargin=-5pt}
+\begin{lstlisting}
+import b2luigi
+from b2luigi.basf2_helper.tasks import Basf2PathTask
+from b2_rdstar.online_analysis import reconstruction
+
+class OnlineReconstructionTask(Basf2PathTask):
+    batch = "gbasf2"
+    gbasf2_project_name_prefix = "OnlineReco"
+    gbasf2_input_dataset = \
+        "/belle/MC/release-04-01-04/DB00000774/SkimM13ax1/prod00011778/e1003/4S/r00000/mixed/11180100/udst/sub00"
+
+    def create_path(self):
+        return reconstruction.create_online_reconstruction_path()
+
+    def output(self):
+        yield self.add_to_output("D+:Kpipi_ntuple.root")
+        yield self.add_to_output("B0:sig_ntuple.root")
+
+if __name__ == '__main__':
+    b2luigi.process(OnlineReconstructionTask())
+\end{lstlisting}
+\end{frame}
+\end{document}
