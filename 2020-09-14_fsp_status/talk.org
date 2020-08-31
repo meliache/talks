@@ -1,0 +1,44 @@
+#+STARTUP: showall
+#+TITLE: Status of tagged $B \rightarrow \PDmstar \ell\nu$ with Belle II
+#+SUBTITLE: Belle II Germany Meeting
+#+AUTHOR: Michael Eliachevitch ([[mailto:meliache@uni-bonn.de][meliache@uni-bonn.de]])
+#+DATE: \today
+#+LATEX_COMPILER: xelatex
+#+OPTIONS:  toc:nil num:nil title:t
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \usepackage{hepnames, hepparticles}
+#+BEAMER_HEADER: \usepackage[mode=build]{standalone}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+#+LATEX_HEADER: \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}
+* Introduction
+* Analysis Strategy
+* Signal selection
+* Decay channels
+* Pre-fit plots
+* Branching fraction extraction
+* Backup
+#+begin_export latex
+\appendix
+#+end_export
+* Compilation command                                              :noexport:
+
+#+begin_src elisp
+  (let ((async nil))
+    (org-beamer-export-to-pdf async))
+#+end_src
+
+#+RESULTS:
+: /home/michael/talks/2020-09-14_fsp_status/talk.pdf
+
+
+* Local variables                                          :noexport:ARCHIVE:
+# Local Variables:
+# TeX-engine: xetex
+# eval: (plist-put org-format-latex-options :scale 1.4)
+# eval: (org-beamer-mode 1)
+# End:
