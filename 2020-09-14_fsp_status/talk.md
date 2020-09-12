@@ -19,10 +19,7 @@ header-includes:
 
 Introduction
 ============
-- Hello
-- World
-
-
+-
 Analysis Strategy
 =================
 
@@ -35,9 +32,20 @@ Decay channels
 Pre-fit plots
 =============
 
+::: {.columns .onlytextwidth}
+:::: {.column width="50%" align=center}
+\center
+Pre-fit
+![](figures/Prefit_MM2.pdf)
+::::
+:::: {.column width="50%" align=center}
+\center
+Post-fit
+![](figures/Postfit_MM2.pdf)
+::::
+    :::
 Branching fraction extraction
 =============================
-
 Backup
 ======
 
