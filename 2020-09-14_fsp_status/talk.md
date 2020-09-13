@@ -13,16 +13,17 @@ header-includes:
     - \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
     - \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}
     - \newcommand{\rdstar}{R\left(\PDmstar\right)}
-    - \newcommand{\dstardec}{\HepProcess{\PB \to \PDmstar \ell \nu}}
-    - \newcommand{\Br}{\mathcal{B}}
+    - \newcommand{\bdslnu}{\HepProcess{\PB \to \PDmstar \ell \nu}}
+    - \newcommand{\BR}{{\ensuremath{\cal B}}}
+    - \newcommand{\resBF}{\ensuremath{\BR(\bdslnu) = \left(4.51 \pm 0.41_{\mathrm{stat}}\pm0.27_{\mathrm{syst}} \pm 0.45_{\mathrm{\pi_s}}\right) \%}\xspace}
 author: Michael Eliachevitch ([meliache@uni-bonn.de](mailto:meliache@uni-bonn.de))
-title: Status of tagged \dstardec 
+title: Status of tagged \bdslnu
 subtitle: Belle II Germany Meeting (FSP) 2020
 date: \today
 institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn
 ---
 
-# Why study  \dstardec ? #
+# Why study  \bdslnu ? #
 
 - semi-leptonic tree level decays → clean theory prediction 
 - high branching fraction of $\HepProcess{b \to c}$  
@@ -31,9 +32,9 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
 
 - famous observable:  
   $\rdstar = \frac{
-  \Br\left(\HepProcess{\PB \to \PDmstar \tau \nu_{\tau}}\right)
+  \BR\left(\HepProcess{\PB \to \PDmstar \tau \nu_{\tau}}\right)
   }{
-  \Br\left(\HepProcess{\PB \to \PDmstar \ell \nu_{\ell}}\right)
+  \BR\left(\HepProcess{\PB \to \PDmstar \ell \nu_{\ell}}\right)
   }
   \quad ,\ \ell \in \{\Pelectron, \mu\}$ 
   
@@ -55,6 +56,8 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
   $p_{\Upsilon(4S)} = p_{B_{\rm tag}} + p_{B_{\rm sig}} + p_{\rm miss}$
 - $\Rightarrow m_{\rm miss}^2 = p_{\rm miss}^2 =
   \left(p_{\Upsilon(4S)} - p_{B_{\rm tag}} - p_{\PDmstar} - p_{\tau,\ell}\right)^2$
+  - $= m_\nu^2 \approx 0$ for normalization channel
+  - $> 0$ for signal side because of invariant mass of three neutrinos
 - fit: separates signal ($\PDmstar\tau\nu_{\tau}$) from normalization ($\PDmstar\ell\nu_{\ell}$) 
  
 
@@ -82,6 +85,7 @@ Post-fit
 :::
 
 # BF result #
+- \resBF
 
 # Plans #
 
