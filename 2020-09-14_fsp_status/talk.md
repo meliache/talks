@@ -17,38 +17,43 @@ header-includes:
     - \newcommand{\PDmstar}{\HepParticle{D}{}{\left(*\right)}}
 ---
 
-Introduction
-============
--
-Analysis Strategy
-=================
+<!-- Compile with: pandoc talk.md --pdf-engine xelatex --to beamer -o talk.pdf -->
 
-Signal selection
-================
+# Motivation #
 
-Decay channels
-==============
+# Analysis Strategy #
 
-Pre-fit plots
-=============
+# ICHEP results: Use available data for BF measurement #
+   
+# Reconstruction #
 
-::: {.columns .onlytextwidth}
-:::: {.column width="50%" align=center}
+# Signal selection #
+
+# Decay channels #
+
+# Fit #
+
+::: {.columns .onlytextwidth}  
+:::: {.column width="50%" align=center}  
 \center
 Pre-fit
 ![](figures/Prefit_MM2.pdf)
-::::
-:::: {.column width="50%" align=center}
+::::  
+:::: {.column width="50%" align=center}  
 \center
 Post-fit
 ![](figures/Postfit_MM2.pdf)
-::::
-    :::
-Branching fraction extraction
-=============================
+::::  
+:::
+
+# BF result #
+
+# Plans #
+
 Backup
 ======
 
 ```{=latex}
 \appendix
 ```
+
