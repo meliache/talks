@@ -54,7 +54,7 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
 - Moriond 2019 results closer to SM prediction
 - current results inconclusive → need new LHCb and Belle II results!
 
-# Analysis Strategy: Hadronic Tagging with Full Event Interpretation#
+# Analysis Strategy: Hadronic Tagging with Full Event Interpretation #
 
 \center
 ![](figures/tag_efficiency_vs_purity.pdf){width=25%}
@@ -68,54 +68,105 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
   $$m_{\rm miss}^2 = \left(p_{\Upsilon(4S)} - p_{B_{\rm tag}} - p_{\PDmstar} - p_{\tau,\ell}\right)^2$$
   - $= m_\nu^2 \approx 0$ for normalization channel
   - $> 0$ for signal side because of invariant mass of three neutrinos
-  
-# ICHEP 2020 results#
 
-    
-- What can we do with ICHEP2020 dataset of \text{\SI{30.6}{\per\femto\barn}}?
+# We're on our way #
+
+\center
+![](figures/luminosity_2020-09-14.png){width=80%}
+
+What can we do with ICHEP2020 dataset of \text{\SI{30.6}{\per\femto\barn}}?
+
+# ICHEP 2020 results #
 
 ::: block
-## ICHEP analysis idea:
+## ICHEP analysis idea: ##
 First Belle II branching fraction measurement of the hadronically tagged \bdslnu mode.
 :::
 
 - Result is not expected to be competitive, but more a validation of the overall Belle II data, the software
 reconstruction and the analysis strategy.
 - important stepping stone
-- in the following I present the ICHEP results from: 
+- in the following I present the ICHEP results from:
     - [BELLE2-CONF-PH-2020-023](https://docs.belle2.org/record/2002?),
       [arXiv:2008.07198](https://arxiv.org/abs/2008.07198)  (conference note)
     - [BELLE2-NOTE-PH-2020-009](https://docs.belle2.org/record/1928) (internal support note)
 
-# Data used#
+# Data used #
 
 - **Measured data:** $\int \mathcal{L} \mathrm{d}t = \SI{36.6}{\per\femto\barn}$  
   full ICHEP2020 dataset of Proc~11 and Buckets~9--11  
 
 - **Simulated MC data:** $\int \mathcal{L} \mathrm{d}t = \SI{100}{\per\femto\barn}$
     - 40 million events of generic **run-independent MC13a**
-    - including ${\PBzero}{\APBzero}$, ${\PBplus}{\PBminus}$, and continuum MC 
+    - including ${\PBzero}{\APBzero}$, ${\PBplus}{\PBminus}$, and continuum MC
     - further generated \bdslnu signal MC to for reconstructrion efficiency calculation
 
 ::: block
-## MC-matching signal definition
+## MC-matching signal definition ##
 
 - generator-level requirement that event was \bdslnu
 - require that signal lepton is correctly matched and daughter of the signal B
   (currently identified via PDG code comparison)
-- allow wrong reconstruction of \PDmstar 
+- allow wrong reconstruction of \PDmstar
+:::
 
+# Decay modes #
+
+::: {.columns .onlytextwidth}
+:::: {.column width="65%" align=center}
+\center
+- Reconstructed decay modes:
+
+    Decay Mode                      Branching ration (%)
+    ------------                  ----------------------
+    $K^+\pi^-$                        \num{3.950+-0.031}
+    $K^-\pi^+\pi^0$                     \num{14.4+-0.5}
+    $K^-\pi^+\pi^-\pi^+$                \num{8.23+-0.14}
+
+- saw MC-data descrepancies in $K^-\pi^+\pi^0$ and $K^-\pi^+\pi^-\pi^+$:
+
+- for the ICHEP results thus **only used $K^+\pi^-$**
+::::
+:::: {.column width="35%" align=center}
+\center
+![](figures/decay_mode_descrepancies.png){width=100%}
+::::
 :::
 
 
+# FEI Skims #
+
+- used FEI $B^0_{\rm tag}$ skims with latest training  
+  `FEIv4_2020_MC13_release_04_01_01` with `release-04-02-08` with recommendations from physics performance group
+  - at least one FEI candidate
+  - $M_{\rm bc} > 5.27$
+  - $\Delta E / \mathrm{GeV} \in [-0.15, 0.1]$
+  - signal probability > 0.001
 
 # Reconstruction #
 
-# Signal selection #
+## D reconstruction ##
 
-# Decay channels #
+- standard track cuts: $|d_0| < 0.5$ cm  and $z_0 < 2$ cm
+- `nCDCHits`> 0
+- invariant mass cuts:
+  - $D$: 4$\sigma$
+  - $D^*$: 0.143 < ΔM < 0.148 GeV/c² (~3σ)1.858 < $M_D$ < 1.878
 
-# Fit #
+::: block
+## Lepton reconstruction ##
+- standard track cuts: $|d_0| < 0.5$ cm  and $z_0 < 2$ cm
+- leptonID > 0.9
+- $p_\ell > 1$ GeV/c
+:::
+
+- Emiss > 0.3 GeV
+
+
+# Fit results #
+
+- binned extended maximum likelihood fit with two components (D* Signal, Backgrounds)
+- fit incorporates the shape uncertainty from the limited size of the used MC templates (~ negligible)
 
 ::: {.columns .onlytextwidth}
 :::: {.column width="50%" align=center}
@@ -130,7 +181,23 @@ Post-fit
 ::::
 :::
 
-# Branching fraction extraction #
+# Branching fraction#
+
+::: {.columns .onlytextwidth}
+:::: {.column width="50%" align=center}
+
+\center
+- $N_{B\bar{B}} = (37.73 \pm 0.05) \times 10^6$
+- $f_{+0} = 1.058$
+- $N_{\rm sig} = 133 \pm 12$
+- $\epsilon = 0.403 \times 10^{-4}$
+
+::::
+:::: {.column width="50%" align=center}
+\center
+![](figures/bf_uncertainties.png){width=100%}
+::::
+:::
 
 $$
 \BR(\bdslnu)=  \frac{
@@ -139,15 +206,13 @@ $$
     4 \times N_{\PB\APB} \times \left( 1 + f_{+0}\right)^{-1} }
 $$
 
-# Resulting branching fraction #
-
-## Measured branching fraction ##
-
+## Result
 \resBF
 
-# Other results #
+# Other results: BDT for ECL beam backround suppression #
 
-- data-based training of a BDT to suppress ECL background clusters
+- data-based training via low multiplicity  $e^+e^- \rightarrow \mu^+\mu^-$
+- train BDT against beam backgrounds based on cluster shape variables: `clusterTheta`, `clusterPhi`, `E1E9`, `clusterLAT`, `clusterZernikeMVA`, `clusterSecondMoment`
 
 ::: {.columns .onlytextwidth}
 :::: {.column width="50%" align=center}
@@ -165,7 +230,10 @@ after cut on BDT output
 
 # Outlook #
 
-
+- understand channels and include both again
+- study other cuts (e.g. $p_\ell$)
+- measure more than just branching fraction
+- validate and understand what we are doing
 
 
 <!-- Compile with: pandoc talk.md --pdf-engine xelatex --to beamer -o talk.pdf -->
