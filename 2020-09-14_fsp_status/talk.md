@@ -25,7 +25,7 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
 
 # Why study  \bdslnu ? #
 
-- semi-leptonic tree level decays → clean theory prediction 
+- semi-leptonic tree level decays → clean theory prediction
 - high branching fraction of $\HepProcess{b \to c}$  
   → we can sacrificy some efficiency for purity
 - probe *new physics* couplings heavy flavour: \Pbottom, $\tau$
@@ -36,9 +36,11 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
   }{
   \BR\left(\HepProcess{\PB \to \PDmstar \ell \nu_{\ell}}\right)
   }
-  \quad ,\ \ell \in \{\Pelectron, \mu\}$ 
-  
-  <!-- image of decay -->
+  \quad ,\ \ell \in \{\Pelectron, \mu\}$
+  - cancellation of uncertainties in hadronic component
+  - sensitiv to new physics that enhance tauonic decays
+
+  <!-- TODO: image of decay -->
 
 # Current results –- the anomaly
 
@@ -51,7 +53,7 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
 
 # Analysis Strategy #
 
-- use hadronic tagging with *Full Event Interpretation* (FEI) 
+- use hadronic tagging with *Full Event Interpretation* (FEI)
 - knowledge of tag-side four-momentum:
   $p_{\Upsilon(4S)} = p_{B_{\rm tag}} + p_{B_{\rm sig}} + p_{\rm miss}$
 - $\Rightarrow m_{\rm miss}^2 = p_{\rm miss}^2 =
@@ -59,7 +61,7 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
   - $= m_\nu^2 \approx 0$ for normalization channel
   - $> 0$ for signal side because of invariant mass of three neutrinos
 - fit: separates signal ($\PDmstar\tau\nu_{\tau}$) from normalization ($\PDmstar\ell\nu_{\ell}$) 
- 
+
 
 # ICHEP results: Use available data for BF measurement #
    
@@ -71,21 +73,50 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
 
 # Fit #
 
-::: {.columns .onlytextwidth}  
-:::: {.column width="50%" align=center}  
+::: {.columns .onlytextwidth}
+:::: {.column width="50%" align=center}
 \center
 Pre-fit
 ![](figures/Prefit_MM2.pdf)
-::::  
-:::: {.column width="50%" align=center}  
+::::
+:::: {.column width="50%" align=center}
 \center
 Post-fit
 ![](figures/Postfit_MM2.pdf)
-::::  
+::::
 :::
 
-# BF result #
+# Branching fraction extraction #
+
+$$
+\BR(\bdslnu)=  \frac{
+    N_s \times \epsilon^{-1}_{\mathrm{tag+sel}}
+    } {
+    4 \times N_{\PB\APB} \times \left( 1 + f_{+0}\right)^{-1} }
+$$
+
+# Resulting branching fraction #
+
+
 - \resBF
+
+# Other results #
+
+- data-based training of a BDT to suppress ECL background clusters
+
+::: {.columns .onlytextwidth}
+:::: {.column width="50%" align=center}
+\center
+before BDT
+![](figures/ROE_neextraBefore.pdf)
+::::
+:::: {.column width="50%" align=center}
+\center
+after cut on BDT output
+![](figures/ROE_neextraAfter.pdf)
+::::
+:::
+
 
 # Plans #
 
