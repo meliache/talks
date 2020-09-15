@@ -230,6 +230,7 @@ reconstruction and the analysis strategy.
 
 
 # $m_{\rm miss}^2$ fit result #
+
 \center
 ![](figures/Postfit_MM2.pdf){width=60%}
 
@@ -327,12 +328,15 @@ after cut on BDT output
 - kinematic distributions
 - go differential
 
-\appendixworkaround
 
-# {.standout}
+# Thanks {.standout}
+
 \huge Thanks for listening!
 
+
 # Backup #
+
+\appendixworkaround
 
 # Pre- and post-fit plots side by side #
 ::: {.columns .onlytextwidth}
