@@ -79,7 +79,7 @@ institute: Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universitä
 \center
 ![](figures/luminosity_2020-09-14.png){width=80%}
 
-What can we do with ICHEP2020 dataset of \text{\SI{30.6}{\per\femto\barn}}?
+What can we do with ICHEP 2020 dataset of \text{\SI{30.6}{\per\femto\barn}}?
 
 # ICHEP 2020 results #
 
@@ -91,16 +91,15 @@ First Belle II branching fraction measurement of the hadronically tagged \bdslnu
 - Result is not expected to be competitive, but more a validation of the overall Belle II data, the software
 reconstruction and the analysis strategy.
 - important stepping stone
-- in the following I present the ICHEP results from:
+- in the following I'll show someresults from:
     - [BELLE2-CONF-PH-2020-023](https://docs.belle2.org/record/2002?),
       [arXiv:2008.07198](https://arxiv.org/abs/2008.07198)  (conference note)
     - [BELLE2-NOTE-PH-2020-009](https://docs.belle2.org/record/1928) (internal support note)
-
-- following slides adapted from
-  [this talk](https://indico.belle2.org/event/2654/contributions/12686/attachments/6642/10311/D_lv_HadTag_Physics_Meeting_2.pdf)
-  at recent physics general meeting
-
-
+    
+    (Tip: If you have missed it, check out Florians [summer
+    results](https://indico.belle2.org/event/2751/contributions/13084/attachments/7169/11117/Talk.pdf))
+    overview)
+    
 # Data used #
 
 - **Measured data:** $\int \mathcal{L} \mathrm{d}t = \SI{36.6}{\per\femto\barn}$  
@@ -247,7 +246,7 @@ reconstruction and the analysis strategy.
 :::
 
 
-# Branching fraction#
+# Branching fraction extraction#
 
 ::: {.columns .onlytextwidth}
 :::: {.column width="50%" align=center}
@@ -255,7 +254,7 @@ reconstruction and the analysis strategy.
 \center
 - $N_{B\bar{B}} = (37.73 \pm 0.05) \times 10^6$
 - $f_{+0} = 1.058$
-- $N_{\rm sig} = 133 \pm 12$
+<!-- - $N_{\rm sig} = 133 \pm 12$ -->
 - $\epsilon = 0.403 \times 10^{-4}$  
   (from signal and generic MC)
 
@@ -289,30 +288,39 @@ $$
     4 \times N_{\PB\APB} \times \left( 1 + f_{+0}\right)^{-1} }
 $$
 
-## Result
+# Braching fraction result
+
+## Branching fraction
 \resBF
+
+- lower than world average but in agreement
+
+
 
 # Other results: BDT for ECL beam backround suppression #
 
-- data-based training via low multiplicity  $e^+e^- \rightarrow \mu^+\mu^-$
-- train BDT against beam backgrounds based on cluster shape variables: `clusterTheta`, `clusterPhi`, `E1E9`, `clusterLAT`, `clusterZernikeMVA`, `clusterSecondMoment`
+- data-based training via low-multiplicity  $e^+e^- \rightarrow \mu^+\mu^-$
+- train BDT against beam background clusters based on shape and location of clusters  
+  <!-- (`clusterTheta`, `clusterPhi`, `E1E9`, `clusterLAT`, `clusterZernikeMVA`, `clusterSecondMoment`) -->
+- improved $E_{\rm ECL}$ distribution allows better signal/background separation
 
 ::: {.columns .onlytextwidth}
 :::: {.column width="50%" align=center}
 \center
 before BDT
-![](figures/ROE_neextraBefore.pdf)
+![](figures/ROE_neextraBefore.pdf){width=90%}
 ::::
 :::: {.column width="50%" align=center}
 \center
 after cut on BDT output
-![](figures/ROE_neextraAfter.pdf)
+![](figures/ROE_neextraAfter.pdf){width=90%}
 ::::
 :::
 
 
-# Outlook #
+# Next steps #
 
+# TODO work on this
 - understand channels and include both again
 - study other cuts (e.g. $p_\ell$)
 - measure more than just branching fraction
