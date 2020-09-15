@@ -122,7 +122,7 @@ reconstruction and the analysis strategy.
 \center
 - Reconstructed decay modes:
 
-    Decay Mode                      Branching ration (%)
+    $D^0$ decay mode                 Branching ratio (%)
     ------------                  ----------------------
     $K^+\pi^-$                        \num{3.950+-0.031}
     $K^-\pi^+\pi^0$                     \num{14.4+-0.5}
@@ -130,7 +130,7 @@ reconstruction and the analysis strategy.
 
 - saw MC-data descrepancies in $K^-\pi^+\pi^0$ and $K^-\pi^+\pi^-\pi^+$:
 
-- for the ICHEP results thus **only used $K^+\pi^-$**
+- for the ICHEP results thus **used only Kπ mode**
 ::::
 :::: {.column width="35%" align=center}
 \center
@@ -147,6 +147,9 @@ reconstruction and the analysis strategy.
   - $M_{\rm bc} > 5.27$
   - $\Delta E \in [-0.15, 0.1]\,\si{\GeV}$
   - $\mathrm{FEI\ signal\ probability} > 0.001$
+  
+- Applied FEI tagging efficiency and PID corrections to all following plots
+
 
 # Reconstruction #
 
@@ -168,10 +171,29 @@ reconstruction and the analysis strategy.
 - $E_{\rm miss} > \SI{0.3}{\GeV}$
 
 
-# Fit results #
+# Fitting procedure #
 
-- binned extended maximum likelihood fit with two components (\PDstar signal, backgrounds)
-- fit incorporates the shape uncertainty from the limited size of the used MC templates (~ negligible)
+- binned extended maximum likelihood fit:  
+  approximate PDF of different processes with MC "histograms"
+- Likelihood is product of \textcolor{blue}{poissons} with expectation $\nu_i$:
+
+  $$\mathcal{L} =  \prod_i^{\rm bins} \, \textcolor{blue}{\mathcal{P}\left( n_i ; \nu_i \right)}
+  \times
+  \prod^{\rm processes}_k \, \textcolor{green}{\mathcal{G}_k}\, ,
+  \quad
+  \nu_i = \sum_k^{\mathrm{processes}} f_{ik}\eta_k$$
+  
+  with $\eta_k$ the total number of events in process $k$ and $f_{ik}$ its fraction of events in bin $i$,
+  given by:
+  $f_{ik} = \frac{ \eta_{ik}^{\rm MC} \left( 1 + \textcolor{red}{\theta_{ik}} \right) }{ \sum_j \eta_{jk}^{\rm MC} \left( 1 +
+  \textcolor{red}{\theta_{jk}} \right)  }$
+- incorporate shape uncertainty from MC statistics via \textcolor{green}{constrained} \textcolor{red}{nuisance parameters}
+- fit two components: (\PDstar signal, combined background)
+- use [`binfit`](https://stash.desy.de/users/sutclw/repos/binfit/), a fork by W. Sutcliff of Max Welsch's [`TemplateFitter`](https://github.com/welschma/TemplateFitter)
+
+
+
+# Fit results #
 
 ::: {.columns .onlytextwidth}
 :::: {.column width="50%" align=center}
@@ -186,6 +208,23 @@ Post-fit
 ::::
 :::
 
+
+::: {.columns .onlytextwidth}
+:::: {.column width="30%" align=center}
+
+## Fitted yields
+- $N_{\rm sig} = \num{133+-12}$
+- $N_{\rm bkg} = \num{12+-5}$
+
+::::
+:::: {.column width="70%" align=center}
+\center
+![](figures/MM2_nuisance_pulls_lep=all.pdf){width=100%}
+::::
+:::
+
+
+
 # Branching fraction#
 
 ::: {.columns .onlytextwidth}
@@ -195,18 +234,35 @@ Post-fit
 - $N_{B\bar{B}} = (37.73 \pm 0.05) \times 10^6$
 - $f_{+0} = 1.058$
 - $N_{\rm sig} = 133 \pm 12$
-- $\epsilon = 0.403 \times 10^{-4}$
+- $\epsilon = 0.403 \times 10^{-4}$  
+  (from signal and generic MC)
 
 ::::
 :::: {.column width="50%" align=center}
 \center
-![](figures/bf_uncertainties.png){width=100%}
+Sources of uncertainty
+\tiny
+\begin{tabular}{l|c}\toprule
+  Source & Relative uncertainty (\%) \\
+  \midrule
+  Tracking of $\pi$s & 10\%  \\
+  MC modeling & 5\%\\
+  FEI Calibration & 3\% \\
+  Tracking of $K$, $\pi$, $\ell$ & 3\%  \\
+  $N_{B^0}$ & 2\% \\
+  $f_{+0}$ & 1\% \\
+  Charm branching fractions & 1\% \\
+  Lepton ID & 1\%\\
+  \hline
+  Total & 12\% \\
+  \bottomrule
+\end{tabular}
 ::::
 :::
 
 $$
 \BR(\bdslnu)=  \frac{
-    N_s \times \epsilon^{-1}_{\mathrm{tag+sel}}
+    N_{\rm sig} \times \epsilon^{-1}_{\mathrm{tag+sel}}
     } {
     4 \times N_{\PB\APB} \times \left( 1 + f_{+0}\right)^{-1} }
 $$
@@ -242,7 +298,7 @@ after cut on BDT output
 
 \appendixworkaround
 
-
+# Backup #
 
 
 <!-- Compile with: pandoc talk.md --pdf-engine xelatex --to beamer -o talk.pdf -->
