@@ -96,6 +96,11 @@ reconstruction and the analysis strategy.
       [arXiv:2008.07198](https://arxiv.org/abs/2008.07198)  (conference note)
     - [BELLE2-NOTE-PH-2020-009](https://docs.belle2.org/record/1928) (internal support note)
 
+- following slides adapted from
+  [this talk](https://indico.belle2.org/event/2654/contributions/12686/attachments/6642/10311/D_lv_HadTag_Physics_Meeting_2.pdf)
+  at recent physics general meeting
+
+
 # Data used #
 
 - **Measured data:** $\int \mathcal{L} \mathrm{d}t = \SI{36.6}{\per\femto\barn}$  
@@ -118,7 +123,7 @@ reconstruction and the analysis strategy.
 # Decay modes #
 
 ::: {.columns .onlytextwidth}
-:::: {.column width="65%" align=center}
+:::: {.column width="62%" align=center}
 \center
 - Reconstructed decay modes:
 
@@ -132,7 +137,7 @@ reconstruction and the analysis strategy.
 
 - for the ICHEP results thus **used only Kπ mode**
 ::::
-:::: {.column width="35%" align=center}
+:::: {.column width="38%" align=center}
 \center
 ![](figures/decay_mode_descrepancies.png){width=100%}
 ::::
@@ -164,11 +169,12 @@ reconstruction and the analysis strategy.
 
 - standard track cuts: $|d_0| < \SI{0.5}{\cm}$ and $z_0 < \SI{2}{\cm}$
 - $N_{\rm CDC\ Hits} > 0$ for all except slow $\pi$'s
-- $M_{\PD} := M_{\PK\pi} \in [1.858, 1.878]\,\si{\GeVpercc}$
 - $p^*_{\PD} < \SI{3}{\GeVperc}$
-- $\Delta M := M_{\PDstar} - M_{\PD} / \in [0.143, 0.148]\,\si{\GeVpercc}\quad (\sim 3 \sigma)$
+- invariant mass cuts
+    - $M_{\PD} := M_{\PK\pi} \in [1.858, 1.878]\,\si{\GeVpercc}$
+    - $\Delta M := M_{\PDstar} - M_{\PD} / \in [0.143, 0.148]\,\si{\GeVpercc}\quad (\sim 3 \sigma)$
 \center
-![](D_reconstruction.png){width=85%}
+![](D_reconstruction.png){width=80%}
 
 
 # Lepton reconstruction #
