@@ -17,6 +17,11 @@ header-includes:
     - \newcommand{\bdslnu}{\HepProcess{\PB \to \PDmstar \ell \nu}}
     - \newcommand{\BR}{{\ensuremath{\cal B}}}
     - \newcommand{\resBF}{\ensuremath{\BR(\bdslnu) = \left(4.51 \pm 0.41_{\mathrm{stat}}\pm0.27_{\mathrm{syst}} \pm 0.45_{\pi_s}\right) \%}\xspace}
+    - \newcommand{\appendixworkaround}{\end{frame} \appendix \begin{frame}<0| handout:0>}
+    - \DeclareSIUnit\clight{c}
+    - \DeclareSIUnit\GeVperc{\GeV\per\clight}
+    - \DeclareSIUnit\GeVpercc{\GeV\per\clight\squared}
+ 
 author: Kyle Amirie, Florian Bernlochner, Racha Cheaib, [Michael Eliachevitch](mailto:meliache@uni-bonn.de), Max Graf, William Sutcliffe, Hannah Wakeling
 
 title: Status of tagged \bdslnu
@@ -136,36 +141,36 @@ reconstruction and the analysis strategy.
 
 # FEI Skims #
 
-- used FEI $B^0_{\rm tag}$ skims with latest training  
+- used FEI $\PBzero_{\rm tag}$ skims with training
   `FEIv4_2020_MC13_release_04_01_01` with `release-04-02-08` with recommendations from physics performance group
   - at least one FEI candidate
   - $M_{\rm bc} > 5.27$
-  - $\Delta E / \mathrm{GeV} \in [-0.15, 0.1]$
-  - signal probability > 0.001
+  - $\Delta E \in [-0.15, 0.1]\,\si{\GeV}$
+  - $\mathrm{FEI\ signal\ probability} > 0.001$
 
 # Reconstruction #
 
 ## D reconstruction ##
 
-- standard track cuts: $|d_0| < 0.5$ cm  and $z_0 < 2$ cm
-- `nCDCHits`> 0
-- invariant mass cuts:
-  - $D$: 4$\sigma$
-  - $D^*$: 0.143 < ΔM < 0.148 GeV/c² (~3σ)1.858 < $M_D$ < 1.878
+- standard track cuts: $|d_0| < \SI{0.5}{\cm}$ and $z_0 < \SI{2}{\cm}$
+- $N_{\rm CDC\ Hits} > 0$ for all except slow $\pi$'s
+- $M_{\PD} := M_{\PK\pi} \in [1.858, 1.878]\,\si{\GeVpercc}$
+- $p^*_{\PD} < \SI{3}{\GeVperc}$
+- $\left(M_{\PDstar} - M_{\PD}\right) / \in [0.143, 0.148]\,\si{\GeVpercc}\quad (\sim 3 \sigma)$
 
 ::: block
 ## Lepton reconstruction ##
 - standard track cuts: $|d_0| < 0.5$ cm  and $z_0 < 2$ cm
-- leptonID > 0.9
-- $p_\ell > 1$ GeV/c
+- $\mathrm{lepton\ PID} > 0.9$
+- $p^*_\ell > \SI{1}{\GeVperc}$
 :::
 
-- Emiss > 0.3 GeV
+- $E_{\rm miss} > \SI{0.3}{\GeV}$
 
 
 # Fit results #
 
-- binned extended maximum likelihood fit with two components (D* Signal, Backgrounds)
+- binned extended maximum likelihood fit with two components (\PDstar signal, backgrounds)
 - fit incorporates the shape uncertainty from the limited size of the used MC templates (~ negligible)
 
 ::: {.columns .onlytextwidth}
@@ -234,6 +239,10 @@ after cut on BDT output
 - study other cuts (e.g. $p_\ell$)
 - measure more than just branching fraction
 - validate and understand what we are doing
+
+\appendixworkaround
+
+
 
 
 <!-- Compile with: pandoc talk.md --pdf-engine xelatex --to beamer -o talk.pdf -->
