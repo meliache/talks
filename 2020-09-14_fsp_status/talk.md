@@ -329,6 +329,9 @@ after cut on BDT output
 
 \appendixworkaround
 
+# {.standout}
+\huge Thanks for listening!
+
 # Backup #
 
 # Pre- and post-fit plots side by side #
