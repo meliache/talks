@@ -320,11 +320,12 @@ after cut on BDT output
 
 # Next steps #
 
-# TODO work on this
-- understand channels and include both again
-- study other cuts (e.g. $p_\ell$)
-- measure more than just branching fraction
-- validate and understand what we are doing
+<!-- TODO work on this -->
+- improved slow pion systematics
+- understand data and discrepancies in other \PDzero and fix them
+- cross-checks
+- kinematic distributions
+- go differential
 
 \appendixworkaround
 
