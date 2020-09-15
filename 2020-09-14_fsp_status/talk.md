@@ -140,36 +140,67 @@ reconstruction and the analysis strategy.
 
 
 # FEI Skims #
-
-- used FEI $\PBzero_{\rm tag}$ skims with training
-  `FEIv4_2020_MC13_release_04_01_01` with `release-04-02-08` with recommendations from physics performance group
+::: {.columns .onlytextwidth}
+:::: {.column width="50%" align=center}
+- used FEI $\PBzero_{\rm tag}$ skims 
+  <!-- with training `FEIv4_2020_MC13_release_04_01_01` with `release-04-02-08` -->
+  with recommendations from physics performance group
   - at least one FEI candidate
   - $M_{\rm bc} > 5.27$
   - $\Delta E \in [-0.15, 0.1]\,\si{\GeV}$
-  - $\mathrm{FEI\ signal\ probability} > 0.001$
+  - $\mathrm{FEI\ signal\ prob.} > 0.001$
+::::
+:::: {.column width="50%" align=center}
+\center
+![](Btag_Mbc.png) 
+::::
+:::
+
   
 - Applied FEI tagging efficiency and PID corrections to all following plots
 
+# D reconstruction #
 
-# Reconstruction #
-
-## D reconstruction ##
 
 - standard track cuts: $|d_0| < \SI{0.5}{\cm}$ and $z_0 < \SI{2}{\cm}$
 - $N_{\rm CDC\ Hits} > 0$ for all except slow $\pi$'s
 - $M_{\PD} := M_{\PK\pi} \in [1.858, 1.878]\,\si{\GeVpercc}$
 - $p^*_{\PD} < \SI{3}{\GeVperc}$
-- $\left(M_{\PDstar} - M_{\PD}\right) / \in [0.143, 0.148]\,\si{\GeVpercc}\quad (\sim 3 \sigma)$
+- $\Delta M := M_{\PDstar} - M_{\PD} / \in [0.143, 0.148]\,\si{\GeVpercc}\quad (\sim 3 \sigma)$
+\center
+![](D_reconstruction.png){width=85%}
 
-::: block
-## Lepton reconstruction ##
-- standard track cuts: $|d_0| < 0.5$ cm  and $z_0 < 2$ cm
+
+# Lepton reconstruction #
+
+::: {.columns .onlytextwidth}
+:::: {.column width="40%" align=center}
+- standard track cuts:  
+  $|d_0| < \SI{0.5}{\cm}$ and $|z_0| < \SI{2}{\cm}$
 - $\mathrm{lepton\ PID} > 0.9$
 - $p^*_\ell > \SI{1}{\GeVperc}$
+::::
+:::: {.column width="60%" align=center}
+\center
+![](lep_p_cms.png)
+::::
 :::
 
-- $E_{\rm miss} > \SI{0.3}{\GeV}$
 
+
+# $\Upsilon(4S)$ Reconstruction
+::: {.columns .onlytextwidth}
+:::: {.column width="40%" align=center}
+- combine reconstructed $\PB_{\rm sig}$ with $\PB_{\rm tag}$
+- further cuts:
+    - $N_{\rm ROE\ tracks} = 0$
+    - $E_{\rm miss} > \SI{0.3}{\GeV}$
+::::
+:::: {.column width="60%" align=center}
+\center
+![](figures/Postfit_MM2.pdf)
+::::
+:::
 
 # Fitting procedure #
 
@@ -193,36 +224,21 @@ reconstruction and the analysis strategy.
 
 
 
-# Fit results #
+# $m_{\rm miss}^2$ fit result #
+\center
+![](figures/Postfit_MM2.pdf){width=60%}
 
 ::: {.columns .onlytextwidth}
-:::: {.column width="50%" align=center}
+:::: {.column width="35%" align=center}
 \center
-Pre-fit
-![](figures/Prefit_MM2.pdf)
-::::
-:::: {.column width="50%" align=center}
-\center
-Post-fit
-![](figures/Postfit_MM2.pdf)
-::::
-:::
-
-
-::: {.columns .onlytextwidth}
-:::: {.column width="30%" align=center}
-
-## Fitted yields
 - $N_{\rm sig} = \num{133+-12}$
 - $N_{\rm bkg} = \num{12+-5}$
-
 ::::
-:::: {.column width="70%" align=center}
+:::: {.column width="65%" align=center}
 \center
-![](figures/MM2_nuisance_pulls_lep=all.pdf){width=100%}
+![](figures/MM2_nuisance_pulls_lep=all.pdf){width=94%}
 ::::
 :::
-
 
 
 # Branching fraction#
@@ -300,5 +316,17 @@ after cut on BDT output
 
 # Backup #
 
-
+# Pre- and post-fit plots side by side #
+::: {.columns .onlytextwidth}
+:::: {.column width="50%" align=center}
+\center
+Pre-fit
+![](figures/Prefit_MM2.pdf)
+::::
+:::: {.column width="50%" align=center}
+\center
+Post-fit
+![](figures/Postfit_MM2.pdf)
+::::
+:::
 <!-- Compile with: pandoc talk.md --pdf-engine xelatex --to beamer -o talk.pdf -->
