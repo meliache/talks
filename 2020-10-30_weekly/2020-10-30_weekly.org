@@ -1,0 +1,57 @@
+#+TITLE: 3rd-floor weekly status report
+#+AUTHOR: Michael Eliachevitch
+#+DATE: 2020-10-30
+#+REVEAL_THEME: moon
+#+LATEX_COMPILER: xelatex
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [aspectratio=169, 16pt]
+#+BEAMER_HEADER: \usepackage{templates/metropolisbonn}
+#+BEAMER_HEADER: \institute{Physikalisches Institut --- Rheinische Friedrich-Wilhelms-Universität Bonn}
+#+BEAMER_HEADER: \hypersetup{colorlinks, urlcolor=bonnblue}
+#+BEAMER_HEADER: \lstset{keywordstyle=\bfseries\color{bonnblue}, commentstyle=\itshape\color{bonnunigrau}, identifierstyle=\color{bonntextgrau}, stringstyle=\color{bonnyellow}}
+#+COLUMNS: %45ITEM %10BEAMER_env(Env) %10BEAMER_act(Act) %4BEAMER_col(Col) %8BEAMER_opt(Opt)
+#+OPTIONS: H:2 num:nil toc:nil title:t d:nil prop:nil timestamp:nil
+* Introduction
+** Personal issues with my PhD recently
+** Idea: Work with the garage door open
+- don't just show finished results, "thinking aloud"
+- discuss problems, which encourages others to do so
+- downside: not every single personal issue and bugfix is interesting for everyone
+- reference: [[https://notes.andymatuschak.org/About_these_notes?stackedNotes=z21cgR9K3UcQ5a7yPsj2RUim3oM2TzdBByZu][Andy Matuschak: Work with the garage door up]]
+* This week so far
+** Monday
+- implemented [[file:~/org/roam/20201029235900-b2luigi.org][b2luigi]] [[https://github.com/nils-braun/b2luigi/pull/51][PR #51]] which replaces some string parsing of gbasf2 commands
+  outputs via Dirac API
+  - motivated by new releases, reduced risk of output-changing releases braking things
+  - quite glad that b2luigi is being used more (e.g. systematics calibration framework)
+  - but maintaining should take a fixed short time slot and in the end it's open
+    source, so I hope people will help if they find something
+** Tuesday
+- testet my PR from previous day
+- Got assigned Jira Issue [[https://agira.desy.de/browse/BII-7443][BII-7443]] about [[file:~/org/roam/20201029235900-basf2.org][basf2]] compilations by [[file:~/org/roam/20201028235900-markus_prim.org][Markus]] and
+  spent some time studying it
+- had a spike in [[file:~/org/roam/20201029235900-impostor_syndrome.org][impostor syndrome]] and "existential crisis", but talking with [[file:~/org/roam/20201028105609-ilias_tsaklidis.org][Ilias]] and others helped
+** Wednesday
+- many meetings (BBAM, Physics V, [[file:~/org/roam/20201028151738-neue_pi_webseite.org][insitute website discussion]] which I should
+  have skipped)
+- started cross-checking physics 5 exercise and next week's prepare tutorial
+- discovered and procrastinated with [[https://www.orgroam.com][org-roam]], an emacs clone of [[https://roamresearch.com/
+][roam research]],
+  - a note-taking tool for networked thought with bi-directional links
+  - might be useful to keep notes on papers
+** Thursday
+- started time-tracking for myself again
+- planned to using the morning to finish physics 5 exercise, but actually
+  ended up taking whole day
+  - included reading up on the lecture and literature and trying to understand
+    things for myself
+* Review
+** What was good
+- burn-out averted: I feel responsible for myself and my work again (opposite of
+  feeling of helplessnes)
+- started working on routines habits again
+- feel more connected to the group
+** Not so good
+- still not doing what I was going to do
+* Plans
+** Think of strategy
